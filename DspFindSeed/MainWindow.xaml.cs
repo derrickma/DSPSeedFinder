@@ -283,6 +283,8 @@ namespace DspFindSeed
             bool            hasAcid      = false;
             var             planetCount1 = 0;
             var             planetCount2 = 0;
+            var             gas          = 0;//巨星数量
+            var             extraGas     = 0;//多卫星的巨星,如果多巨星两个
             SearchCondition data         = new SearchCondition ();
             for (int j = 0; j < star.planets.Length; j++)
             {
@@ -297,6 +299,10 @@ namespace DspFindSeed
                 if (planet.singularity.HasFlag (EPlanetSingularity.TidalLocked) || planet.singularity.HasFlag (EPlanetSingularity.TidalLocked2)
                                                                                 || planet.singularity.HasFlag (EPlanetSingularity.TidalLocked4))
                     planetCount2++;
+                if (planet.type == EPlanetType.Gas)
+                    gas++;
+                if (planet.singularityString.Contains ("多卫星"))
+                    extraGas++;
                 if (planet.type != EPlanetType.Gas && planet.veinSpotsSketch != null)
                 {
                     for (int k = 0; k < data.resourceCount.Length; k++)
@@ -305,6 +311,13 @@ namespace DspFindSeed
                     }
                 }
             }
+            //有2个以上的巨星时候，单巨星卫星数量对应要减少
+            if (gas >= 2)
+                planetCount2 -= gas - 1;
+            //有2个以上多巨星时候，单巨星卫星数量继续减少
+            if (extraGas >= 2)
+                planetCount2 -= extraGas - 1;
+            
             if(planetCount1 < condition.planetCount1)
                 return null;
             if(planetCount2 < condition.planetCount2)
@@ -425,8 +438,8 @@ namespace DspFindSeed
                 for (int i = 0; i < item.Value.Count; i++)
                 {
                     var data = item.Value[i];
-                    str += i + "号，卫星:" + data.planetCount1 + ";潮汐" + data.planetCount2 + ";行星" + data.planetCount3 + ";光度" + data.dysonLumino + ";与初始距离" + data.distanceToBirth
-                         + ";戴森球" + (data.isInDsp ? "包括" : "不包括") + "第一行星;" + (data.hasWater ? "有" : "没有") + "水;" + (data.hasWater ? "有" : "没有") + "硫酸";
+                    str += i + "号，卫星:" + data.planetCount1 + ";潮汐" + data.planetCount2 + ";行星" + data.planetCount3 + ";光度" + data.dysonLumino + ";与初始距离" 
+                         + data.distanceToBirth.ToString("F1") + ";戴森球" + (data.isInDsp ? "包括" : "不包括") + "第一行星;" + (data.hasWater ? "有" : "没有") + "水;" + (data.hasWater ? "有" : "没有") + "硫酸";
                     if(data.IsLogResource)
                     {
                         for (int k = 0; k < data.resourceCount.Length; k++)

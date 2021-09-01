@@ -442,14 +442,14 @@ namespace DspFindSeed
 
         public void LogFile (int curMagCount, Dictionary<int, List<SearchCondition>> necessaryShortStarDatas, Dictionary<int, List<SearchCondition>> logShortStarDatas)
         {
-            var str = "磁石总数 ： " + curMagCount;
+            var str = "磁石总数 ： " + curMagCount + ",";
             foreach (var item in necessaryShortStarDatas)
             {
                 str += "条件" + item.Key + ",";
                 for (int i = 0; i < item.Value.Count; i++)
                 {
                     var data = item.Value[i];
-                    str += i + "号，卫星:" + data.planetCount1 + ";潮汐" + data.planetCount2 + ";行星" + data.planetCount3 + ";光度" + data.dysonLumino + ";与初始距离" 
+                    str += i + "号,卫星:" + data.planetCount1 + ";潮汐" + data.planetCount2 + ";行星" + data.planetCount3 + ";光度" + data.dysonLumino + ";与初始距离" 
                          + data.distanceToBirth.ToString("F1") + ";戴森球" + (data.isInDsp ? "包括" : "不包括") + "第一行星;" + (data.hasWater ? "有" : "没有") + "水;" + (data.hasWater ? "有" : "没有") + "硫酸";
                     if(data.IsLogResource)
                     {

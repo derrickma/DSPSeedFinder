@@ -68,10 +68,21 @@
         <Button x:Name="Start" Content="开始" HorizontalAlignment="Left" Margin="38,386,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_Start" AutomationProperties.Name="Start"/>
         <Label Content="硅&#xD;&#xA;" HorizontalAlignment="Left" Margin="133,238,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="resource3" HorizontalAlignment="Left" Height="23" Margin="230,240,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource3"/>
-        <ProgressBar x:Name="process" HorizontalAlignment="Left" Height="22" Margin="38,426,0,0" VerticalAlignment="Top" Width="414" AutomationProperties.Name="process" Maximum="1"/>
-        <Label x:Name="SearchLog" Content="搜索到：  已用时：" HorizontalAlignment="Left" Margin="128,386,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.149,-0.107" Width="293"/>
+        <ProgressBar x:Name="process" HorizontalAlignment="Left" Height="22" Margin="133,386,0,0" VerticalAlignment="Top" Width="299" AutomationProperties.Name="process" Maximum="1"/>
         <Label Content="至少几个星系满足以上条件" HorizontalAlignment="Left" Margin="300,307,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.312,0.397" Width="161" Height="25"/>
         <TextBox x:Name="starCount" HorizontalAlignment="Left" Height="19" Margin="461,311,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="41" RenderTransformOrigin="1.042,0.533"/>
         <CheckBox x:Name="IsLogResource" Content="是否写矿物数量&#xD;&#xA;" HorizontalAlignment="Left" Margin="461,281,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.274,0.578" Width="121" Height="19" IsChecked="True"/>
+        <Expander x:Name="SearchLog" Header="显示LOG" HorizontalAlignment="Left" Height="123" Margin="38,413,0,0" VerticalAlignment="Top" Width="394">
+            <Grid Background="#FFE5E5E5" Margin="0,0,-2,0" Height="123" RenderTransformOrigin="0.555,0.496">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="36*"/>
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="38*"/>
+                    <ColumnDefinition Width="187*"/>
+                    <ColumnDefinition Width="175*"/>
+                    <ColumnDefinition Width="48"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+        </Expander>
     </Grid>
 </Window>

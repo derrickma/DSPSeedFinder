@@ -82,6 +82,9 @@ namespace DspFindSeed
         int                          startID                   = 0;
         int                          onceCount                 = 1000;
         int                          times                     = 10;
+        public int                   curSeeds;
+        public int                   lastSeedId;
+        public Thread                curThread;
         public MainWindow ()
         {
             InitializeComponent ();
@@ -240,21 +243,26 @@ namespace DspFindSeed
                 var curTime = (DateTime.Now - startTime).TotalSeconds;
                 this.Dispatcher.BeginInvoke((System.Threading.ThreadStart)(() => 
                 {
-                    searchlogContent = "搜索到 ：" + (startID + onceCount * (j + 1)) + "；用时：" + curTime;
+                    searchlogContent = "搜索到 ：" + (startID + onceCount * (j + 1)) + "；用时：" + curTime + ";\n 已命中种子数量：" + curSeeds + ";最后命中的是：" + lastSeedId;
                     processValue = j  / times;
                     SearchLog.Content = searchlogContent;
                     process.Value = processValue;
                 }));
+                
             }
         }
       
         private void Button_Click_Start(object sender, System.Windows.RoutedEventArgs e)
         {
-            startID = int.Parse(seedID.Text);
-            onceCount = int.Parse(searchOnceCount.Text);
-            times = int.Parse(searchTimes.Text);
-            Thread t = new Thread(Search);
-            t.Start();
+            startID    = int.Parse(seedID.Text);
+            onceCount  = int.Parse(searchOnceCount.Text);
+            times      = int.Parse(searchTimes.Text);
+            curSeeds   = 0;
+            lastSeedId = 0;
+            if(curThread != null)
+                curThread.Abort();
+            curThread  = new Thread(Search);
+            curThread.Start();
         }
 
         public SearchCondition Check (StarData star, int i, GalaxyData galaxyData, SearchCondition condition)
@@ -403,8 +411,9 @@ namespace DspFindSeed
             }
             if (isFail)
                 return;
+            curSeeds++;
+            lastSeedId = galaxyData.seed;
             LogFile (necessaryShortStarDatas, logShortStarDatas);
-
         }
 
         public void LogFile ( Dictionary<int, List<SearchCondition>> necessaryShortStarDatas, Dictionary<int, List<SearchCondition>> logShortStarDatas)

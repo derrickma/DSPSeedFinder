@@ -13,9 +13,9 @@
         <TextBox x:Name="seedID" HorizontalAlignment="Left" Height="23" Margin="62,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="98" Text="0"  AutomationProperties.Name="seedID" />
         <Label Content="种子ID" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <Label Content="单次搜索&#xA;" HorizontalAlignment="Left" Margin="165,12,0,0" VerticalAlignment="Top" Height="23" RenderTransformOrigin="-0.247,0.606" FontWeight="Bold"/>
-        <TextBox x:Name="searchOnceCount" HorizontalAlignment="Left" Height="23" Margin="228,14,0,0" TextWrapping="Wrap" Text="1000" VerticalAlignment="Top" Width="120" AutomationProperties.Name="searchOnceCount"/>
-        <Label Content="总次数" HorizontalAlignment="Left" Margin="363,14,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <TextBox x:Name="searchTimes" HorizontalAlignment="Left" Height="19" Margin="426,18,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="87" RenderTransformOrigin="-0.26,0.678" Grid.ColumnSpan="3" AutomationProperties.Name="searchTimes"/>
+        <TextBox x:Name="searchOnceCount" HorizontalAlignment="Left" Height="23" Margin="228,14,0,0" TextWrapping="Wrap" Text="1000" VerticalAlignment="Top" Width="68" AutomationProperties.Name="searchOnceCount"/>
+        <Label Content="总次数" HorizontalAlignment="Left" Margin="319,12,0,0" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="-0.804,0.44"/>
+        <TextBox x:Name="searchTimes" HorizontalAlignment="Left" Height="19" Margin="374,16,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="87" RenderTransformOrigin="-0.26,0.678" AutomationProperties.Name="searchTimes"/>
         <Label Content="从输入的种子ID搜索，单次搜索10000，代表一次自增搜一万个种子，然后会打印一次时间。搜索完总次数后会结束" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Width="486" Height="25" FontSize="9" FontStyle="Italic" Grid.ColumnSpan="2"/>
         <Label Content="筛选条件" HorizontalAlignment="Left" Margin="16,69,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.092,0.413" FontWeight="Bold"/>
         <Label Content="必须条件都满足的种子才会记录&#xD;&#xA;仅记录条件会将参数写入文件，但不满足不影响筛选&#xD;&#xA;磁石总量如果添值是独立的必须条件" HorizontalAlignment="Left" Margin="87,69,0,0" VerticalAlignment="Top" Width="334" FontSize="10" FontStyle="Italic"/>
@@ -72,7 +72,7 @@
         <Label Content="至少几个星系满足以上条件" HorizontalAlignment="Left" Margin="300,307,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.312,0.397" Width="161" Height="25"/>
         <TextBox x:Name="starCount" HorizontalAlignment="Left" Height="19" Margin="461,311,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="41" RenderTransformOrigin="1.042,0.533"/>
         <CheckBox x:Name="IsLogResource" Content="是否写矿物数量&#xD;&#xA;" HorizontalAlignment="Left" Margin="461,281,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.274,0.578" Width="121" Height="19" IsChecked="True"/>
-        <Expander x:Name="SearchLog" Header="显示LOG" HorizontalAlignment="Left" Height="123" Margin="38,413,0,0" VerticalAlignment="Top" Width="394">
+        <Expander x:Name="SearchLog" Header="显示LOG" HorizontalAlignment="Left" Height="113" Margin="38,446,0,0" VerticalAlignment="Top" Width="394" IsExpanded="True">
             <Grid Background="#FFE5E5E5" Margin="0,0,-2,0" Height="123" RenderTransformOrigin="0.555,0.496">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="36*"/>
@@ -84,5 +84,8 @@
                 </Grid.ColumnDefinitions>
             </Grid>
         </Expander>
+        <Label Content="文件名" HorizontalAlignment="Left" Margin="42,416,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.696,0.68"/>
+        <TextBox x:Name="FileName" HorizontalAlignment="Left" Height="23" Margin="103,418,0,0" TextWrapping="Wrap" Text="seed" VerticalAlignment="Top" Width="98"/>
+        <Label Content="文件存成csv，在根目录，默认seed，可改名&#xD;&#xA;（方便多开对应不同文件管理）&#xD;&#xA;" HorizontalAlignment="Left" Margin="213,413,0,0" VerticalAlignment="Top" Width="350"/>
     </Grid>
 </Window>

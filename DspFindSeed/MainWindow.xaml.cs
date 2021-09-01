@@ -55,6 +55,10 @@ namespace DspFindSeed
         /// 是否存矿物数量
         /// </summary>
         public bool IsLogResource;
+        /// <summary>
+        /// 磁石数量
+        /// </summary>
+        public int magCount;
 
         public void Reset ()
         {
@@ -85,6 +89,7 @@ namespace DspFindSeed
         public int                   curSeeds;
         public int                   lastSeedId;
         public Thread                curThread;
+        public string fileName = "seed";
         public MainWindow ()
         {
             InitializeComponent ();
@@ -174,7 +179,7 @@ namespace DspFindSeed
 
         private void Button_Click_AddNecessary(object sender, System.Windows.RoutedEventArgs e)
         {
-            magCount = int.Parse (MagCount.Text);
+         
             searchNecessaryConditions.Add (FetchCondition ());
             necessaryCondition.Items.Add ("条件" + searchNecessaryConditions.Count);
         }
@@ -259,13 +264,15 @@ namespace DspFindSeed
             times      = int.Parse(searchTimes.Text);
             curSeeds   = 0;
             lastSeedId = 0;
-            if(curThread != null)
+            fileName = FileName.Text;
+            magCount = int.Parse(MagCount.Text);
+            if (curThread != null)
                 curThread.Abort();
             curThread  = new Thread(Search);
             curThread.Start();
         }
 
-        public SearchCondition Check (StarData star, int i, GalaxyData galaxyData, SearchCondition condition)
+        public SearchCondition Check (StarData star, int i, GalaxyData galaxyData, SearchCondition condition, ref int curMagCount)
         {
             if(star.planetCount < condition.planetCount3)
                 return null;
@@ -309,6 +316,7 @@ namespace DspFindSeed
                     {
                         data.resourceCount[k] += planet.veinSpotsSketch[k + 1];
                     }
+                    curMagCount += planet.veinSpotsSketch[14];
                 }
             }
             //有2个以上的巨星时候，单巨星卫星数量对应要减少
@@ -375,11 +383,12 @@ namespace DspFindSeed
                 return;
             Dictionary<int, List<SearchCondition>> necessaryShortStarDatas = new Dictionary<int,  List<SearchCondition>>();
             Dictionary<int, List<SearchCondition>> logShortStarDatas       = new Dictionary<int,  List<SearchCondition>>();
+            int                                    curMagCount                = 0;
             for (int i = 0, max = galaxyData.stars.Length; i < max; i++)
             {
                 var star = galaxyData.stars[i];
                 //保证满足最低条件，并取到星系的各个计算值。如果不满足最低条件，说该星系任意一个必须条件都不满足，直接下一个星系
-                var shorData = Check (star, i, galaxyData, minConditions);
+                var shorData = Check (star, i, galaxyData, minConditions, ref curMagCount);
                 if (shorData == null)
                     continue;
                 //先检查必须条件，如果check成功记录下来(且继续检查，因为可以同条件），check失败检查下一个条件
@@ -405,6 +414,8 @@ namespace DspFindSeed
                     listShortData.Add (shorData);
                 }
             }
+            if (curMagCount < magCount)
+                return;
             bool isFail = false;
             //现在还要检查必须条件的星系数量是否够
             for (int j = 0, maxConditions = searchNecessaryConditions.Count; j < maxConditions; j++)
@@ -426,12 +437,12 @@ namespace DspFindSeed
                 return;
             curSeeds++;
             lastSeedId = galaxyData.seed;
-            LogFile (necessaryShortStarDatas, logShortStarDatas);
+            LogFile (curMagCount, necessaryShortStarDatas, logShortStarDatas);
         }
 
-        public void LogFile ( Dictionary<int, List<SearchCondition>> necessaryShortStarDatas, Dictionary<int, List<SearchCondition>> logShortStarDatas)
+        public void LogFile (int curMagCount, Dictionary<int, List<SearchCondition>> necessaryShortStarDatas, Dictionary<int, List<SearchCondition>> logShortStarDatas)
         {
-            var str = "";
+            var str = "磁石总数 ： " + curMagCount;
             foreach (var item in necessaryShortStarDatas)
             {
                 str += "条件" + item.Key + ",";

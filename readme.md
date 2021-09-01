@@ -1,13 +1,16 @@
-# Dyson Sphere Program Seed
-# 戴森球计划种子
+# Dyson Sphere Program Find Seed
+# 戴森球计划种子搜索器
 
-戴森球计划的种子查看器，助你找到好星系。点右边的releases下载。
+从Dyson Sphere Program Seed改版而来
+借用了大佬重写戴森球种子随机相关的库（算法来自官方）
 
-[表头翻译](https://github.com/sselecirPyM/DysonSphereProgramSeed/issues/2)
+主要是为了效率，去掉了一些没必要的星球数据生成
 
-问过戴森球计划制作组了，不能发布源码。
 
 ## 功能
-* 查看指定种子的星区数据表格
+搜出来的数据会写到根目录的seed.csv中，请自行查看
 
-建议把数据复制到excel再操作
+为加快效率可以多开，自行选择开始的种子ID和单次搜索长度、总次数即可
+
+5600x大概一万个种子需要耗时30s，可以同时开5-10个
+

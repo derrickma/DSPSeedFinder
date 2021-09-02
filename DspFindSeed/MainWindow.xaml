@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DspFindSeed"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="600">
+        Title="MainWindow" Height="647" Width="600">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="109*"/>
@@ -62,17 +62,17 @@
         <CheckBox x:Name="resource6" Content="是否有原油" HorizontalAlignment="Left" Margin="372,281,0,0" VerticalAlignment="Top"  AutomationProperties.Name="resource6"/>
         <CheckBox x:Name="resource1000" Content="是否有水" HorizontalAlignment="Left" Margin="35,313,0,0" VerticalAlignment="Top"  AutomationProperties.Name="resource1000"/>
         <CheckBox x:Name="resource1116" Content="是否有硫酸" HorizontalAlignment="Left" Margin="121,317,0,0" VerticalAlignment="Top"  AutomationProperties.Name="resource1116"/>
-        <Button x:Name="AddNecessary" Content="添加成必须条件" HorizontalAlignment="Left" Margin="35,347,0,0" VerticalAlignment="Top" Width="109" Click="Button_Click_AddNecessary" AutomationProperties.Name="AddNecessary"/>
-        <Button x:Name="AddLog" Content="添加成仅记录条件" HorizontalAlignment="Left" Margin="165,347,0,0" VerticalAlignment="Top" Width="109" Click="Button_Click_AddLog" AutomationProperties.Name="AddLog"/>
-        <Button x:Name="Del" Content="删除当前条件" HorizontalAlignment="Left" Margin="300,347,0,0" VerticalAlignment="Top" Width="109" Click="Button_Click_Del" AutomationProperties.Name="Del"/>
-        <Button x:Name="Start" Content="开始" HorizontalAlignment="Left" Margin="38,386,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_Start" AutomationProperties.Name="Start"/>
+        <Button x:Name="AddNecessary" Content="添加成必须条件" HorizontalAlignment="Left" Margin="15,347,0,0" VerticalAlignment="Top" Width="109" Click="Button_Click_AddNecessary" AutomationProperties.Name="AddNecessary"/>
+        <Button x:Name="AddLog" Content="添加成仅记录条件" HorizontalAlignment="Left" Margin="136,347,0,0" VerticalAlignment="Top" Width="109" Click="Button_Click_AddLog" AutomationProperties.Name="AddLog"/>
+        <Button x:Name="Del" Content="删除当前条件" HorizontalAlignment="Left" Margin="256,347,0,0" VerticalAlignment="Top" Width="109" Click="Button_Click_Del" AutomationProperties.Name="Del"/>
+        <Button x:Name="Start" Content="开始" HorizontalAlignment="Left" Margin="24,406,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_Start" AutomationProperties.Name="Start"/>
         <Label Content="硅&#xD;&#xA;" HorizontalAlignment="Left" Margin="133,238,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="resource3" HorizontalAlignment="Left" Height="23" Margin="230,240,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource3"/>
-        <ProgressBar x:Name="process" HorizontalAlignment="Left" Height="22" Margin="133,386,0,0" VerticalAlignment="Top" Width="299" AutomationProperties.Name="process" Maximum="1"/>
+        <ProgressBar x:Name="process" HorizontalAlignment="Left" Height="22" Margin="119,406,0,0" VerticalAlignment="Top" Width="265" AutomationProperties.Name="process" Maximum="1"/>
         <Label Content="至少几个星系满足以上条件" HorizontalAlignment="Left" Margin="300,307,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.312,0.397" Width="161" Height="25"/>
         <TextBox x:Name="starCount" HorizontalAlignment="Left" Height="19" Margin="461,311,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="41" RenderTransformOrigin="1.042,0.533"/>
         <CheckBox x:Name="IsLogResource" Content="是否写矿物数量&#xD;&#xA;" HorizontalAlignment="Left" Margin="461,281,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.274,0.578" Width="121" Height="19" IsChecked="True"/>
-        <Expander x:Name="SearchLog" Header="显示LOG" HorizontalAlignment="Left" Height="113" Margin="38,446,0,0" VerticalAlignment="Top" Width="394" IsExpanded="True">
+        <Expander x:Name="SearchLog" Header="显示LOG" HorizontalAlignment="Left" Height="113" Margin="24,466,0,-10" VerticalAlignment="Top" Width="394" IsExpanded="True">
             <Grid Background="#FFE5E5E5" Margin="0,0,-2,0" Height="123" RenderTransformOrigin="0.555,0.496">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="36*"/>
@@ -84,8 +84,11 @@
                 </Grid.ColumnDefinitions>
             </Grid>
         </Expander>
-        <Label Content="文件名" HorizontalAlignment="Left" Margin="42,416,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.696,0.68"/>
-        <TextBox x:Name="FileName" HorizontalAlignment="Left" Height="23" Margin="103,418,0,0" TextWrapping="Wrap" Text="seed" VerticalAlignment="Top" Width="98"/>
-        <Label Content="文件存成csv，在根目录，默认seed，可改名&#xD;&#xA;（方便多开对应不同文件管理）&#xD;&#xA;" HorizontalAlignment="Left" Margin="213,413,0,0" VerticalAlignment="Top" Width="350"/>
+        <Label Content="文件名" HorizontalAlignment="Left" Margin="28,436,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.696,0.68"/>
+        <TextBox x:Name="FileName" HorizontalAlignment="Left" Height="23" Margin="89,438,0,0" TextWrapping="Wrap" Text="seed1" VerticalAlignment="Top" Width="98"/>
+        <Label Content="文件存成csv，在根目录，默认seed，可改名（方便多开）；&#xD;&#xA;导出条件也使用此后缀&#xA;&#xA;" HorizontalAlignment="Left" Margin="199,433,0,0" VerticalAlignment="Top" Width="350" Height="45"/>
+        <Button x:Name="ImportFile" Content="导入条件"  Click="Button_Click_ImportFile" HorizontalAlignment="Left" Margin="24,375,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-3.84,1.579"/>
+        <Button x:Name="ExportFile" Content="导出条件"  Click="Button_Click_ExportFile" HorizontalAlignment="Left" Margin="121,375,0,0" VerticalAlignment="Top" Width="75"/>
+        <TextBox x:Name="SaveConditionPath" HorizontalAlignment="Left" Height="18" Margin="213,376,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="355"/>
     </Grid>
 </Window>

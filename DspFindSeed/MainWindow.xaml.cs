@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using DysonSphereProgramSeed.Algorithms;
+using  LitJson;
 using DysonSphereProgramSeed.Dyson;
+using System.Windows.Forms;
+using System.IO;
 
 namespace DspFindSeed
 {
@@ -26,11 +27,11 @@ namespace DspFindSeed
         /// <summary>
         /// 光度
         /// </summary>
-        public float dysonLumino     = 0;
+        public double dysonLumino     = 0;
         /// <summary>
         /// 距离初始星球
         /// </summary>
-        public float distanceToBirth = 0;
+        public double distanceToBirth = 0;
         /// <summary>
         /// 是否第一颗在戴森球半径内
         /// </summary>
@@ -72,11 +73,18 @@ namespace DspFindSeed
             hasAcid  = true;
         }
     }
+
+    public class JsonCondition
+    {
+        public List<SearchCondition> searchNecessaryConditions = new List<SearchCondition>();
+        public List<SearchCondition> searchLogConditions = new List<SearchCondition>();
+    }
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow
     {
+        public JsonCondition jsonCondition = new JsonCondition();
         public List<SearchCondition> searchNecessaryConditions = new List<SearchCondition> ();
         public List<SearchCondition> searchLogConditions       = new List<SearchCondition> ();
         public SearchCondition       minConditions             = new SearchCondition ();
@@ -90,9 +98,11 @@ namespace DspFindSeed
         public int                   lastSeedId;
         public Thread                curThread;
         public string fileName = "seed";
+        public string saveConditionPath = "";
         public MainWindow ()
         {
             InitializeComponent ();
+            saveConditionPath = System.Environment.CurrentDirectory;
             //读表
             PlanetModelingManager.Start ();
         }
@@ -179,15 +189,18 @@ namespace DspFindSeed
 
         private void Button_Click_AddNecessary(object sender, System.Windows.RoutedEventArgs e)
         {
-         
             searchNecessaryConditions.Add (FetchCondition ());
             necessaryCondition.Items.Add ("条件" + searchNecessaryConditions.Count);
+            curSelectIndex = searchNecessaryConditions.Count - 1;
+            necessaryCondition.Text = (string)necessaryCondition.Items[curSelectIndex];
         }
 
         private void Button_Click_AddLog(object sender, System.Windows.RoutedEventArgs e)
         {
             searchLogConditions.Add (FetchCondition ());
             LogCondition.Items.Add ("条件" + searchLogConditions.Count);
+            curSelectIndex = searchLogConditions.Count - 1;
+            LogCondition.Text = (string)LogCondition.Items[curSelectIndex];
         }
 
         private void Button_Click_Del(object sender, System.Windows.RoutedEventArgs e)
@@ -197,23 +210,110 @@ namespace DspFindSeed
             if (curSelectLog)
             {
                 searchLogConditions.RemoveAt(curSelectIndex);
-                LogCondition.Items.RemoveAt(curSelectIndex);
-                curSelectIndex--;
-                if(curSelectIndex >=0)
-                    LogCondition.SelectedIndex = curSelectIndex;
+                RefreshConditionUI ();
             }
             else
             {
                 searchNecessaryConditions.RemoveAt(curSelectIndex);
-                necessaryCondition.Items.RemoveAt(curSelectIndex);
-                curSelectIndex--;
-                if (curSelectIndex >= 0)
-                    necessaryCondition.SelectedIndex = curSelectIndex;
+                RefreshConditionUI ();
             }
         }
 
+        private void RefreshConditionUI ()
+        {
+            var cacheIndex = curSelectIndex;
+            necessaryCondition.Items.Clear();
+            LogCondition.Items.Clear();
+            for (int i = 0; i < searchNecessaryConditions.Count; i++)
+            {
+                necessaryCondition.Items.Add ("条件" + i);
+            }
+            for (int i = 0; i < searchLogConditions.Count; i++)
+            {
+                LogCondition.Items.Add ("条件" + i);
+            }
+            
+            if (curSelectLog)
+            {
+                if(searchLogConditions.Count <= cacheIndex)
+                {
+                    cacheIndex = searchLogConditions.Count - 1;
+                }
+                curSelectIndex = cacheIndex;
+                if (curSelectIndex < 0)
+                    return;
+                LogCondition.SelectedIndex = curSelectIndex;
+                LogCondition.Text          = (string)LogCondition.Items[curSelectIndex];
+                SetCondition (searchLogConditions[curSelectIndex]);
+            }
+            else
+            {
+                if (searchNecessaryConditions.Count <= cacheIndex)
+                {
+                    cacheIndex = searchNecessaryConditions.Count - 1;
+                }
+                curSelectIndex = cacheIndex;
+                if (curSelectIndex < 0)
+                    return;
+                necessaryCondition.SelectedIndex = curSelectIndex;
+                necessaryCondition.Text          = (string)necessaryCondition.Items[curSelectIndex];
+                SetCondition (searchNecessaryConditions[curSelectIndex]);
+            }
+               
+        }
+
+        private void Button_Click_ImportFile(object sender, System.Windows.RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+            dialog.Multiselect = false;
+            dialog.Title       = "请选择文件夹";
+            dialog.Filter      = "json|*.json";
+            dialog.InitialDirectory = saveConditionPath;
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string text = File.ReadAllText(dialog.FileName);
+                jsonCondition             = JsonMapper.ToObject<JsonCondition>(text);
+                searchNecessaryConditions = jsonCondition.searchNecessaryConditions;
+                searchLogConditions       = jsonCondition.searchLogConditions;
+                curSelectIndex            = 0;
+                curSelectLog              = false;
+                RefreshConditionUI ();
+            }
+        }
+
+        private void Button_Click_ExportFile(object sender, System.Windows.RoutedEventArgs e)
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            dialog.Description = "请选择文件路径";
+            dialog.SelectedPath = saveConditionPath;
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                saveConditionPath = dialog.SelectedPath;
+                SaveConditionPath.Text = saveConditionPath;
+                jsonCondition.searchNecessaryConditions = searchNecessaryConditions;
+                jsonCondition.searchLogConditions = searchLogConditions;
+                string text = JsonMapper.ToJson(jsonCondition);
+                System.IO.File.WriteAllText(saveConditionPath + "\\conditon_" + fileName + ".json", text, Encoding.UTF8);
+
+            }
+        }
+      
+        private void Button_Click_Start(object sender, System.Windows.RoutedEventArgs e)
+        {
+            startID    = int.Parse(seedID.Text);
+            onceCount  = int.Parse(searchOnceCount.Text);
+            times      = int.Parse(searchTimes.Text);
+            curSeeds   = 0;
+            lastSeedId = 0;
+            fileName = FileName.Text;
+            magCount = int.Parse(MagCount.Text);
+            if (curThread != null)
+                curThread.Abort();
+            curThread  = new Thread(Search);
+            curThread.Start();
+        }
         
-        void Search()
+          void Search()
         {
             if (searchNecessaryConditions.Count == 0)
                 return;
@@ -255,21 +355,6 @@ namespace DspFindSeed
                 }));
                 
             }
-        }
-      
-        private void Button_Click_Start(object sender, System.Windows.RoutedEventArgs e)
-        {
-            startID    = int.Parse(seedID.Text);
-            onceCount  = int.Parse(searchOnceCount.Text);
-            times      = int.Parse(searchTimes.Text);
-            curSeeds   = 0;
-            lastSeedId = 0;
-            fileName = FileName.Text;
-            magCount = int.Parse(MagCount.Text);
-            if (curThread != null)
-                curThread.Abort();
-            curThread  = new Thread(Search);
-            curThread.Start();
         }
 
         public SearchCondition Check (StarData star, int i, GalaxyData galaxyData, SearchCondition condition, ref int curMagCount)

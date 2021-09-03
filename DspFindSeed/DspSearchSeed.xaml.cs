@@ -319,8 +319,21 @@ namespace DspFindSeed
             curThread  = new Thread(Search);
             curThread.Start();
         }
-        
-          void Search()
+
+        private void Button_Click_SingleStart(object sender, System.Windows.RoutedEventArgs e)
+        {
+            startID = int.Parse(seedID.Text);
+            fileName = FileName.Text + "_single";
+            if (curThread != null)
+                curThread.Abort();
+            curThread = new Thread(SingleSearch);
+            curThread.Start();
+        }
+
+   
+
+
+        void Search()
         {
             if (searchNecessaryConditions.Count == 0)
                 return;
@@ -353,7 +366,7 @@ namespace DspFindSeed
             {
                 for (int i = startID + onceCount * j, max = startID + onceCount * (j + 1); i < max; i++)
                 {
-                    Search (i);
+                    SeedSearch (i);
                 }
                 var curTime = (DateTime.Now - startTime).TotalSeconds;
                 this.Dispatcher.BeginInvoke((System.Threading.ThreadStart)(() => 
@@ -482,7 +495,7 @@ namespace DspFindSeed
             return true;
         }
         
-        public void Search (int id)
+        public void SeedSearch(int id)
         {
      
             GameDesc                             gd                      = new GameDesc ();
@@ -576,5 +589,69 @@ namespace DspFindSeed
             System.IO.File.AppendAllText(System.Environment.CurrentDirectory + "\\seed.csv", str,Encoding.UTF8);
         }
 
+        
+        string SingleTitle = "星系名字,亮度,行星,距离,是否环内行星,气态巨星数量,冰巨星数量,卫星总数,潮汐锁定,是否有水,是否有硫酸,铁矿脉,铜矿脉,硅矿脉,钛矿脉,石矿脉,煤矿脉,原油涌泉,可燃冰矿,金伯利矿,分形硅矿,有机晶体矿,光栅石矿,刺笋矿脉,单极磁矿\n";
+        void SingleSearch()
+        {
+            GameDesc gd    = new GameDesc ();
+            gd.SetForNewGame (startID, 64);
+            GalaxyData galaxyData = UniverseGen.CreateGalaxy (gd);
+            if (galaxyData == null)
+                return;
+            for (int i = 0, max = galaxyData.stars.Length; i < max; i++)
+            {
+                var  star    = galaxyData.stars[i];
+                var  distanc = (float)(star.uPosition - galaxyData.stars[0].uPosition).magnitude / 2400000.0f;
+                bool isInDsp = star.dysonRadius * 2 > star.planets[0].sunDistance;
+                SingleTitle += star.name + "," + star.dysonLumino + "," + star.planetCount + "," + distanc + "," + (isInDsp?"是":"否") + ",";
+                var   gasCount1    = 0; //气态巨星
+                var   gasCount2    = 0; //冰巨星
+                int   cxsdcount    = 0;
+                int   gzs          = 0;
+                int[] resource     = new int[LDB.veins.Length];
+                bool  hasWater     = false;
+                bool  hasAcid      = false;
+                var   planetCount1 = 0;
+                foreach (var planet in star.planets)
+                {
+                    DspData.PlanetCompute (galaxyData, star, planet);
+                    if (planet.waterItemId == 1000)
+                        hasWater = true;
+                    if (planet.waterItemId == 1116)
+                        hasAcid = true;
+                    if (planet.typeString == "气态巨星")
+                    {
+                        gasCount1++;
+                    }
+                    if (planet.typeString == "冰巨星")
+                    {
+                        gasCount2++;
+                    }
+                    if (planet.orbitAroundPlanet != null)
+                        planetCount1++;
+                    if (planet.singularityString.Contains ("潮汐锁定"))
+                        cxsdcount++;
+                    for(int j = 0; j < LDB.veins.Length; j++)
+                    {
+                        var count = star.GetResourceSpots (j + 1);
+                        resource[j] += count;
+                    }
+                }
+                SingleTitle += gasCount1 +  "," + gasCount2 + "," + planetCount1 + ","+ cxsdcount +"," + (hasWater?"是,":"否,") +  (hasAcid?"是,":"否,");
+                
+                for(int j = 0; j < LDB.veins.Length; j++)
+                {
+                    var name = LDB.veins.dataArray[j].name;
+                    SingleTitle += resource[j] + ",";
+                }
+                SingleTitle += "\n";
+            }
+            System.IO.File.WriteAllText(System.Environment.CurrentDirectory + "\\seedSingle.csv", SingleTitle,Encoding.UTF8);
+            this.Dispatcher.BeginInvoke((System.Threading.ThreadStart)(() => 
+            {
+                SearchLog.Content =  "成功写入单个种子 ：" + startID + "的所有信息";
+            }));
+        }
+        
     }
 }

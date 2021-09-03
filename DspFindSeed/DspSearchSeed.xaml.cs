@@ -25,6 +25,10 @@ namespace DspFindSeed
         /// </summary>
         public int   planetCount3     = 0;
         /// <summary>
+        /// 气态巨星数量
+        /// </summary>
+        public int GasCount = 0;
+        /// <summary>
         /// 光度
         /// </summary>
         public double dysonLumino     = 0;
@@ -66,11 +70,12 @@ namespace DspFindSeed
             planetCount1    = 99;
             planetCount2    = 99;
             planetCount3    = 99;
+            GasCount        = 99;
             dysonLumino     = 99;
             distanceToBirth = 0;
             isInDsp         = true;
-            hasWater = true;
-            hasAcid  = true;
+            hasWater        = true;
+            hasAcid         = true;
         }
     }
 
@@ -112,18 +117,19 @@ namespace DspFindSeed
         private SearchCondition FetchCondition ()
         {
             var condition = new SearchCondition ();
-            condition.planetCount1       = int.Parse (planetCount1.Text);
-            condition.planetCount2       = int.Parse (planetCount2.Text);
-            condition.planetCount3       = int.Parse (planetCount3.Text);
-            condition.dysonLumino       = float.Parse (dysonLumino.Text);
-            condition.distanceToBirth   = float.Parse (distanceToBirth.Text);
-            condition.isInDsp           = IsInDsp.IsChecked ?? false;
-            condition.resourceCount[0]  = int.Parse (resource0.Text);
-            condition.resourceCount[1]  = int.Parse (resource1.Text);
-            condition.resourceCount[2]  = int.Parse (resource2.Text);
-            condition.resourceCount[3]  = int.Parse (resource3.Text);
-            condition.resourceCount[4]  = int.Parse (resource4.Text);
-            condition.resourceCount[5]  = int.Parse (resource5.Text);
+            condition.planetCount1     = int.Parse (planetCount1.Text);
+            condition.planetCount2     = int.Parse (planetCount2.Text);
+            condition.planetCount3     = int.Parse (planetCount3.Text);
+            condition.GasCount         = int.Parse (GasCount.Text);
+            condition.dysonLumino      = float.Parse (dysonLumino.Text);
+            condition.distanceToBirth  = float.Parse (distanceToBirth.Text);
+            condition.isInDsp          = IsInDsp.IsChecked ?? false;
+            condition.resourceCount[0] = int.Parse (resource0.Text);
+            condition.resourceCount[1] = int.Parse (resource1.Text);
+            condition.resourceCount[2] = int.Parse (resource2.Text);
+            condition.resourceCount[3] = int.Parse (resource3.Text);
+            condition.resourceCount[4] = int.Parse (resource4.Text);
+            condition.resourceCount[5] = int.Parse (resource5.Text);
             var boolResource6 = resource6.IsChecked ?? false;
             condition.resourceCount[6]  = boolResource6 ? 1 : 0;
             condition.resourceCount[7]  = int.Parse (resource7.Text);
@@ -141,11 +147,12 @@ namespace DspFindSeed
 
         private void SetCondition (SearchCondition condition)
         {
-            planetCount1.Text       = condition.planetCount1.ToString ();
-            planetCount2.Text       = condition.planetCount2.ToString ();
-            planetCount3.Text       = condition.planetCount3.ToString ();
-            dysonLumino.Text        = condition.dysonLumino.ToString (CultureInfo.InvariantCulture);
-            distanceToBirth.Text    = condition.distanceToBirth.ToString (CultureInfo.InvariantCulture);
+            planetCount1.Text    = condition.planetCount1.ToString ();
+            planetCount2.Text    = condition.planetCount2.ToString ();
+            planetCount3.Text    = condition.planetCount3.ToString ();
+            GasCount.Text        = condition.GasCount.ToString ();
+            dysonLumino.Text     = condition.dysonLumino.ToString (CultureInfo.InvariantCulture);
+            distanceToBirth.Text = condition.distanceToBirth.ToString (CultureInfo.InvariantCulture);
             
             IsInDsp.IsChecked       = condition.isInDsp;
 
@@ -327,9 +334,12 @@ namespace DspFindSeed
                     minConditions.planetCount2 = condition.planetCount2;
                 if (minConditions.planetCount3 > condition.planetCount3)
                     minConditions.planetCount3 = condition.planetCount3;
+                if (minConditions.GasCount > condition.GasCount)
+                    minConditions.GasCount = condition.GasCount;
                 if (minConditions.dysonLumino > condition.dysonLumino)
                     minConditions.dysonLumino = condition.dysonLumino;
-                if (minConditions.distanceToBirth > condition.distanceToBirth)
+                //距离是找一个比我大的，即找到所有必须条件里最大的
+                if (minConditions.distanceToBirth < condition.distanceToBirth)
                     minConditions.distanceToBirth = condition.distanceToBirth;
                 if(!condition.isInDsp)
                     minConditions.isInDsp       = false;
@@ -363,20 +373,23 @@ namespace DspFindSeed
                 return null;
             if(star.dysonLumino < condition.dysonLumino)
                 return null;
-            float distanceToBirth = 0;
+            double distanceToBirth = 0;
             if(i > 0)
               distanceToBirth = (float)(star.uPosition - galaxyData.stars[0].uPosition).magnitude / 2400000.0f;
-            if(distanceToBirth < condition.distanceToBirth)
+            //如果距离母星的距离比最大距离要求都远，说明不满足任意一个必须条件
+            if(distanceToBirth > condition.distanceToBirth)
                 return null;
             bool isInDsp = star.dysonRadius * 2 > star.planets[0].sunDistance;
             if(condition.isInDsp && !isInDsp)
                 return null;
+            
             bool            hasWater     = false;
             bool            hasAcid      = false;
             var             planetCount1 = 0;
             var             planetCount2 = 0;
-            var             gas          = 0;//巨星数量
-            var             extraGas     = 0;//多卫星的巨星,如果多巨星两个
+            var             gas          = 0; //巨星数量
+            var             extraGas     = 0; //多卫星的巨星,如果多巨星两个
+            var             gasCount     = 0;//气态巨星数量
             SearchCondition data         = new SearchCondition ();
             for (int j = 0; j < star.planets.Length; j++)
             {
@@ -392,7 +405,14 @@ namespace DspFindSeed
                                                                                 || planet.singularity.HasFlag (EPlanetSingularity.TidalLocked4))
                     planetCount2++;
                 if (planet.type == EPlanetType.Gas)
+                {
                     gas++;
+                    //减少字符串比较
+                    if (planet.typeString == "气态巨星")
+                    {
+                        gasCount++;
+                    }
+                }
                 if (planet.singularityString.Contains ("多卫星"))
                     extraGas++;
                 if (planet.type != EPlanetType.Gas && planet.veinSpotsSketch != null)
@@ -410,7 +430,8 @@ namespace DspFindSeed
             //有2个以上多巨星时候，单巨星卫星数量继续减少
             if (extraGas >= 2)
                 planetCount2 -= extraGas - 1;
-            
+            if (gasCount < condition.GasCount)
+                return null;
             if(planetCount1 < condition.planetCount1)
                 return null;
             if(planetCount2 < condition.planetCount2)
@@ -420,6 +441,7 @@ namespace DspFindSeed
             if (!hasAcid && condition.hasAcid)
                 return null;
 
+            data.GasCount        = gasCount;
             data.planetCount3    = star.planetCount;
             data.dysonLumino     = star.dysonLumino;
             data.distanceToBirth = distanceToBirth;
@@ -444,6 +466,8 @@ namespace DspFindSeed
             if(shortStarData.planetCount1 < condition.planetCount1)
                 return false;
             if(shortStarData.planetCount2 < condition.planetCount2)
+                return false;
+            if (shortStarData.GasCount < condition.GasCount)
                 return false;
             if (!shortStarData.hasWater && condition.hasWater)
                 return false;
@@ -534,7 +558,7 @@ namespace DspFindSeed
                 for (int i = 0; i < item.Value.Count; i++)
                 {
                     var data = item.Value[i];
-                    str += i + "号,卫星:" + data.planetCount1 + ";潮汐" + data.planetCount2 + ";行星" + data.planetCount3 + ";光度" + data.dysonLumino + ";与初始距离" 
+                    str += i + "号,卫星:" + data.planetCount1 + ";潮汐" + data.planetCount2 + ";行星" + data.planetCount3 + ";气态巨星" + data.GasCount + ";光度" + data.dysonLumino + ";与初始距离" 
                          + data.distanceToBirth.ToString("F1") + ";戴森球" + (data.isInDsp ? "包括" : "不包括") + "第一行星;" + (data.hasWater ? "有" : "没有") + "水;" + (data.hasWater ? "有" : "没有") + "硫酸";
                     if(data.IsLogResource)
                     {

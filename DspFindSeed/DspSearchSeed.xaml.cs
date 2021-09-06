@@ -564,7 +564,7 @@ namespace DspFindSeed
 
         public void LogFile (int curMagCount, Dictionary<int, List<SearchCondition>> necessaryShortStarDatas, Dictionary<int, List<SearchCondition>> logShortStarDatas)
         {
-            var str = "磁石总数 ： " + curMagCount + ",";
+            var str = "种子ID," +  lastSeedId  + ",磁石总数 ： " + curMagCount + ",";
             foreach (var item in necessaryShortStarDatas)
             {
                 str += "条件" + item.Key + ",";

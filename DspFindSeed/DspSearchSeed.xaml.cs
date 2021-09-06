@@ -586,7 +586,7 @@ namespace DspFindSeed
                 }
             }
             str += "\n";
-            System.IO.File.AppendAllText(System.Environment.CurrentDirectory + "\\seed.csv", str,Encoding.UTF8);
+            System.IO.File.AppendAllText(System.Environment.CurrentDirectory + "\\" + fileName + ".csv", str,Encoding.UTF8);
         }
 
         

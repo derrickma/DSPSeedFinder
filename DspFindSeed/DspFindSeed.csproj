@@ -65,6 +65,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CsvUtil.cs" />
     <Compile Include="DspData.cs" />
     <Compile Include="DspSearchSeed.xaml.cs">
       <DependentUpon>DspSearchSeed.xaml</DependentUpon>
@@ -72,6 +73,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainWindow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

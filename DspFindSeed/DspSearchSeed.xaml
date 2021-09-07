@@ -63,13 +63,13 @@
         <CheckBox x:Name="resource6" Content="是否有原油" HorizontalAlignment="Left" Margin="372,314,0,0" VerticalAlignment="Top"  AutomationProperties.Name="resource6"/>
         <CheckBox x:Name="resource1000" Content="是否有水" HorizontalAlignment="Left" Margin="35,346,0,0" VerticalAlignment="Top"  AutomationProperties.Name="resource1000"/>
         <CheckBox x:Name="resource1116" Content="是否有硫酸" HorizontalAlignment="Left" Margin="119,346,0,0" VerticalAlignment="Top"  AutomationProperties.Name="resource1116"/>
-        <Button x:Name="AddNecessary" Content="添加成必须条件" HorizontalAlignment="Left" Margin="15,380,0,0" VerticalAlignment="Top" Width="109" Click="Button_Click_AddNecessary" AutomationProperties.Name="AddNecessary"/>
-        <Button x:Name="AddLog" Content="添加成仅记录条件" HorizontalAlignment="Left" Margin="136,380,0,0" VerticalAlignment="Top" Width="109" Click="Button_Click_AddLog" AutomationProperties.Name="AddLog"/>
-        <Button x:Name="Del" Content="删除当前条件" HorizontalAlignment="Left" Margin="256,380,0,0" VerticalAlignment="Top" Width="109" Click="Button_Click_Del" AutomationProperties.Name="Del"/>
-        <Button x:Name="Start" Content="开始" HorizontalAlignment="Left" Margin="24,439,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_Start" AutomationProperties.Name="Start"/>
+        <Button x:Name="AddNecessary" Content="添加成必须条件" HorizontalAlignment="Left" Margin="10,380,0,0" VerticalAlignment="Top" Width="109" Click="Button_Click_AddNecessary" AutomationProperties.Name="AddNecessary"/>
+        <Button x:Name="AddLog" Content="添加成仅记录条件" HorizontalAlignment="Left" Margin="128,380,0,0" VerticalAlignment="Top" Width="109" Click="Button_Click_AddLog" AutomationProperties.Name="AddLog"/>
+        <Button x:Name="Del" Content="删除当前条件" HorizontalAlignment="Left" Margin="250,380,0,0" VerticalAlignment="Top" Width="109" Click="Button_Click_Del" AutomationProperties.Name="Del"/>
+        <Button x:Name="Start" Content="开始" HorizontalAlignment="Left" Margin="181,441,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_Start" AutomationProperties.Name="Start"/>
         <Label Content="硅&#xD;&#xA;" HorizontalAlignment="Left" Margin="133,271,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="resource3" HorizontalAlignment="Left" Height="23" Margin="230,273,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource3"/>
-        <ProgressBar x:Name="process" HorizontalAlignment="Left" Height="22" Margin="291,439,0,0" VerticalAlignment="Top" Width="265" AutomationProperties.Name="process" Maximum="1" Grid.ColumnSpan="2"/>
+        <ProgressBar x:Name="process" HorizontalAlignment="Left" Height="22" Margin="297,439,0,0" VerticalAlignment="Top" Width="259" AutomationProperties.Name="process" Maximum="1" Grid.ColumnSpan="2"/>
         <Label Content="至少几个星系满足以上条件" HorizontalAlignment="Left" Margin="291,340,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.312,0.397" Width="161" Height="25"/>
         <TextBox x:Name="starCount" HorizontalAlignment="Left" Height="19" Margin="461,344,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="41" RenderTransformOrigin="1.042,0.533" Grid.ColumnSpan="2"/>
         <CheckBox x:Name="IsLogResource" Content="是否写矿物数量&#xD;&#xA;" HorizontalAlignment="Left" Margin="461,314,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.274,0.578" Width="121" Height="19" IsChecked="True" Grid.ColumnSpan="2"/>
@@ -88,13 +88,12 @@
         <Label Content="文件名" HorizontalAlignment="Left" Margin="28,469,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.696,0.68"/>
         <TextBox x:Name="FileName" HorizontalAlignment="Left" Height="23" Margin="89,471,0,0" TextWrapping="Wrap" Text="seed1" VerticalAlignment="Top" Width="98"/>
         <Label Content="文件存成csv，在根目录，默认seed，可改名（方便多开）；&#xA;导出条件也使用此后缀&#xA;输入种子ID，打印一个CSV，显示单个种子详细信息&#xA;" HorizontalAlignment="Left" Margin="199,466,0,0" VerticalAlignment="Top" Width="350" Height="52" Grid.ColumnSpan="2" FontSize="10" FontStyle="Italic"/>
-        <Button x:Name="ImportFile" Content="导入条件"  Click="Button_Click_ImportFile" HorizontalAlignment="Left" Margin="24,408,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-3.84,1.579"/>
-        <Button x:Name="ExportFile" Content="导出条件"  Click="Button_Click_ExportFile" HorizontalAlignment="Left" Margin="121,408,0,0" VerticalAlignment="Top" Width="75"/>
-        <TextBox x:Name="SaveConditionPath" HorizontalAlignment="Left" Height="18" Margin="213,409,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="355" Grid.ColumnSpan="2"/>
+        <Button x:Name="ImportFile" Content="导入条件"  Click="Button_Click_ImportFile" HorizontalAlignment="Left" Margin="10,409,0,0" VerticalAlignment="Top" Width="52" RenderTransformOrigin="-3.84,1.579"/>
+        <Button x:Name="ExportFile" Content="导出条件"  Click="Button_Click_ExportFile" HorizontalAlignment="Left" Margin="69,409,0,0" VerticalAlignment="Top" Width="55"/>
+        <TextBox x:Name="SaveConditionPath" HorizontalAlignment="Left" Height="18" Margin="242,409,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="326" Grid.ColumnSpan="2"/>
         <Label Content="距离选0，则为筛选初始星系" HorizontalAlignment="Left" Margin="24,215,0,0" VerticalAlignment="Top" Width="136" FontStyle="Italic" FontSize="10"/>
         <Label Content="气态巨星" HorizontalAlignment="Left" Margin="377,157,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.192,0" Width="62"/>
         <TextBox x:Name="GasCount" HorizontalAlignment="Left" Height="23" Margin="439,159,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="33" RenderTransformOrigin="0.455,0.58"/>
-        <Button x:Name="SingleStart" Content="写出单个种子详细信息" Click="Button_Click_SingleStart" HorizontalAlignment="Left" Margin="119,439,0,0" VerticalAlignment="Top" Width="143"/>
         <CheckBox x:Name="IsInDsp2" Content="是否包含第2颗" HorizontalAlignment="Left" Margin="319,191,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.432,-0.852" AutomationProperties.Name="IsInDsp"/>
         <Label Content="蓝巨星" HorizontalAlignment="Left" Margin="0,121,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.192,0" Width="46" Grid.Column="1"/>
         <TextBox x:Name="BluePlanetCount" HorizontalAlignment="Left" Height="23" Margin="46,120,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="33" RenderTransformOrigin="2.758,0.493" Grid.Column="1"/>
@@ -104,5 +103,11 @@
         <CheckBox x:Name="IsInBluePlanet" Content="该星系是否为蓝巨星" HorizontalAlignment="Left" Margin="170,219,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.432,-0.852" AutomationProperties.Name="IsInDsp"/>
         <Label Content="冰巨星" HorizontalAlignment="Left" Margin="481,159,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.192,0" Width="62" Grid.ColumnSpan="2"/>
         <TextBox x:Name="IcePlanetCount" HorizontalAlignment="Left" Height="23" Margin="38,161,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="33" RenderTransformOrigin="0.455,0.58" Grid.Column="1"/>
+        <Button x:Name="ImportSeedFile" Content="导入种子ID表"  Click="Button_Click_ImportSeedFile" HorizontalAlignment="Left" Margin="133,409,0,0" VerticalAlignment="Top" Width="97" RenderTransformOrigin="-3.84,1.579" ToolTip="使用csv文件，默认使用第一列的数字，第一列没有数字，则使用第二列的数字（兼容旧版本到处的ID）"/>
+        <ComboBox x:Name="StartType" HorizontalAlignment="Left" Margin="21,440,0,0" VerticalAlignment="Top" Width="134" SelectedIndex="0">
+            <ComboBoxItem Content="正常搜索" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="写出单个种子详细" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="搜索导入的ID" HorizontalAlignment="Left" Width="118"/>
+        </ComboBox>
     </Grid>
 </Window>

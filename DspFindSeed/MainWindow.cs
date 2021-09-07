@@ -1,9 +1,12 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Text;
 using System.Threading;
 using  LitJson;
 using System.Windows.Forms;
 using System.IO;
+using System.Windows;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace DspFindSeed
 {
@@ -207,7 +210,6 @@ namespace DspFindSeed
 
         private void Button_Click_ImportSeedFile (object sender, System.Windows.RoutedEventArgs e)
         {
-            
             var dialog = new OpenFileDialog();
             dialog.Multiselect      = false;
             dialog.Title            = "请选择文件夹";
@@ -219,29 +221,60 @@ namespace DspFindSeed
                 CustomSeedIdS = CsvUtil.OpenCSV (Path.GetDirectoryName (dialog.FileName) + "\\"+ Path.GetFileName (dialog.FileName));
                 if (CustomSeedIdS == null || CustomSeedIdS.Count <= 0)
                 {
-                    //TODO 弹窗提示
-                    return;
+                    if (MessageBox.Show ("该文件没有找到正确的种子ID", "重新输入",MessageBoxButtons.OKCancel ) == System.Windows.Forms.DialogResult.OK)
+                    {
+                        Button_Click_ImportSeedFile (sender, e);
+                    }
                 }
             }
         }
-      
+
+        private void Button_Click_Stop (object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (curThread == null || curThread.ThreadState == ThreadState.Aborted || curThread.ThreadState == ThreadState.Stopped)
+                return;
+            var curTime = (DateTime.Now - startTime).TotalSeconds;
+            if(MessageBox.Show ("正在搜索ID，搜索到 ：" + curId + "；已用时：" + curTime + ";\n 已命中种子数量：" + curSeeds + ";最后命中的是：" + lastSeedId + "是否终止搜索？" , "终止搜索",MessageBoxButtons.OKCancel ) == System.Windows.Forms.DialogResult.OK)
+            {
+                curThread.Abort();
+                curThread = null;
+            }
+          
+        }
+
+        void normalSearch ()
+        {
+            curSeeds        = 0;
+            lastSeedId      = 0;
+            fileName        = FileName.Text;
+            magCount        = int.Parse(MagCount.Text);
+            bluePlanetCount = int.Parse (BluePlanetCount.Text);
+            if (curThread != null)
+                curThread.Abort();
+            curThread = new Thread(Search);
+            curThread.Start();
+        }
         private void Button_Click_Start(object sender, System.Windows.RoutedEventArgs e)
         {
             switch (StartType.SelectedIndex)
             {
-                case 0 :
-                    startId         = int.Parse(seedID.Text);
-                    onceCount       = int.Parse(searchOnceCount.Text);
-                    times           = int.Parse(searchTimes.Text);
-                    curSeeds        = 0;
-                    lastSeedId      = 0;
-                    fileName        = FileName.Text;
-                    magCount        = int.Parse(MagCount.Text);
-                    bluePlanetCount = int.Parse (BluePlanetCount.Text);
-                    if (curThread != null)
-                        curThread.Abort();
-                    curThread = new Thread(Search);
-                    curThread.Start();
+                case 0:
+                    startId   = int.Parse (seedID.Text);
+                    onceCount = int.Parse (searchOnceCount.Text);
+                    times     = int.Parse (searchTimes.Text);
+                    var total = onceCount * times;
+                    if (total > 1000000)
+                    {
+                        if(MessageBox.Show ("开始ID：" + startId + "，每次搜索：" + onceCount + "个，一共搜索：" + times + "次，是否开始搜索？（总搜索次数大于100万会弹出，以防误操作）" , "开始搜索",MessageBoxButtons.OKCancel ) == System.Windows.Forms.DialogResult.OK)
+                        {
+                            normalSearch ();
+                        }
+                    }
+                    else
+                    {
+                        normalSearch ();
+                    }
+                   
                     break;
                 case 1 :
                     startId  = int.Parse(seedID.Text);

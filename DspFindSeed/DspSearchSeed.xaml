@@ -66,10 +66,10 @@
         <Button x:Name="AddNecessary" Content="添加成必须条件" HorizontalAlignment="Left" Margin="10,380,0,0" VerticalAlignment="Top" Width="109" Click="Button_Click_AddNecessary" AutomationProperties.Name="AddNecessary"/>
         <Button x:Name="AddLog" Content="添加成仅记录条件" HorizontalAlignment="Left" Margin="128,380,0,0" VerticalAlignment="Top" Width="109" Click="Button_Click_AddLog" AutomationProperties.Name="AddLog"/>
         <Button x:Name="Del" Content="删除当前条件" HorizontalAlignment="Left" Margin="250,380,0,0" VerticalAlignment="Top" Width="109" Click="Button_Click_Del" AutomationProperties.Name="Del"/>
-        <Button x:Name="Start" Content="开始" HorizontalAlignment="Left" Margin="181,441,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_Start" AutomationProperties.Name="Start"/>
+        <Button x:Name="Start" Content="开始" HorizontalAlignment="Left" Margin="160,441,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_Start" AutomationProperties.Name="Start"/>
         <Label Content="硅&#xD;&#xA;" HorizontalAlignment="Left" Margin="133,271,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="resource3" HorizontalAlignment="Left" Height="23" Margin="230,273,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource3"/>
-        <ProgressBar x:Name="process" HorizontalAlignment="Left" Height="22" Margin="297,439,0,0" VerticalAlignment="Top" Width="259" AutomationProperties.Name="process" Maximum="1" Grid.ColumnSpan="2"/>
+        <ProgressBar x:Name="process" HorizontalAlignment="Left" Height="22" Margin="335,439,0,0" VerticalAlignment="Top" Width="221" AutomationProperties.Name="process" Maximum="1" Grid.ColumnSpan="2"/>
         <Label Content="至少几个星系满足以上条件" HorizontalAlignment="Left" Margin="291,340,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.312,0.397" Width="161" Height="25"/>
         <TextBox x:Name="starCount" HorizontalAlignment="Left" Height="19" Margin="461,344,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="41" RenderTransformOrigin="1.042,0.533" Grid.ColumnSpan="2"/>
         <CheckBox x:Name="IsLogResource" Content="是否写矿物数量&#xD;&#xA;" HorizontalAlignment="Left" Margin="461,314,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.274,0.578" Width="121" Height="19" IsChecked="True" Grid.ColumnSpan="2"/>
@@ -109,5 +109,6 @@
             <ComboBoxItem Content="写出单个种子详细" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="搜索导入的ID" HorizontalAlignment="Left" Width="118"/>
         </ComboBox>
+        <Button x:Name="StopSearch" Content="终止" HorizontalAlignment="Left" Margin="242,440,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_Stop" AutomationProperties.Name="Start"/>
     </Grid>
 </Window>

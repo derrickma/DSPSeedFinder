@@ -114,18 +114,20 @@ namespace DspFindSeed
         /// 蓝巨星数量要求
         /// </summary>
         public int bluePlanetCount = 0;
-        public int     curSelectIndex = 0;
-        public bool    curSelectLog   = false;
-        int            startId        = 0;
-        int            onceCount      = 1000;
-        int            times          = 10;
-        public  int    curSeeds;
-        public  int    lastSeedId;
-        public  Thread curThread;
-        public  string fileName          = "seed";
-        public  string saveConditionPath = "";
-        private string searchlogContent  = "";
-        private float  processValue      = 0;
+        public int       curSelectIndex = 0;
+        public bool      curSelectLog   = false;
+        int              startId        = 0;
+        private int      curId          = 0;
+        private DateTime startTime;
+        int              onceCount = 1000;
+        int              times     = 10;
+        public  int      curSeeds;
+        public  int      lastSeedId;
+        public  Thread   curThread;
+        public  string   fileName          = "seed";
+        public  string   saveConditionPath = "";
+        private string   searchlogContent  = "";
+        private float    processValue      = 0;
         #endregion
         public MainWindow ()
         {
@@ -173,11 +175,12 @@ namespace DspFindSeed
         void SearchCustomID ()
         {
             ResetMinCondition ();
-            var startTime = DateTime.Now;
+            startTime = DateTime.Now;
             int index     = 0;
             for (int i = 0; i < CustomSeedIdS.Count; i++)
-            {
-                SeedSearch (CustomSeedIdS[i]);
+            {                
+                curId = CustomSeedIdS[i];
+                SeedSearch (curId);
             }
             var curTime = (DateTime.Now - startTime).TotalSeconds;
             this.Dispatcher.BeginInvoke((System.Threading.ThreadStart)(() => 
@@ -190,23 +193,30 @@ namespace DspFindSeed
         void Search()
         {
             ResetMinCondition ();
-            var startTime = DateTime.Now;
+            startTime = DateTime.Now;
             for (int j = 0; j < times; j++)
             {
                 for (int i = startId + onceCount * j, max = startId + onceCount * (j + 1); i < max; i++)
                 {
-                    SeedSearch (i);
+                    curId = i;
+                    SeedSearch (curId);
                 }
                 var curTime = (DateTime.Now - startTime).TotalSeconds;
-                this.Dispatcher.BeginInvoke((System.Threading.ThreadStart)(() => 
+                var str     = "";
+                if (j == times - 1)
                 {
-                    searchlogContent = "搜索到 ：" + (startId + onceCount * (j + 1)) + "；用时：" + curTime + ";\n 已命中种子数量：" + curSeeds + ";最后命中的是：" + lastSeedId;
-                    processValue = j  / times;
+                    str += "搜索结束。";
+                }
+                str     += "搜索到 ：" + curId + "；用时：" + curTime + ";\n 已命中种子数量：" + curSeeds + ";最后命中的是：" + lastSeedId;
+                searchlogContent  = str;
+                processValue      = j * 1.0f  / times;
+                this.Dispatcher.BeginInvoke ((System.Threading.ThreadStart)(() =>
+                {
                     SearchLog.Content = searchlogContent;
-                    process.Value = processValue;
+                    process.Value     = processValue;
                 }));
-                
             }
+            return;
         }
 
         public SearchCondition CheckMagCount(StarData star, int i, GalaxyData galaxyData, SearchCondition condition, ref int curMagCount)

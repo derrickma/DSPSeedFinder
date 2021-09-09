@@ -15,8 +15,8 @@
         <Label Content="种子ID" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <Label Content="单次搜索&#xA;" HorizontalAlignment="Left" Margin="165,12,0,0" VerticalAlignment="Top" Height="23" RenderTransformOrigin="-0.247,0.606" FontWeight="Bold"/>
         <TextBox x:Name="searchOnceCount" HorizontalAlignment="Left" Height="23" Margin="228,14,0,0" TextWrapping="Wrap" Text="1000" VerticalAlignment="Top" Width="68" AutomationProperties.Name="searchOnceCount"/>
-        <Label Content="总次数" HorizontalAlignment="Left" Margin="319,12,0,0" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="-0.804,0.44"/>
-        <TextBox x:Name="searchTimes" HorizontalAlignment="Left" Height="19" Margin="374,16,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="87" RenderTransformOrigin="-0.26,0.678" AutomationProperties.Name="searchTimes"/>
+        <Label Content="总次数" HorizontalAlignment="Left" Margin="305,12,0,0" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="-0.804,0.44"/>
+        <TextBox x:Name="searchTimes" HorizontalAlignment="Left" Height="19" Margin="356,16,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="87" RenderTransformOrigin="-0.26,0.678" AutomationProperties.Name="searchTimes"/>
         <Label Content="从输入的种子ID搜索，单次搜索10000，代表一次自增搜一万个种子，然后会打印一次时间。搜索完总次数后会结束" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Width="486" Height="25" FontSize="9" FontStyle="Italic"/>
         <Label Content="筛选条件" HorizontalAlignment="Left" Margin="16,69,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.092,0.413" FontWeight="Bold"/>
         <Label Content="必须条件都满足的种子才会记录&#xA;仅记录条件会将参数写入文件，但不满足不影响筛选&#xA;磁石总量、蓝巨星数量是整个宇宙的条件，如果添值是独立的必须条件（始终会记录）" HorizontalAlignment="Left" Margin="87,69,0,0" VerticalAlignment="Top" Width="446" FontSize="10" FontStyle="Italic" Grid.ColumnSpan="2"/>
@@ -110,5 +110,7 @@
             <ComboBoxItem Content="搜索导入的ID" HorizontalAlignment="Left" Width="118"/>
         </ComboBox>
         <Button x:Name="StopSearch" Content="终止" HorizontalAlignment="Left" Margin="242,440,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_Stop" AutomationProperties.Name="Start"/>
+        <Label Content="恒星数" HorizontalAlignment="Left" Margin="456,12,0,0" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="-0.804,0.44" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="searchStarCount" HorizontalAlignment="Left" Height="19" Margin="10,16,0,0" TextWrapping="Wrap" Text="64" VerticalAlignment="Top" Width="58" RenderTransformOrigin="-0.26,0.678" AutomationProperties.Name="searchTimes" Grid.Column="1"/>
     </Grid>
 </Window>

@@ -118,6 +118,7 @@ namespace DspFindSeed
         public bool      curSelectLog   = false;
         int              startId        = 0;
         private int      curId          = 0;
+        private int curSearchStarCount = 64;
         private DateTime startTime;
         int              onceCount = 1000;
         int              times     = 10;
@@ -456,7 +457,7 @@ namespace DspFindSeed
         public void SeedSearch(int id)
         {
             GameDesc                             gd                      = new GameDesc ();
-            gd.SetForNewGame (id, 64);
+            gd.SetForNewGame (id, curSearchStarCount);
             GalaxyData galaxyData = UniverseGen.CreateGalaxy (gd);
             if (galaxyData == null)
                 return;
@@ -585,7 +586,7 @@ namespace DspFindSeed
         void SingleSearch()
         {
             GameDesc gd    = new GameDesc ();
-            gd.SetForNewGame (startId, 64);
+            gd.SetForNewGame (startId, curSearchStarCount);
             GalaxyData galaxyData = UniverseGen.CreateGalaxy (gd);
             if (galaxyData == null)
                 return;

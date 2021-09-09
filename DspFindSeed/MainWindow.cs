@@ -256,6 +256,11 @@ namespace DspFindSeed
         }
         private void Button_Click_Start(object sender, System.Windows.RoutedEventArgs e)
         {
+            if(!int.TryParse(searchStarCount.Text, out curSearchStarCount) || curSearchStarCount < 32 || curSearchStarCount > 64)
+            {
+                MessageBox.Show("星区数量需要是32-64的整数", "失败", MessageBoxButtons.OKCancel);
+                return;
+            }
             switch (StartType.SelectedIndex)
             {
                 case 0:

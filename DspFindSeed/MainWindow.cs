@@ -249,6 +249,7 @@ namespace DspFindSeed
             fileName        = FileName.Text;
             magCount        = int.Parse(MagCount.Text);
             bluePlanetCount = int.Parse (BluePlanetCount.Text);
+            oPlanetCount = int.Parse (OPlanetCount.Text);
             if (curThread != null)
                 curThread.Abort();
             curThread = new Thread(Search);
@@ -297,6 +298,7 @@ namespace DspFindSeed
                     fileName        = FileName.Text;
                     magCount        = int.Parse(MagCount.Text);
                     bluePlanetCount = int.Parse (BluePlanetCount.Text);
+                    oPlanetCount = int.Parse (OPlanetCount.Text);
                     if (curThread != null)
                         curThread.Abort();
                     curThread = new Thread(SearchCustomID);

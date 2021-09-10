@@ -19,7 +19,7 @@
         <TextBox x:Name="searchTimes" HorizontalAlignment="Left" Height="19" Margin="356,16,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="87" RenderTransformOrigin="-0.26,0.678" AutomationProperties.Name="searchTimes"/>
         <Label Content="从输入的种子ID搜索，单次搜索10000，代表一次自增搜一万个种子，然后会打印一次时间。搜索完总次数后会结束" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Width="486" Height="25" FontSize="9" FontStyle="Italic"/>
         <Label Content="筛选条件" HorizontalAlignment="Left" Margin="16,69,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.092,0.413" FontWeight="Bold"/>
-        <Label Content="必须条件都满足的种子才会记录&#xA;仅记录条件会将参数写入文件，但不满足不影响筛选&#xA;磁石总量、蓝巨星数量是整个宇宙的条件，如果添值是独立的必须条件（始终会记录）" HorizontalAlignment="Left" Margin="87,69,0,0" VerticalAlignment="Top" Width="446" FontSize="10" FontStyle="Italic" Grid.ColumnSpan="2"/>
+        <Label Content="必须条件都满足的种子才会记录&#xA;仅记录条件会将参数写入文件，但不满足不影响筛选&#xA;磁石总量、蓝巨星、0恒星数量是整个宇宙的条件，如果添值是独立的必须条件（始终会记录）" HorizontalAlignment="Left" Margin="87,69,0,0" VerticalAlignment="Top" Width="446" FontSize="10" FontStyle="Italic" Grid.ColumnSpan="2"/>
         <Label Content="卫星数" HorizontalAlignment="Left" Margin="16,151,0,0" VerticalAlignment="Top" Height="25"/>
         <TextBox x:Name="planetCount1" HorizontalAlignment="Left" Height="21" Margin="62,155,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="34" AutomationProperties.Name="planetCount1"/>
         <Label Content="潮汐锁定&#xA;" HorizontalAlignment="Left" Margin="101,153,0,0" VerticalAlignment="Top" Height="25" Width="59"/>
@@ -29,12 +29,12 @@
         <CheckBox x:Name="IsInDsp" Content="戴森球是否包含第1颗" HorizontalAlignment="Left" Margin="170,191,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.432,-0.852" AutomationProperties.Name="IsInDsp"/>
         <Label Content="初始星球距离&#xD;&#xA;" HorizontalAlignment="Left" Margin="16,185,0,0" VerticalAlignment="Top" Height="25" RenderTransformOrigin="0.438,0.344"/>
         <TextBox x:Name="distanceToBirth" HorizontalAlignment="Left" Height="21" Margin="98,189,0,0" TextWrapping="Wrap" Text="1000" VerticalAlignment="Top" Width="67" AutomationProperties.Name="distance"/>
-        <ComboBox x:Name="necessaryCondition" HorizontalAlignment="Left" Margin="75,120,0,0" VerticalAlignment="Top" Width="120" AutomationProperties.Name="necessaryCondition" SelectionChanged="ComboBox_SelectionChanged_Necessary" />
+        <ComboBox x:Name="necessaryCondition" HorizontalAlignment="Left" Margin="75,120,0,0" VerticalAlignment="Top" Width="80" AutomationProperties.Name="necessaryCondition" SelectionChanged="ComboBox_SelectionChanged_Necessary" />
         <Label Content="必须条件" HorizontalAlignment="Left" Margin="12,117,0,0" VerticalAlignment="Top"/>
-        <Label Content="仅记录" HorizontalAlignment="Left" Margin="210,120,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="LogCondition" HorizontalAlignment="Left" Margin="267,121,0,0" VerticalAlignment="Top" Width="120" AutomationProperties.Name="LogCondition" SelectionChanged="ComboBox_SelectionChanged_Log"/>
-        <Label Content="磁石总量" HorizontalAlignment="Left" Margin="394,120,0,0" VerticalAlignment="Top" Height="25"/>
-        <TextBox x:Name="MagCount" HorizontalAlignment="Left" Height="21" Margin="458,121,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="29" AutomationProperties.Name="MagCount" RenderTransformOrigin="-0.041,0.587"/>
+        <Label Content="仅记录" HorizontalAlignment="Left" Margin="165,117,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.188,0.493"/>
+        <ComboBox x:Name="LogCondition" HorizontalAlignment="Left" Margin="216,121,0,0" VerticalAlignment="Top" Width="80" AutomationProperties.Name="LogCondition" SelectionChanged="ComboBox_SelectionChanged_Log"/>
+        <Label Content="磁石总量" HorizontalAlignment="Left" Margin="305,117,0,0" VerticalAlignment="Top" Height="25"/>
+        <TextBox x:Name="MagCount" HorizontalAlignment="Left" Height="21" Margin="372,120,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="29" AutomationProperties.Name="MagCount" RenderTransformOrigin="-0.041,0.587"/>
         <Label Content="本星系所有星球上各类矿物数量，单位是矿点，一堆矿是一个矿点。例如19单位磁石约300G磁石矿" HorizontalAlignment="Left" Margin="21,248,0,0" VerticalAlignment="Top" Width="486" Height="25" FontSize="9" FontStyle="Italic" Grid.ColumnSpan="2"/>
         <Label Content="铁" HorizontalAlignment="Left" Margin="10,271,0,0" VerticalAlignment="Top"/>
         <Label Content="行星总数" HorizontalAlignment="Left" Margin="204,155,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.016,0.086"/>
@@ -95,8 +95,8 @@
         <Label Content="气态巨星" HorizontalAlignment="Left" Margin="377,157,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.192,0" Width="62"/>
         <TextBox x:Name="GasCount" HorizontalAlignment="Left" Height="23" Margin="439,159,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="33" RenderTransformOrigin="0.455,0.58"/>
         <CheckBox x:Name="IsInDsp2" Content="是否包含第2颗" HorizontalAlignment="Left" Margin="319,191,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.432,-0.852" AutomationProperties.Name="IsInDsp"/>
-        <Label Content="蓝巨星" HorizontalAlignment="Left" Margin="0,121,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.192,0" Width="46" Grid.Column="1"/>
-        <TextBox x:Name="BluePlanetCount" HorizontalAlignment="Left" Height="23" Margin="46,120,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="33" RenderTransformOrigin="2.758,0.493" Grid.Column="1"/>
+        <Label Content="蓝巨星" HorizontalAlignment="Left" Margin="413,117,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.192,0" Width="46"/>
+        <TextBox x:Name="BluePlanetCount" HorizontalAlignment="Left" Height="23" Margin="459,120,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="33" RenderTransformOrigin="2.758,0.493"/>
         <GridSplitter HorizontalAlignment="Left" Height="3" Margin="24,147,0,0" VerticalAlignment="Top" Width="544" Grid.ColumnSpan="2"/>
         <GridSplitter HorizontalAlignment="Left" Height="3" Margin="21,66,0,0" VerticalAlignment="Top" Width="544" Grid.ColumnSpan="2"/>
         <GridSplitter HorizontalAlignment="Left" Height="3" Margin="15,370,0,0" VerticalAlignment="Top" Width="544" Grid.ColumnSpan="2"/>
@@ -112,5 +112,7 @@
         <Button x:Name="StopSearch" Content="终止" HorizontalAlignment="Left" Margin="242,440,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_Stop" AutomationProperties.Name="Start"/>
         <Label Content="恒星数" HorizontalAlignment="Left" Margin="456,12,0,0" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="-0.804,0.44" Grid.ColumnSpan="2"/>
         <TextBox x:Name="searchStarCount" HorizontalAlignment="Left" Height="19" Margin="10,16,0,0" TextWrapping="Wrap" Text="64" VerticalAlignment="Top" Width="58" RenderTransformOrigin="-0.26,0.678" AutomationProperties.Name="searchTimes" Grid.Column="1"/>
+        <Label Content="o恒星" HorizontalAlignment="Left" Margin="0,119,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.192,0" Width="46" Grid.Column="1"/>
+        <TextBox x:Name="OPlanetCount" HorizontalAlignment="Left" Height="23" Margin="46,121,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="33" RenderTransformOrigin="2.758,0.493" Grid.Column="1"/>
     </Grid>
 </Window>

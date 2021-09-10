@@ -114,6 +114,10 @@ namespace DspFindSeed
         /// 蓝巨星数量要求
         /// </summary>
         public int bluePlanetCount = 0;
+        /// <summary>
+        /// O恒星数量
+        /// </summary>
+        public int oPlanetCount = 0;
         public int       curSelectIndex = 0;
         public bool      curSelectLog   = false;
         int              startId        = 0;
@@ -321,12 +325,15 @@ namespace DspFindSeed
             return data;
         }
 
-        public SearchCondition Check (StarData star, int i, GalaxyData galaxyData, SearchCondition condition,  ref int curBluePlanetCount)
+        public SearchCondition Check (StarData star, int i, GalaxyData galaxyData, SearchCondition condition,  ref int curBluePlanetCount, ref int curOPlanetCount)
         {
             //只有i = 62、63需要算磁石的数量
             bool isBluePlanet = star.typeString == "蓝巨星";
             if (isBluePlanet)
                 curBluePlanetCount++;
+            bool isOPlanetCount = star.typeString == "O型恒星";
+            if (isOPlanetCount)
+                curOPlanetCount++;
             //先算完ref的值，才会return;
             if (condition.isBluePlanet && !isBluePlanet)
                 return null;
@@ -465,6 +472,7 @@ namespace DspFindSeed
             Dictionary<int, List<SearchCondition>> logShortStarDatas       = new Dictionary<int,  List<SearchCondition>>();
             int                                    curMagCount             = 0;
             int                                    curBluePlanetCount             = 0;
+            int curOPlanetCount = 0;
             for (int i = 0, max = galaxyData.stars.Length; i < max; i++)
             {
                 var star = galaxyData.stars[i];
@@ -473,7 +481,7 @@ namespace DspFindSeed
                 if ( star.type != EStarType.BlackHole && star.type != EStarType.NeutronStar)
                 {
                     //保证满足最低条件，并取到星系的各个计算值。如果不满足最低条件，说该星系任意一个必须条件都不满足，直接下一个星系
-                    shortData = Check (star, i, galaxyData, minConditions, ref curBluePlanetCount);
+                    shortData = Check (star, i, galaxyData, minConditions, ref curBluePlanetCount, ref curOPlanetCount);
                     if (shortData == null)
                         continue;
                 }
@@ -512,6 +520,8 @@ namespace DspFindSeed
                 return;
             if (curBluePlanetCount < bluePlanetCount)
                 return;
+            if (curOPlanetCount < oPlanetCount)
+                return;
             bool isFail = false;
             //现在还要检查必须条件的星系数量是否够
             for (int j = 0, maxConditions = searchNecessaryConditions.Count; j < maxConditions; j++)
@@ -533,12 +543,12 @@ namespace DspFindSeed
                 return;
             curSeeds++;
             lastSeedId = galaxyData.seed;
-            LogFile (curMagCount,curBluePlanetCount, necessaryShortStarDatas, logShortStarDatas);
+            LogFile (curMagCount, curBluePlanetCount, curOPlanetCount, necessaryShortStarDatas, logShortStarDatas);
         }
         string SingleTitle = "星系名字,亮度,行星,距离,星系类型,是否环内行星,气态巨星数量,冰巨星数量,卫星总数,潮汐锁定,是否有水,是否有硫酸,铁矿脉,铜矿脉,硅矿脉,钛矿脉,石矿脉,煤矿脉,原油涌泉,可燃冰矿,金伯利矿,分形硅矿,有机晶体矿,光栅石矿,刺笋矿脉,单极磁矿\n";
-        public void LogFile (int curMagCount, int curBluePlanetCount, Dictionary<int, List<SearchCondition>> necessaryShortStarDatas, Dictionary<int, List<SearchCondition>> logShortStarDatas)
+        public void LogFile (int curMagCount, int curBluePlanetCount, int curOPlanetCount, Dictionary<int, List<SearchCondition>> necessaryShortStarDatas, Dictionary<int, List<SearchCondition>> logShortStarDatas)
         {
-            var str = lastSeedId  + ",磁石： " + curMagCount + "," + "蓝巨星：" + curBluePlanetCount + ",";
+            var str = lastSeedId  + ",磁石： " + curMagCount + "," + "蓝巨星：" + curBluePlanetCount + "," + "O型恒星：" + curOPlanetCount + ",";
             foreach (var item in necessaryShortStarDatas)
             {
                 str += "条件" + item.Key + ",";

@@ -181,7 +181,6 @@ namespace DspFindSeed
         {
             ResetMinCondition ();
             startTime = DateTime.Now;
-            int index     = 0;
             for (int i = 0; i < CustomSeedIdS.Count; i++)
             {                
                 curId = CustomSeedIdS[i];

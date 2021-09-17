@@ -23,8 +23,6 @@ namespace DspFindSeed
             string strLine = "";
             string[] tableHead = null;
             
-            //标示列数
-            int columnCount = 0;
             //标示是否是读取的第一行
             bool      IsFirst = true;
             List<int> ids     = new List<int> ();

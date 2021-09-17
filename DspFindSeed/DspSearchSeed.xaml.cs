@@ -647,7 +647,7 @@ namespace DspFindSeed
                 }
                 SingleTitle += "\n";
             }
-            System.IO.File.WriteAllText(System.Environment.CurrentDirectory + "\\seedSingle.csv", SingleTitle,Encoding.UTF8);
+            System.IO.File.WriteAllText(System.Environment.CurrentDirectory + "\\" + fileName +".csv", SingleTitle,Encoding.UTF8);
             this.Dispatcher.BeginInvoke((System.Threading.ThreadStart)(() => 
             {
                 SearchLog.Content =  "成功写入单个种子 ：" + startId + "的所有信息";

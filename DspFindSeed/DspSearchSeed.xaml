@@ -114,5 +114,16 @@
         <TextBox x:Name="searchStarCount" HorizontalAlignment="Left" Height="19" Margin="10,16,0,0" TextWrapping="Wrap" Text="64" VerticalAlignment="Top" Width="58" RenderTransformOrigin="-0.26,0.678" AutomationProperties.Name="searchTimes" Grid.Column="1"/>
         <Label Content="o恒星" HorizontalAlignment="Left" Margin="0,119,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.192,0" Width="46" Grid.Column="1"/>
         <TextBox x:Name="OPlanetCount" HorizontalAlignment="Left" Height="23" Margin="46,121,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="33" RenderTransformOrigin="2.758,0.493" Grid.Column="1"/>
+        <Label Content="最大重氢速率" HorizontalAlignment="Left" Margin="438,187,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.192,0" Width="83" Grid.ColumnSpan="2" >
+            <Label.ToolTip>
+                <ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Heavy">注意</TextBlock>
+                        <TextBlock>推荐0.1即为新版本高效重氢气态巨星（一般的气态数值在0.03-0.05），0.2以上属于比较稀少的。<LineBreak/>例如仅需要气态巨星，直接用旧参数气态巨星数量即可<LineBreak/>需要高效气态巨星输入0.1或者0.15<LineBreak/>需要资源丰富的高效气态巨星输入0.2-0.25(0.25实测很少慎用）</TextBlock>
+                    </StackPanel>
+                </ToolTip>
+            </Label.ToolTip>
+        </Label>
+        <TextBox x:Name="MaxGasSpeed" HorizontalAlignment="Left" Height="23" Margin="29,189,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="33" RenderTransformOrigin="1.182,0.565" Grid.Column="1"/>
     </Grid>
 </Window>

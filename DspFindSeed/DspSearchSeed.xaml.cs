@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Threading;
 using DysonSphereProgramSeed.Dyson;
@@ -69,6 +70,10 @@ namespace DspFindSeed
         /// 是否存矿物数量
         /// </summary>
         public bool IsLogResource;
+        /// <summary>
+        /// 重氢速率
+        /// </summary>
+        public float gasSpeed;
 
         public void Reset ()
         {
@@ -79,6 +84,7 @@ namespace DspFindSeed
             IcePlanetCount  = 99;
             GasCount        = 99;
             dysonLumino     = 99;
+            gasSpeed        = 99;
             distanceToBirth = 0;
             isInDsp         = true;
             isInDsp2        = true;
@@ -160,6 +166,8 @@ namespace DspFindSeed
                     minConditions.IcePlanetCount = condition.IcePlanetCount;
                 if (minConditions.GasCount > condition.GasCount)
                     minConditions.GasCount = condition.GasCount;
+                if (minConditions.gasSpeed > condition.gasSpeed)
+                    minConditions.gasSpeed = condition.gasSpeed;
                 if (minConditions.dysonLumino > condition.dysonLumino)
                     minConditions.dysonLumino = condition.dysonLumino;
                 //距离是找一个比我大的，即找到所有必须条件里最大的
@@ -360,7 +368,8 @@ namespace DspFindSeed
             var             gas            = 0; //巨星数量
             var             extraGas       = 0; //多卫星的巨星,如果多巨星两个
             var             gasCount       = 0; //气态巨星数量
-            var             icePlanetCount = 0;//冰巨星数量
+            var             icePlanetCount = 0; //冰巨星数量
+            var             gasSpeed       = 0f;
             SearchCondition data           = new SearchCondition ();
             for (int j = 0; j < star.planets.Length; j++)
             {
@@ -381,6 +390,8 @@ namespace DspFindSeed
                     if (planet.typeString == "气态巨星")
                     {
                         gasCount++;
+                        if(gasSpeed < planet.gasSpeeds[1])
+                            gasSpeed = planet.gasSpeeds[1];
                     }
                     if (planet.typeString == "冰巨星")
                     {
@@ -416,6 +427,9 @@ namespace DspFindSeed
                 return null;
             if (!hasAcid && condition.hasAcid)
                 return null;
+
+            if (gasSpeed < condition.gasSpeed)
+                return null;
         
             data.GasCount        = gasCount;
             data.planetCount3    = star.planetCount;
@@ -428,6 +442,7 @@ namespace DspFindSeed
             data.planetCount2    = planetCount2;
             data.isInDsp         = isInDsp;
             data.isInDsp2        = isInDsp2;
+            data.gasSpeed        = gasSpeed;
             return data;
         }
         
@@ -446,6 +461,8 @@ namespace DspFindSeed
             if(shortStarData.planetCount2 < condition.planetCount2)
                 return false;
             if (shortStarData.GasCount < condition.GasCount)
+                return false;
+            if (shortStarData.gasSpeed < condition.gasSpeed)
                 return false;
             if (!shortStarData.hasWater && condition.hasWater)
                 return false;
@@ -544,7 +561,7 @@ namespace DspFindSeed
             lastSeedId = galaxyData.seed;
             LogFile (curMagCount, curBluePlanetCount, curOPlanetCount, necessaryShortStarDatas, logShortStarDatas);
         }
-        string SingleTitle = "星系名字,亮度,行星,距离,星系类型,是否环内行星,气态巨星数量,冰巨星数量,卫星总数,潮汐锁定,是否有水,是否有硫酸,铁矿脉,铜矿脉,硅矿脉,钛矿脉,石矿脉,煤矿脉,原油涌泉,可燃冰矿,金伯利矿,分形硅矿,有机晶体矿,光栅石矿,刺笋矿脉,单极磁矿\n";
+        string SingleTitle = "星系名字,亮度,行星,距离,星系类型,是否环内行星,气态巨星数量,最大重氢速率,冰巨星数量,卫星总数,潮汐锁定,是否有水,是否有硫酸,铁矿脉,铜矿脉,硅矿脉,钛矿脉,石矿脉,煤矿脉,原油涌泉,可燃冰矿,金伯利矿,分形硅矿,有机晶体矿,光栅石矿,刺笋矿脉,单极磁矿\n";
         public void LogFile (int curMagCount, int curBluePlanetCount, int curOPlanetCount, Dictionary<int, List<SearchCondition>> necessaryShortStarDatas, Dictionary<int, List<SearchCondition>> logShortStarDatas)
         {
             var str = lastSeedId  + ",磁石： " + curMagCount + "," + "蓝巨星：" + curBluePlanetCount + "," + "O型恒星：" + curOPlanetCount + ",";
@@ -554,7 +571,7 @@ namespace DspFindSeed
                 for (int i = 0; i < item.Value.Count; i++)
                 {
                     var data = item.Value[i];
-                    str += i + "号,卫星:" + data.planetCount1 + ";潮汐" + data.planetCount2 + ";行星" + data.planetCount3 + ";气态巨星" + data.GasCount + ";冰巨星" + data.IcePlanetCount + ";光度" + data.dysonLumino + ";与初始距离" 
+                    str += i + "号,卫星:" + data.planetCount1 + ";潮汐" + data.planetCount2 + ";行星" + data.planetCount3 + ";气态巨星" + data.GasCount +  ";最大重氢速率" + data.gasSpeed + ";冰巨星" + data.IcePlanetCount + ";光度" + data.dysonLumino + ";与初始距离" 
                          + data.distanceToBirth.ToString("F1")  + ";戴森球" + (data.isInDsp ? "包括" : "不包括") + "第一行星;"+ ";戴森球" + (data.isInDsp2 ? "包括" : "不包括") + "第二行星;" + (data.isBluePlanet ? "是" : "不是") + "蓝巨星星系;" + (data.hasWater ? "有" : "没有") + "水;" + (data.hasWater ? "有" : "没有") + "硫酸";
                     if(data.IsLogResource)
                     {
@@ -612,6 +629,7 @@ namespace DspFindSeed
                 bool  hasWater     = false;
                 bool  hasAcid      = false;
                 var   planetCount1 = 0;
+                float gasSpeed     = 0;
                 foreach (var planet in star.planets)
                 {
                     DspData.PlanetCompute (galaxyData, star, planet);
@@ -621,6 +639,8 @@ namespace DspFindSeed
                         hasAcid = true;
                     if (planet.typeString == "气态巨星")
                     {
+                        if (gasSpeed < planet.gasSpeeds[1])
+                            gasSpeed = planet.gasSpeeds[1];
                         gasCount1++;
                     }
                     if (planet.typeString == "冰巨星")
@@ -637,7 +657,7 @@ namespace DspFindSeed
                         resource[j] += count;
                     }
                 }
-                SingleTitle += gasCount1 +  "," + gasCount2 + "," + planetCount1 + ","+ cxsdcount +"," + (hasWater?"是,":"否,") +  (hasAcid?"是,":"否,");
+                SingleTitle += gasCount1 +  "," + gasSpeed + "," + gasCount2 + "," + planetCount1 + ","+ cxsdcount +"," + (hasWater?"是,":"否,") +  (hasAcid?"是,":"否,");
                 
                 for(int j = 0; j < LDB.veins.Length; j++)
                 {

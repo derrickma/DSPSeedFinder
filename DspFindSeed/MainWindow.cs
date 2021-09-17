@@ -20,6 +20,7 @@ namespace DspFindSeed
             condition.planetCount3     = int.Parse (planetCount3.Text);
             condition.isBluePlanet     = IsInBluePlanet.IsChecked ?? false;
             condition.GasCount         = int.Parse (GasCount.Text);
+            condition.gasSpeed         = float.Parse (MaxGasSpeed.Text);
             condition.IcePlanetCount   = int.Parse (IcePlanetCount.Text);
             condition.dysonLumino      = float.Parse (dysonLumino.Text);
             condition.distanceToBirth  = float.Parse (distanceToBirth.Text);
@@ -53,6 +54,7 @@ namespace DspFindSeed
             planetCount3.Text        = condition.planetCount3.ToString ();
             IsInBluePlanet.IsChecked = condition.isBluePlanet;
             GasCount.Text            = condition.GasCount.ToString ();
+            MaxGasSpeed.Text         = condition.gasSpeed.ToString (CultureInfo.InvariantCulture);
             IcePlanetCount.Text      = condition.IcePlanetCount.ToString ();
             dysonLumino.Text         = condition.dysonLumino.ToString (CultureInfo.InvariantCulture);
             distanceToBirth.Text     = condition.distanceToBirth.ToString (CultureInfo.InvariantCulture);

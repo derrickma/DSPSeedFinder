@@ -18,7 +18,6 @@ namespace DspFindSeed
             condition.planetCount1     = int.Parse (planetCount1.Text);
             condition.planetCount2     = int.Parse (planetCount2.Text);
             condition.planetCount3     = int.Parse (planetCount3.Text);
-            condition.isBluePlanet     = IsInBluePlanet.IsChecked ?? false;
             condition.GasCount         = int.Parse (GasCount.Text);
             condition.gasSpeed         = float.Parse (MaxGasSpeed.Text);
             condition.IcePlanetCount   = int.Parse (IcePlanetCount.Text);
@@ -32,6 +31,10 @@ namespace DspFindSeed
             condition.resourceCount[3] = int.Parse (resource3.Text);
             condition.resourceCount[4] = int.Parse (resource4.Text);
             condition.resourceCount[5] = int.Parse (resource5.Text);
+            var select = StarType.SelectedIndex;
+            if (select < 0)
+                select = 0;
+            condition.starType         = (enumStarType)select;
             var boolResource6 = resource6.IsChecked ?? false;
             condition.resourceCount[6]  = boolResource6 ? 1 : 0;
             condition.resourceCount[7]  = int.Parse (resource7.Text);
@@ -49,15 +52,15 @@ namespace DspFindSeed
 
         private void SetCondition (SearchCondition condition)
         {
-            planetCount1.Text        = condition.planetCount1.ToString ();
-            planetCount2.Text        = condition.planetCount2.ToString ();
-            planetCount3.Text        = condition.planetCount3.ToString ();
-            IsInBluePlanet.IsChecked = condition.isBluePlanet;
-            GasCount.Text            = condition.GasCount.ToString ();
-            MaxGasSpeed.Text         = condition.gasSpeed.ToString (CultureInfo.InvariantCulture);
-            IcePlanetCount.Text      = condition.IcePlanetCount.ToString ();
-            dysonLumino.Text         = condition.dysonLumino.ToString (CultureInfo.InvariantCulture);
-            distanceToBirth.Text     = condition.distanceToBirth.ToString (CultureInfo.InvariantCulture);
+            planetCount1.Text      = condition.planetCount1.ToString ();
+            planetCount2.Text      = condition.planetCount2.ToString ();
+            planetCount3.Text      = condition.planetCount3.ToString ();
+            GasCount.Text          = condition.GasCount.ToString ();
+            MaxGasSpeed.Text       = condition.gasSpeed.ToString (CultureInfo.InvariantCulture);
+            IcePlanetCount.Text    = condition.IcePlanetCount.ToString ();
+            dysonLumino.Text       = condition.dysonLumino.ToString (CultureInfo.InvariantCulture);
+            distanceToBirth.Text   = condition.distanceToBirth.ToString (CultureInfo.InvariantCulture);
+            StarType.SelectedIndex = condition.starType.GetHashCode ();
             
             IsInDsp.IsChecked  = condition.isInDsp;
             IsInDsp2.IsChecked = condition.isInDsp2;
@@ -270,6 +273,7 @@ namespace DspFindSeed
                     startId   = int.Parse (seedID.Text);
                     onceCount = int.Parse (searchOnceCount.Text);
                     times     = int.Parse (searchTimes.Text);
+                    logInit   = false;
                     var total = onceCount * times;
                     if (total > 1000000)
                     {
@@ -287,6 +291,7 @@ namespace DspFindSeed
                 case 1 :
                     startId  = int.Parse(seedID.Text);
                     fileName = FileName.Text + "_single";
+                    logInit  = false;
                     if (curThread != null)
                         curThread.Abort();
                     curThread = new Thread(SingleSearch);
@@ -295,15 +300,16 @@ namespace DspFindSeed
                 case 2 :
                     onceCount       = int.Parse(searchOnceCount.Text);
                     times           = int.Parse(searchTimes.Text);
+                    logInit         = false;
                     curSeeds        = 0;
                     lastSeedId      = 0;
                     fileName        = FileName.Text;
                     magCount        = int.Parse(MagCount.Text);
                     bluePlanetCount = int.Parse (BluePlanetCount.Text);
-                    oPlanetCount = int.Parse (OPlanetCount.Text);
+                    oPlanetCount    = int.Parse (OPlanetCount.Text);
                     if (curThread != null)
                         curThread.Abort();
-                    curThread = new Thread(SearchCustomID);
+                    curThread = new Thread(SearchCustomId);
                     curThread.Start();
                     break;
             }

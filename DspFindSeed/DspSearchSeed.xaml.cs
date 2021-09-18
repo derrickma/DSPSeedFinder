@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Text;
 using System.Threading;
@@ -8,8 +9,24 @@ using DysonSphereProgramSeed.Dyson;
 
 namespace DspFindSeed
 {
+    public enum enumStarType
+    {
+        None,
+        BornStar,
+        BlueStar,
+        OtherGiantStar,
+        OStar,
+        NeutronStar,
+        BlackHole,
+        WhiteDwarf,
+        BStar,
+        AStar,
+        NormalStar,
+        
+    }
     public  class SearchCondition
     {
+        public enumStarType starType = enumStarType.None;
         /// <summary>
         /// 卫星数量
         /// </summary>
@@ -22,10 +39,6 @@ namespace DspFindSeed
         /// 总行星
         /// </summary>
         public int   planetCount3     = 0;
-        /// <summary>
-        /// 是否为蓝巨星星系
-        /// </summary>
-        public bool isBluePlanet;
         /// <summary>
         /// 气态巨星数量
         /// </summary>
@@ -80,7 +93,6 @@ namespace DspFindSeed
             planetCount1    = 99;
             planetCount2    = 99;
             planetCount3    = 99;
-            isBluePlanet    = true;
             IcePlanetCount  = 99;
             GasCount        = 99;
             dysonLumino     = 99;
@@ -124,11 +136,12 @@ namespace DspFindSeed
         /// O恒星数量
         /// </summary>
         public int oPlanetCount = 0;
-        public int       curSelectIndex = 0;
-        public bool      curSelectLog   = false;
-        int              startId        = 0;
-        private int      curId          = 0;
-        private int curSearchStarCount = 64;
+        public int       curSelectIndex     = 0;
+        public bool      curSelectLog       = false;
+        int              startId            = 0;
+        private int      curId              = 0;
+        private bool     logInit            = false;
+        private int      curSearchStarCount = 64;
         private DateTime startTime;
         int              onceCount = 1000;
         int              times     = 10;
@@ -181,11 +194,9 @@ namespace DspFindSeed
                     minConditions.hasAcid = false;
                 if(!condition.isInDsp2)
                     minConditions.isInDsp2 = false;
-                if(!condition.isBluePlanet)
-                    minConditions.isBluePlanet = false;
             }
         }
-        void SearchCustomID ()
+        void SearchCustomId ()
         {
             ResetMinCondition ();
             startTime = DateTime.Now;
@@ -228,10 +239,73 @@ namespace DspFindSeed
                     process.Value     = processValue;
                 }));
             }
-            return;
         }
 
-        public SearchCondition CheckMagCount(StarData star, int i, GalaxyData galaxyData, SearchCondition condition, ref int curMagCount)
+        private string GetEnumName (enumStarType type)
+        {
+            switch (type)
+            {
+                case enumStarType.None:
+                    return "未知星系";
+                case enumStarType.AStar:
+                    return "A型恒星";
+                case enumStarType.BlackHole:
+                    return "黑洞";
+                case enumStarType.BlueStar:
+                    return "蓝巨星";
+                case enumStarType.BornStar:
+                    return "初始星系";
+                case enumStarType.BStar:
+                    return "B型恒星";
+                case enumStarType.NeutronStar:
+                    return "中子星";
+                case enumStarType.NormalStar:
+                    return "MKGF普通星系";
+                case enumStarType.OStar:
+                    return "O型恒星";
+                case enumStarType.WhiteDwarf:
+                    return "白矮星";
+                case enumStarType.OtherGiantStar:
+                    return "红黄或白巨星";
+                default:
+                    return "未知星系";
+            }
+        }
+        private enumStarType GetStarType (StarData star)
+        {
+            switch (star.type)
+            {
+                case EStarType.MainSeqStar:
+                    switch (star.spectr)
+                    {
+                        case ESpectrType.O:
+                            return enumStarType.OStar;
+                        case ESpectrType.B:
+                            return enumStarType.BStar;
+                        case ESpectrType.A:
+                            return enumStarType.AStar;
+                        default:
+                            return enumStarType.NormalStar;
+                    }
+                case EStarType.BlackHole:
+                    return enumStarType.BlackHole;
+                case EStarType.NeutronStar:
+                    return enumStarType.NeutronStar;
+                case EStarType.WhiteDwarf:
+                    return enumStarType.WhiteDwarf;
+                case EStarType.GiantStar:
+                    if (star.typeString == "蓝巨星")
+                        return enumStarType.BlueStar;
+                    else
+                    {
+                        return enumStarType.OtherGiantStar;
+                    }
+            }
+            return enumStarType.None;
+        }
+        
+        
+        private SearchCondition CheckMagCount(StarData star, int i, GalaxyData galaxyData, SearchCondition condition, ref int curMagCount)
         {
             //先算磁石，具体星球数据
             bool            hasWater       = false;
@@ -328,7 +402,7 @@ namespace DspFindSeed
             data.planetCount2    = planetCount2;
             data.isInDsp         = isInDsp;
             data.isInDsp2        = isInDsp2;
-            data.isBluePlanet    = false;
+            data.starType        = GetStarType (star);
             return data;
         }
 
@@ -341,9 +415,6 @@ namespace DspFindSeed
             bool isOPlanetCount = star.typeString == "O型恒星";
             if (isOPlanetCount)
                 curOPlanetCount++;
-            //先算完ref的值，才会return;
-            if (condition.isBluePlanet && !isBluePlanet)
-                return null;
             if(star.planetCount < condition.planetCount3)
                 return null;
             if(star.dysonLumino < condition.dysonLumino)
@@ -443,14 +514,20 @@ namespace DspFindSeed
             data.isInDsp         = isInDsp;
             data.isInDsp2        = isInDsp2;
             data.gasSpeed        = gasSpeed;
+            if (distanceToBirth < 0.5f)
+                data.starType = enumStarType.BornStar;
+            else
+                data.starType        = GetStarType (star);
             return data;
         }
         
-        public bool Check (StarData star,SearchCondition shortStarData, GalaxyData galaxyData, SearchCondition condition)
+        public bool Check (SearchCondition shortStarData, GalaxyData galaxyData, SearchCondition condition)
         {
-            if(star.planetCount < condition.planetCount3)
+            if (condition.starType != enumStarType.None && shortStarData.starType != condition.starType)
                 return false;
-            if(star.dysonLumino < condition.dysonLumino)
+            if(shortStarData.planetCount3 < condition.planetCount3)
+                return false;
+            if(shortStarData.dysonLumino < condition.dysonLumino)
                 return false;
             if(shortStarData.distanceToBirth > condition.distanceToBirth)
                 return false;
@@ -513,7 +590,7 @@ namespace DspFindSeed
                 for (int j = 0, maxConditions = searchNecessaryConditions.Count; j < maxConditions; j++)
                 {
                     var condition = searchNecessaryConditions[j];
-                    if(!Check (star, shortData, galaxyData, condition))
+                    if(!Check (shortData, galaxyData, condition))
                         continue;
                     if(!necessaryShortStarDatas.ContainsKey (j))
                         necessaryShortStarDatas.Add (j, new List<SearchCondition> ());
@@ -524,7 +601,7 @@ namespace DspFindSeed
                 for (int j = 0, maxConditions = searchLogConditions.Count; j < maxConditions; j++)
                 {
                     var condition = searchLogConditions[j];
-                    if(!Check (star, shortData, galaxyData, condition))
+                    if(!Check (shortData, galaxyData, condition))
                         continue;
                     if(!logShortStarDatas.ContainsKey (j))
                         logShortStarDatas.Add (j, new List<SearchCondition> ());
@@ -561,18 +638,24 @@ namespace DspFindSeed
             lastSeedId = galaxyData.seed;
             LogFile (curMagCount, curBluePlanetCount, curOPlanetCount, necessaryShortStarDatas, logShortStarDatas);
         }
-        string SingleTitle = "星系名字,亮度,行星,距离,星系类型,是否环内行星,气态巨星数量,最大重氢速率,冰巨星数量,卫星总数,潮汐锁定,是否有水,是否有硫酸,铁矿脉,铜矿脉,硅矿脉,钛矿脉,石矿脉,煤矿脉,原油涌泉,可燃冰矿,金伯利矿,分形硅矿,有机晶体矿,光栅石矿,刺笋矿脉,单极磁矿\n";
+        string         SingleTitle = "星系名字,亮度,行星,距离,星系类型,是否环内行星,气态巨星数量,最大重氢速率,冰巨星数量,卫星总数,潮汐锁定,是否有水,是否有硫酸,铁矿脉,铜矿脉,硅矿脉,钛矿脉,石矿脉,煤矿脉,原油涌泉,可燃冰矿,金伯利矿,分形硅矿,有机晶体矿,光栅石矿,刺笋矿脉,单极磁矿\n";
+        private string CommonTitle = "种子ID,磁石总数,蓝巨星总数,0型恒星总数,星系数据1,星系数据2,星系数据3,星系数据4,星系数据5,星系数据6,星系数据7,星系数据8,星系数据9,星系数据10,星系数据11\n";
         public void LogFile (int curMagCount, int curBluePlanetCount, int curOPlanetCount, Dictionary<int, List<SearchCondition>> necessaryShortStarDatas, Dictionary<int, List<SearchCondition>> logShortStarDatas)
         {
-            var str = lastSeedId  + ",磁石： " + curMagCount + "," + "蓝巨星：" + curBluePlanetCount + "," + "O型恒星：" + curOPlanetCount + ",";
+            var str = "";
+            if (!logInit)
+            {
+                str     += CommonTitle;
+                logInit =  true;
+            }
+            str += lastSeedId  + "," + curMagCount + "," + curBluePlanetCount + ","  + curOPlanetCount + ",";
             foreach (var item in necessaryShortStarDatas)
             {
-                str += "条件" + item.Key + ",";
                 for (int i = 0; i < item.Value.Count; i++)
                 {
                     var data = item.Value[i];
-                    str += i + "号,卫星:" + data.planetCount1 + ";潮汐" + data.planetCount2 + ";行星" + data.planetCount3 + ";气态巨星" + data.GasCount +  ";最大重氢速率" + data.gasSpeed + ";冰巨星" + data.IcePlanetCount + ";光度" + data.dysonLumino + ";与初始距离" 
-                         + data.distanceToBirth.ToString("F1")  + ";戴森球" + (data.isInDsp ? "包括" : "不包括") + "第一行星;"+ ";戴森球" + (data.isInDsp2 ? "包括" : "不包括") + "第二行星;" + (data.isBluePlanet ? "是" : "不是") + "蓝巨星星系;" + (data.hasWater ? "有" : "没有") + "水;" + (data.hasWater ? "有" : "没有") + "硫酸";
+                    str += GetEnumName (data.starType) +  ";卫星:" + data.planetCount1 + ";潮汐" + data.planetCount2 + ";行星" + data.planetCount3 + ";气态巨星" + data.GasCount +  ";最大重氢速率" + data.gasSpeed.ToString("F3") + ";冰巨星" + data.IcePlanetCount + ";光度" + data.dysonLumino.ToString("F4") + ";与初始距离" 
+                         + data.distanceToBirth.ToString("F1")  + ";戴森球" + (data.isInDsp ? "包括" : "不包括") + "第一行星;"+ ";戴森球" + (data.isInDsp2 ? "包括" : "不包括") + "第二行星;" + (data.hasWater ? "有" : "没有") + "水;" + (data.hasWater ? "有" : "没有") + "硫酸";
                     if(data.IsLogResource)
                     {
                         for (int k = 0; k < data.resourceCount.Length; k++)
@@ -582,17 +665,16 @@ namespace DspFindSeed
                             str += ";" + name + ":" + count + ";";
                         }
                     }
-                    str += ",";
+                    str += "(" + item.Key + "号条件的第" + i + "个星系数据),";
                 }
             }
             foreach (var item in logShortStarDatas)
             {
-                str += "条件" + item.Key + ",";
                 for (int i = 0; i < item.Value.Count; i++)
                 {
                     var data = item.Value[i];
-                    str += i + "号,卫星:" + data.planetCount1 + ";潮汐" + data.planetCount2 + ";行星" + data.planetCount3 + ";气态巨星" + data.GasCount + ";冰巨星" + data.IcePlanetCount + ";光度" + data.dysonLumino + ";与初始距离" 
-                         + data.distanceToBirth.ToString("F1")  + ";戴森球" + (data.isInDsp ? "包括" : "不包括") + "第一行星;"+ ";戴森球" + (data.isInDsp2 ? "包括" : "不包括") + "第二行星;" + (data.isBluePlanet ? "是" : "不是") + "蓝巨星星系;" + (data.hasWater ? "有" : "没有") + "水;" + (data.hasWater ? "有" : "没有") + "硫酸";
+                    str +=  GetEnumName (data.starType) + "卫星:"  + data.planetCount1 + ";潮汐" + data.planetCount2 + ";行星" + data.planetCount3 + ";气态巨星" + data.GasCount +  ";最大重氢速率" + data.gasSpeed.ToString("F3") + ";冰巨星" + data.IcePlanetCount + ";光度" + data.dysonLumino.ToString("F4") + ";与初始距离" 
+                         + data.distanceToBirth.ToString("F1")  + ";戴森球" + (data.isInDsp ? "包括" : "不包括") + "第一行星;"+ ";戴森球" + (data.isInDsp2 ? "包括" : "不包括") + "第二行星;"  + (data.hasWater ? "有" : "没有") + "水;" + (data.hasWater ? "有" : "没有") + "硫酸";
                     if(data.IsLogResource)
                     {
                         for (int k = 0; k < data.resourceCount.Length; k++)
@@ -602,7 +684,7 @@ namespace DspFindSeed
                             str += ";" + name + ":" + count + ";";
                         }
                     }
-                    str += ",";
+                    str += "(" + item.Key + "号条件的第" + i + "个星系数据),";
                 }
             }
             str += "\n";
@@ -621,7 +703,7 @@ namespace DspFindSeed
                 var  star         = galaxyData.stars[i];
                 var  distanc = (float)(star.uPosition - galaxyData.stars[0].uPosition).magnitude / 2400000.0f;
                 bool isInDsp = star.dysonRadius * 2 > star.planets[0].sunDistance;
-                SingleTitle += star.name + "," + star.dysonLumino + "," + star.planetCount + "," + distanc + "," + star.typeString + "," +  (isInDsp?"是":"否") + ",";
+                SingleTitle += star.name + "," + star.dysonLumino.ToString("F4") + "," + star.planetCount + "," + distanc.ToString("F3") + "," + star.typeString + "," +  (isInDsp?"是":"否") + ",";
                 var   gasCount1    = 0; //气态巨星
                 var   gasCount2    = 0; //冰巨星
                 int   cxsdcount    = 0;

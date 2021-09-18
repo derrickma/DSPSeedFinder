@@ -73,7 +73,7 @@ namespace DspFindSeed
         /// <summary>
         /// 重氢速率
         /// </summary>
-        public float gasSpeed;
+        public double gasSpeed;
 
         public void Reset ()
         {
@@ -221,7 +221,7 @@ namespace DspFindSeed
                 }
                 str     += "搜索到 ：" + curId + "；用时：" + curTime + ";\n 已命中种子数量：" + curSeeds + ";最后命中的是：" + lastSeedId;
                 searchlogContent  = str;
-                processValue      = j * 1.0f  / times;
+                processValue      = (j + 1) * 1.0f  / times;
                 this.Dispatcher.BeginInvoke ((System.Threading.ThreadStart)(() =>
                 {
                     SearchLog.Content = searchlogContent;

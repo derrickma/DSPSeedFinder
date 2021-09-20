@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 using System.Threading;
@@ -6,7 +7,9 @@ using  LitJson;
 using System.Windows.Forms;
 using System.IO;
 using System.Windows;
+using DysonSphereProgramSeed.Dyson2;
 using MessageBox = System.Windows.Forms.MessageBox;
+using ThreadState = System.Threading.ThreadState;
 
 namespace DspFindSeed
 {
@@ -311,6 +314,21 @@ namespace DspFindSeed
                         curThread.Abort();
                     curThread = new Thread(SearchCustomId);
                     curThread.Start();
+                    break;
+                case 3:
+                    // startId   = int.Parse (seedID.Text);
+                    // onceCount = int.Parse (searchOnceCount.Text);
+                    // times     = int.Parse (searchTimes.Text);
+                    // logInit   = false;
+                    // curSeeds        = 0;
+                    // lastSeedId      = 0;
+                    // fileName        = FileName.Text;
+                    // if (curThread != null)
+                    //     curThread.Abort();
+                    // curThread = new Thread(SearchPlanetCount);
+                    // curThread.Start();
+                    startId   = int.Parse (seedID.Text);
+                    SearchLog.Content =  NameGen.RandomName(startId);
                     break;
             }
            

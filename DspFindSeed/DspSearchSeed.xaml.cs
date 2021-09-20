@@ -556,7 +556,7 @@ namespace DspFindSeed
         
         public void SeedSearch(int id)
         {
-            GameDesc                             gd                      = new GameDesc ();
+            GameDesc gd = new GameDesc();
             gd.SetForNewGame (id, curSearchStarCount);
             GalaxyData galaxyData = UniverseGen.CreateGalaxy (gd);
             if (galaxyData == null)
@@ -754,6 +754,54 @@ namespace DspFindSeed
                 SearchLog.Content =  "成功写入单个种子 ：" + startId + "的所有信息";
             }));
         }
-        
+
+        void SearchPlanetCount()
+        {
+            startTime = DateTime.Now;
+            for (int j = 0; j < times; j++)
+            {
+                for (int i = startId + onceCount * j, max = startId + onceCount * (j + 1); i < max; i++)
+                {
+                    curId = i;
+                    SearchPlanetCount (curId);
+                }
+                var curTime = (DateTime.Now - startTime).TotalSeconds;
+                var str     = "";
+                if (j == times - 1)
+                {
+                    str += "搜索结束。";
+                }
+                str     += "搜索到 ：" + curId + "；用时：" + curTime + ";\n 已命中种子数量：" + curSeeds + ";最后命中的是：" + lastSeedId;
+                searchlogContent  = str;
+                processValue      = (j + 1) * 1.0f  / times;
+                this.Dispatcher.BeginInvoke ((System.Threading.ThreadStart)(() =>
+                {
+                    SearchLog.Content = searchlogContent;
+                    process.Value     = processValue;
+                }));
+            }
+        }
+
+        void SearchPlanetCount(int id)
+        {
+            GameDesc gd = new GameDesc();
+            gd.SetForNewGame (id, curSearchStarCount);
+            GalaxyData galaxyData = UniverseGen.CreateGalaxy (gd);
+            if (galaxyData == null)
+                return;
+            var total = 0;
+            for (int i = 0, max = galaxyData.stars.Length; i < max; i++)
+            {
+                var star = galaxyData.stars[i];
+                total += star.planetCount;
+            }
+
+            if (total < 273)
+                return;
+            curSeeds++;
+            lastSeedId = galaxyData.seed;
+            var str = lastSeedId + "," + total + "\n";
+            System.IO.File.AppendAllText(System.Environment.CurrentDirectory + "\\" + fileName + ".csv", str,Encoding.UTF8);
+        }
     }
 }

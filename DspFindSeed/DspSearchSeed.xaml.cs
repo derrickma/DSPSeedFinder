@@ -655,7 +655,7 @@ namespace DspFindSeed
                 {
                     var data = item.Value[i];
                     str += GetEnumName (data.starType) +  ";卫星:" + data.planetCount1 + ";潮汐" + data.planetCount2 + ";行星" + data.planetCount3 + ";气态巨星" + data.GasCount +  ";最大重氢速率" + data.gasSpeed.ToString("F3") + ";冰巨星" + data.IcePlanetCount + ";光度" + data.dysonLumino.ToString("F4") + ";与初始距离" 
-                         + data.distanceToBirth.ToString("F1")  + ";戴森球" + (data.isInDsp ? "包括" : "不包括") + "第一行星;"+ ";戴森球" + (data.isInDsp2 ? "包括" : "不包括") + "第二行星;" + (data.hasWater ? "有" : "没有") + "水;" + (data.hasWater ? "有" : "没有") + "硫酸";
+                         + data.distanceToBirth.ToString("F1")  + ";戴森球" + (data.isInDsp ? "包括" : "不包括") + "第一行星;"+ ";戴森球" + (data.isInDsp2 ? "包括" : "不包括") + "第二行星;" + (data.hasWater ? "有" : "没有") + "水;" + (data.hasAcid ? "有" : "没有") + "硫酸";
                     if(data.IsLogResource)
                     {
                         for (int k = 0; k < data.resourceCount.Length; k++)
@@ -665,7 +665,7 @@ namespace DspFindSeed
                             str += ";" + name + ":" + count + ";";
                         }
                     }
-                    str += "(" + item.Key + "号条件的第" + i + "个星系数据),";
+                    str += "(" + item.Key + "号必须条件的第" + i + "个星系数据),";
                 }
             }
             foreach (var item in logShortStarDatas)
@@ -674,7 +674,7 @@ namespace DspFindSeed
                 {
                     var data = item.Value[i];
                     str +=  GetEnumName (data.starType) + "卫星:"  + data.planetCount1 + ";潮汐" + data.planetCount2 + ";行星" + data.planetCount3 + ";气态巨星" + data.GasCount +  ";最大重氢速率" + data.gasSpeed.ToString("F3") + ";冰巨星" + data.IcePlanetCount + ";光度" + data.dysonLumino.ToString("F4") + ";与初始距离" 
-                         + data.distanceToBirth.ToString("F1")  + ";戴森球" + (data.isInDsp ? "包括" : "不包括") + "第一行星;"+ ";戴森球" + (data.isInDsp2 ? "包括" : "不包括") + "第二行星;"  + (data.hasWater ? "有" : "没有") + "水;" + (data.hasWater ? "有" : "没有") + "硫酸";
+                         + data.distanceToBirth.ToString("F1")  + ";戴森球" + (data.isInDsp ? "包括" : "不包括") + "第一行星;"+ ";戴森球" + (data.isInDsp2 ? "包括" : "不包括") + "第二行星;"  + (data.hasWater ? "有" : "没有") + "水;" + (data.hasAcid ? "有" : "没有") + "硫酸";
                     if(data.IsLogResource)
                     {
                         for (int k = 0; k < data.resourceCount.Length; k++)
@@ -684,7 +684,7 @@ namespace DspFindSeed
                             str += ";" + name + ":" + count + ";";
                         }
                     }
-                    str += "(" + item.Key + "号条件的第" + i + "个星系数据),";
+                    str += "(" + item.Key + "号记录条件的第" + i + "个星系数据),";
                 }
             }
             str += "\n";

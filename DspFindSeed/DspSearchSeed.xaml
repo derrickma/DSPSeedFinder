@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DspFindSeed"
         mc:Ignorable="d"
-        Title="SearchSeed" Height="750" Width="600" Background="#FFD4E8DE">
+        Title="SearchSeed" Height="750" Width="600" Background="#FFD4E8DE" >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="497*"/>

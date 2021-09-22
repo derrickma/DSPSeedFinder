@@ -10,6 +10,7 @@ using System.Windows;
 using DysonSphereProgramSeed.Dyson2;
 using MessageBox = System.Windows.Forms.MessageBox;
 using ThreadState = System.Threading.ThreadState;
+using System.ComponentModel;
 
 namespace DspFindSeed
 {
@@ -88,6 +89,32 @@ namespace DspFindSeed
 
             starCount.Text = condition.starCount.ToString ();
         }
+
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            var msg = "确认退出吗？";
+            if (curThread != null)
+            {
+                msg += "\n正在搜索ID，搜索到 ：" + curId + ";\n 已命中种子数量：" + curSeeds + ";最后命中的是：" + lastSeedId + "是否终止搜索并退出程序？";
+            }
+            else
+            {
+                msg += "\n当前搜索已结束或者尚未搜索，可以安全退出";
+            }
+            if (MessageBox.Show(msg, "退出询问", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+            {
+                if (curThread != null)
+                    curThread.Abort();
+                e.Cancel = false;
+            }
+            else
+            {
+                e.Cancel = true;
+            }
+        }
+
         private void ComboBox_SelectionChanged_Necessary(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             curSelectIndex = necessaryCondition.SelectedIndex;

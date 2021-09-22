@@ -11,20 +11,33 @@ using DysonSphereProgramSeed.Dyson2;
 using MessageBox = System.Windows.Forms.MessageBox;
 using ThreadState = System.Threading.ThreadState;
 using System.ComponentModel;
+using ComboBox = System.Windows.Controls.ComboBox;
 
 namespace DspFindSeed
 {
     public partial class MainWindow
     {
+        private void FetchPlanetTypeCondition(ComboBox planetType,int index,SearchCondition condition)
+        {
+            var select = planetType.SelectedIndex;
+            if (select < 0)
+                select = 0;
+            condition.planetNames[index] = select;
+            if (select > 0)
+            {
+                if(!condition.planetNameCounts.ContainsKey(select))
+                    condition.planetNameCounts.Add(select,1);
+                else
+                    condition.planetNameCounts[select]++;
+            }
+        }
         private SearchCondition FetchCondition ()
         {
             var condition = new SearchCondition ();
             condition.planetCount1     = int.Parse (planetCount1.Text);
             condition.planetCount2     = int.Parse (planetCount2.Text);
             condition.planetCount3     = int.Parse (planetCount3.Text);
-            condition.GasCount         = int.Parse (GasCount.Text);
             condition.gasSpeed         = float.Parse (MaxGasSpeed.Text);
-            condition.IcePlanetCount   = int.Parse (IcePlanetCount.Text);
             condition.dysonLumino      = float.Parse (dysonLumino.Text);
             condition.distanceToBirth  = float.Parse (distanceToBirth.Text);
             condition.isInDsp          = IsInDsp.IsChecked ?? false;
@@ -39,6 +52,13 @@ namespace DspFindSeed
             if (select < 0)
                 select = 0;
             condition.starType         = (enumStarType)select;
+            FetchPlanetTypeCondition(PlanetType1, 0, condition);
+            FetchPlanetTypeCondition(PlanetType2, 1, condition);
+            FetchPlanetTypeCondition(PlanetType3, 2, condition);
+            FetchPlanetTypeCondition(PlanetType4, 3, condition);
+            FetchPlanetTypeCondition(PlanetType5, 4, condition);
+            FetchPlanetTypeCondition(PlanetType6, 5, condition);
+            
             var boolResource6 = resource6.IsChecked ?? false;
             condition.resourceCount[6]  = boolResource6 ? 1 : 0;
             condition.resourceCount[7]  = int.Parse (resource7.Text);
@@ -59,12 +79,17 @@ namespace DspFindSeed
             planetCount1.Text      = condition.planetCount1.ToString ();
             planetCount2.Text      = condition.planetCount2.ToString ();
             planetCount3.Text      = condition.planetCount3.ToString ();
-            GasCount.Text          = condition.GasCount.ToString ();
             MaxGasSpeed.Text       = condition.gasSpeed.ToString (CultureInfo.InvariantCulture);
-            IcePlanetCount.Text    = condition.IcePlanetCount.ToString ();
             dysonLumino.Text       = condition.dysonLumino.ToString (CultureInfo.InvariantCulture);
             distanceToBirth.Text   = condition.distanceToBirth.ToString (CultureInfo.InvariantCulture);
             StarType.SelectedIndex = condition.starType.GetHashCode ();
+            
+            PlanetType1.SelectedIndex = condition.planetNames[0].GetHashCode ();
+            PlanetType2.SelectedIndex = condition.planetNames[1].GetHashCode ();
+            PlanetType3.SelectedIndex = condition.planetNames[2].GetHashCode ();
+            PlanetType4.SelectedIndex = condition.planetNames[3].GetHashCode ();
+            PlanetType5.SelectedIndex = condition.planetNames[4].GetHashCode ();
+            PlanetType6.SelectedIndex = condition.planetNames[5].GetHashCode ();
             
             IsInDsp.IsChecked  = condition.isInDsp;
             IsInDsp2.IsChecked = condition.isInDsp2;
@@ -90,7 +115,7 @@ namespace DspFindSeed
             starCount.Text = condition.starCount.ToString ();
         }
 
-
+        
         protected override void OnClosing(CancelEventArgs e)
         {
             base.OnClosing(e);
@@ -156,16 +181,16 @@ namespace DspFindSeed
             if (curSelectLog)
             {
                 searchLogConditions.RemoveAt(curSelectIndex);
-                RefreshConditionUI ();
+                RefreshConditionUi ();
             }
             else
             {
                 searchNecessaryConditions.RemoveAt(curSelectIndex);
-                RefreshConditionUI ();
+                RefreshConditionUi ();
             }
         }
 
-        private void RefreshConditionUI ()
+        private void RefreshConditionUi ()
         {
             var cacheIndex = curSelectIndex;
             necessaryCondition.Items.Clear();
@@ -223,7 +248,7 @@ namespace DspFindSeed
                 searchLogConditions       = jsonCondition.searchLogConditions;
                 curSelectIndex            = 0;
                 curSelectLog              = false;
-                RefreshConditionUI ();
+                RefreshConditionUi ();
             }
         }
 

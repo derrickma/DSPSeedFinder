@@ -168,6 +168,7 @@ namespace DspFindSeed
             {"贫瘠荒漠", 14},
             {"水世界", 15},
             {"海洋丛林", 16},
+            {"红石", 17},
         };
         private Dictionary<int, string> LogAllPlanetNameDictionary = new Dictionary<int, string>()
         {
@@ -188,6 +189,7 @@ namespace DspFindSeed
             {14,"贫瘠荒漠"},
             {15,"水世界"},
             {16,"海洋丛林"},
+            {17,"红石"},
         };
         #endregion
         public MainWindow ()

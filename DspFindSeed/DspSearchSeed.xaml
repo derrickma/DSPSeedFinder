@@ -133,6 +133,7 @@
             <ComboBoxItem Content="B型" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="A型" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="M\K\G\F型" HorizontalAlignment="Left" Width="118"/>
+            
         </ComboBox>
         <Label Content="星球类型" HorizontalAlignment="Left" Margin="198,218,0,0" VerticalAlignment="Top" Width="67" RenderTransformOrigin="0.468,0.52"/>
         <ComboBox x:Name="PlanetType1" HorizontalAlignment="Left" Margin="259,218,0,0" VerticalAlignment="Top" Width="99">
@@ -153,6 +154,8 @@
             <ComboBoxItem Content="贫瘠荒漠" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="水世界" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="海洋丛林" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="红石" HorizontalAlignment="Left" Width="118"/>
+
         </ComboBox>
         <Label Content="星球类型" HorizontalAlignment="Left" Margin="371,218,0,0" VerticalAlignment="Top" Width="67"/>
         <ComboBox x:Name="PlanetType2" HorizontalAlignment="Left" Margin="434,218,0,0" VerticalAlignment="Top" Width="99" Grid.ColumnSpan="2">
@@ -173,6 +176,8 @@
             <ComboBoxItem Content="贫瘠荒漠" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="水世界" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="海洋丛林" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="红石" HorizontalAlignment="Left" Width="118"/>
+
         </ComboBox>
         <Label Content="星球类型" HorizontalAlignment="Left" Margin="22,248,0,0" VerticalAlignment="Top" Width="67"/>
         <ComboBox x:Name="PlanetType3" HorizontalAlignment="Left" Margin="86,248,0,0" VerticalAlignment="Top" Width="99">
@@ -193,6 +198,8 @@
             <ComboBoxItem Content="贫瘠荒漠" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="水世界" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="海洋丛林" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="红石" HorizontalAlignment="Left" Width="118"/>
+
         </ComboBox>
         <Label Content="星球类型" HorizontalAlignment="Left" Margin="195,248,0,0" VerticalAlignment="Top" Width="67"/>
         <ComboBox x:Name="PlanetType4" HorizontalAlignment="Left" Margin="259,248,0,0" VerticalAlignment="Top" Width="99">
@@ -213,6 +220,8 @@
             <ComboBoxItem Content="贫瘠荒漠" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="水世界" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="海洋丛林" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="红石" HorizontalAlignment="Left" Width="118"/>
+
         </ComboBox>
         <Label Content="星球类型" HorizontalAlignment="Left" Margin="370,248,0,0" VerticalAlignment="Top" Width="67"/>
         <ComboBox x:Name="PlanetType5" HorizontalAlignment="Left" Margin="434,248,0,0" VerticalAlignment="Top" Width="99" Grid.ColumnSpan="2">
@@ -233,6 +242,8 @@
             <ComboBoxItem Content="贫瘠荒漠" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="水世界" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="海洋丛林" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="红石" HorizontalAlignment="Left" Width="118"/>
+
         </ComboBox>
         <Label Content="星球类型" HorizontalAlignment="Left" Margin="24,218,0,0" VerticalAlignment="Top" Width="67"/>
         <ComboBox x:Name="PlanetType6" HorizontalAlignment="Left" Margin="86,218,0,0" VerticalAlignment="Top" Width="99">
@@ -253,6 +264,7 @@
             <ComboBoxItem Content="贫瘠荒漠" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="水世界" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="海洋丛林" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="红石" HorizontalAlignment="Left" Width="118"/>
         </ComboBox>
     </Grid>
 </Window>

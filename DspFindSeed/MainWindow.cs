@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 using System.Threading;
-using  LitJson;
+using Newtonsoft.Json;
 using System.Windows.Forms;
 using System.IO;
 using System.Windows;
@@ -243,7 +243,7 @@ namespace DspFindSeed
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string text = File.ReadAllText(dialog.FileName);
-                jsonCondition             = JsonMapper.ToObject<JsonCondition>(text);
+                jsonCondition = JsonConvert.DeserializeObject<JsonCondition>(text);
                 searchNecessaryConditions = jsonCondition.searchNecessaryConditions;
                 searchLogConditions       = jsonCondition.searchLogConditions;
                 curSelectIndex            = 0;
@@ -263,7 +263,9 @@ namespace DspFindSeed
                 SaveConditionPath.Text = saveConditionPath;
                 jsonCondition.searchNecessaryConditions = searchNecessaryConditions;
                 jsonCondition.searchLogConditions = searchLogConditions;
-                string text = JsonMapper.ToJson(jsonCondition);
+                //string text = JsonMapper.ToJson(jsonCondition);
+                string text = JsonConvert.SerializeObject(jsonCondition);
+                fileName = FileName.Text;
                 System.IO.File.WriteAllText(saveConditionPath + "\\conditon_" + fileName + ".json", text, Encoding.UTF8);
             }
         }

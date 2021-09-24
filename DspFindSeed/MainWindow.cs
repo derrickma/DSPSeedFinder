@@ -319,10 +319,32 @@ namespace DspFindSeed
         }
         private void Button_Click_Start(object sender, System.Windows.RoutedEventArgs e)
         {
-            if(!int.TryParse(searchStarCount.Text, out curSearchStarCount) || curSearchStarCount < 32 || curSearchStarCount > 64)
+            var minStarCountItem = SearchMinStarCount.SelectionBoxItem;
+            var maxStarCountItem = SearchMaxStarCount.SelectionBoxItem;
+            var minStarCount = minStarCountItem != null ? (int) minStarCountItem : -1;
+            var maxStarCount = maxStarCountItem != null ? (int) maxStarCountItem : -1;
+            if (minStarCount <= 0 &&  maxStarCount <=0)
             {
-                MessageBox.Show("星区数量需要是32-64的整数", "失败", MessageBoxButtons.OKCancel);
+                MessageBox.Show("星区数量至少选一个值，代表搜指定数量的；选两个代表搜区间内的", "失败", MessageBoxButtons.OKCancel);
                 return;
+            }
+            curMinSearchStarCount = 0;
+            curMaxSearchStarCount = 0;
+            if (minStarCount <= 0)
+                curMinSearchStarCount = maxStarCount;
+            else if (maxStarCount <= 0)
+                curMinSearchStarCount = minStarCount;
+            else if (minStarCount == maxStarCount)
+                curMinSearchStarCount = minStarCount;
+            else if (maxStarCount > minStarCount)
+            {
+                curMinSearchStarCount = minStarCount;
+                curMaxSearchStarCount = maxStarCount;
+            }
+            else if (maxStarCount < minStarCount)
+            {
+                curMinSearchStarCount = maxStarCount;
+                curMaxSearchStarCount = minStarCount;
             }
             switch (StartType.SelectedIndex)
             {
@@ -368,21 +390,6 @@ namespace DspFindSeed
                         curThread.Abort();
                     curThread = new Thread(SearchCustomId);
                     curThread.Start();
-                    break;
-                case 3:
-                    // startId   = int.Parse (seedID.Text);
-                    // onceCount = int.Parse (searchOnceCount.Text);
-                    // times     = int.Parse (searchTimes.Text);
-                    // logInit   = false;
-                    // curSeeds        = 0;
-                    // lastSeedId      = 0;
-                    // fileName        = FileName.Text;
-                    // if (curThread != null)
-                    //     curThread.Abort();
-                    // curThread = new Thread(SearchPlanetCount);
-                    // curThread.Start();
-                    startId   = int.Parse (seedID.Text);
-                    SearchLog.Content =  NameGen.RandomName(startId);
                     break;
             }
            

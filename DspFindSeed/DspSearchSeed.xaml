@@ -7,72 +7,68 @@
         mc:Ignorable="d"
         Title="SearchSeed" Height="750" Width="600" Background="#FFD4E8DE" >
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="497*"/>
-            <ColumnDefinition Width="95*"/>
-        </Grid.ColumnDefinitions>
-        <TextBox x:Name="seedID" HorizontalAlignment="Left" Height="23" Margin="62,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="98" Text="0"  AutomationProperties.Name="seedID" />
-        <Label Content="种子ID" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <Label Content="单次搜索&#xA;" HorizontalAlignment="Left" Margin="165,12,0,0" VerticalAlignment="Top" Height="23" RenderTransformOrigin="-0.247,0.606" FontWeight="Bold"/>
-        <TextBox x:Name="searchOnceCount" HorizontalAlignment="Left" Height="23" Margin="228,14,0,0" TextWrapping="Wrap" Text="1000" VerticalAlignment="Top" Width="68" AutomationProperties.Name="searchOnceCount"/>
-        <Label Content="总次数" HorizontalAlignment="Left" Margin="305,12,0,0" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="-0.804,0.44"/>
-        <TextBox x:Name="searchTimes" HorizontalAlignment="Left" Height="19" Margin="356,16,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="87" RenderTransformOrigin="-0.26,0.678" AutomationProperties.Name="searchTimes"/>
-        <Label Content="从输入的种子ID搜索，单次搜索10000，代表一次自增搜一万个种子，然后会打印一次时间。搜索完总次数后会结束" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Width="486" Height="25" FontSize="9" FontStyle="Italic"/>
-        <Label Content="筛选条件" HorizontalAlignment="Left" Margin="16,69,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.092,0.413" FontWeight="Bold"/>
-        <Label Content="必须条件都满足的种子才会记录&#xA;仅记录条件会将参数写入文件，但不满足不影响筛选&#xA;磁石总量、蓝巨星、0恒星数量是整个宇宙的条件，如果添值是独立的必须条件（始终会记录）" HorizontalAlignment="Left" Margin="87,69,0,0" VerticalAlignment="Top" Width="446" FontSize="10" FontStyle="Italic" Grid.ColumnSpan="2"/>
-        <Label Content="卫星数" HorizontalAlignment="Left" Margin="16,151,0,0" VerticalAlignment="Top" Height="25"/>
+        <TextBox x:Name="seedID" HorizontalAlignment="Left" Height="23" Margin="62,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" Text="0"  AutomationProperties.Name="seedID" />
+        <Label Content="种子ID" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold" Height="25" Width="48"/>
+        <Label Content="单次搜索&#xA;" HorizontalAlignment="Left" Margin="143,12,0,0" VerticalAlignment="Top" Height="23" RenderTransformOrigin="-0.247,0.606" FontWeight="Bold" Width="58"/>
+        <TextBox x:Name="searchOnceCount" HorizontalAlignment="Left" Height="23" Margin="204,12,0,0" TextWrapping="Wrap" Text="1000" VerticalAlignment="Top" Width="51" AutomationProperties.Name="searchOnceCount"/>
+        <Label Content="总次数" HorizontalAlignment="Left" Margin="260,12,0,0" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="-0.804,0.44" Height="25" Width="46"/>
+        <TextBox x:Name="searchTimes" HorizontalAlignment="Left" Height="23" Margin="306,12,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="52" RenderTransformOrigin="-0.26,0.678" AutomationProperties.Name="searchTimes"/>
+        <Label Content="从输入的种子ID搜索，单次搜索10000，代表一次自增搜一万个种子，然后会打印一次时间。" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Width="486" Height="25" FontSize="9" FontStyle="Italic"/>
+        <Label Content="筛选条件" HorizontalAlignment="Left" Margin="16,69,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.092,0.413" FontWeight="Bold" Height="25" Width="58"/>
+        <Label Content="必须条件都满足的种子才会记录&#xA;仅记录条件会将参数写入文件，但不满足不影响筛选&#xA;磁石总量、蓝巨星、0恒星数量是整个宇宙的条件，如果添值是独立的必须条件（始终会记录）" HorizontalAlignment="Left" Margin="87,69,0,0" VerticalAlignment="Top" Width="446" FontSize="10" FontStyle="Italic" Height="48"/>
+        <Label Content="卫星数" HorizontalAlignment="Left" Margin="16,151,0,0" VerticalAlignment="Top" Height="25" Width="46"/>
         <TextBox x:Name="planetCount1" HorizontalAlignment="Left" Height="21" Margin="62,155,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="34" AutomationProperties.Name="planetCount1"/>
         <Label Content="潮汐锁定&#xA;" HorizontalAlignment="Left" Margin="101,153,0,0" VerticalAlignment="Top" Height="25" Width="59"/>
         <TextBox x:Name="planetCount2" HorizontalAlignment="Left" Height="21" Margin="165,157,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="32" AutomationProperties.Name="planetCount2" RenderTransformOrigin="-0.01,0.508"/>
-        <Label Content="光度" HorizontalAlignment="Left" Margin="304,155,0,0" VerticalAlignment="Top" Height="25" RenderTransformOrigin="0.127,0.605"/>
+        <Label Content="光度" HorizontalAlignment="Left" Margin="304,155,0,0" VerticalAlignment="Top" Height="25" RenderTransformOrigin="0.127,0.605" Width="34"/>
         <TextBox x:Name="dysonLumino" HorizontalAlignment="Left" Height="21" Margin="347,159,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="25" RenderTransformOrigin="-0.025,0.484" AutomationProperties.Name="dysonLumino"/>
-        <CheckBox x:Name="IsInDsp" Content="戴森球是否包含第1颗" HorizontalAlignment="Left" Margin="22,191,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.432,-0.852" AutomationProperties.Name="IsInDsp"/>
-        <Label Content="初始星球距离&#xD;&#xA;" HorizontalAlignment="Left" Margin="384,155,0,0" VerticalAlignment="Top" Height="25" RenderTransformOrigin="0.438,0.344" ToolTip="选0则为初始星系"/>
-        <TextBox x:Name="distanceToBirth" HorizontalAlignment="Left" Height="21" Margin="466,159,0,0" TextWrapping="Wrap" Text="1000" VerticalAlignment="Top" Width="67" AutomationProperties.Name="distance" Grid.ColumnSpan="2"/>
-        <ComboBox x:Name="necessaryCondition" HorizontalAlignment="Left" Margin="75,120,0,0" VerticalAlignment="Top" Width="80" AutomationProperties.Name="necessaryCondition" SelectionChanged="ComboBox_SelectionChanged_Necessary" />
-        <Label Content="必须条件" HorizontalAlignment="Left" Margin="12,117,0,0" VerticalAlignment="Top"/>
-        <Label Content="仅记录" HorizontalAlignment="Left" Margin="165,117,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.188,0.493"/>
-        <ComboBox x:Name="LogCondition" HorizontalAlignment="Left" Margin="216,121,0,0" VerticalAlignment="Top" Width="80" AutomationProperties.Name="LogCondition" SelectionChanged="ComboBox_SelectionChanged_Log"/>
-        <Label Content="磁石总量" HorizontalAlignment="Left" Margin="305,117,0,0" VerticalAlignment="Top" Height="25"/>
+        <CheckBox x:Name="IsInDsp" Content="戴森球是否包含第1颗" HorizontalAlignment="Left" Margin="22,191,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.432,-0.852" AutomationProperties.Name="IsInDsp" Height="15" Width="135"/>
+        <Label Content="初始星球距离&#xD;&#xA;" HorizontalAlignment="Left" Margin="384,155,0,0" VerticalAlignment="Top" Height="25" RenderTransformOrigin="0.438,0.344" ToolTip="选0则为初始星系" Width="82"/>
+        <TextBox x:Name="distanceToBirth" HorizontalAlignment="Left" Height="21" Margin="466,159,0,0" TextWrapping="Wrap" Text="1000" VerticalAlignment="Top" Width="67" AutomationProperties.Name="distance"/>
+        <ComboBox x:Name="necessaryCondition" HorizontalAlignment="Left" Margin="75,120,0,0" VerticalAlignment="Top" Width="80" AutomationProperties.Name="necessaryCondition" SelectionChanged="ComboBox_SelectionChanged_Necessary" Height="21" />
+        <Label Content="必须条件" HorizontalAlignment="Left" Margin="12,117,0,0" VerticalAlignment="Top" Height="25" Width="58"/>
+        <Label Content="仅记录" HorizontalAlignment="Left" Margin="165,117,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.188,0.493" Height="25" Width="46"/>
+        <ComboBox x:Name="LogCondition" HorizontalAlignment="Left" Margin="216,121,0,0" VerticalAlignment="Top" Width="80" AutomationProperties.Name="LogCondition" SelectionChanged="ComboBox_SelectionChanged_Log" Height="21"/>
+        <Label Content="磁石总量" HorizontalAlignment="Left" Margin="305,117,0,0" VerticalAlignment="Top" Height="25" Width="58"/>
         <TextBox x:Name="MagCount" HorizontalAlignment="Left" Height="21" Margin="372,120,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="29" AutomationProperties.Name="MagCount" RenderTransformOrigin="-0.041,0.587"/>
-        <Label Content="本星系所有星球上各类矿物数量，单位是矿点，一堆矿是一个矿点。例如19单位磁石约300G磁石矿" HorizontalAlignment="Left" Margin="20,281,0,0" VerticalAlignment="Top" Width="486" Height="25" FontSize="9" FontStyle="Italic" Grid.ColumnSpan="2"/>
-        <Label Content="铁" HorizontalAlignment="Left" Margin="9,304,0,0" VerticalAlignment="Top"/>
-        <Label Content="行星总数" HorizontalAlignment="Left" Margin="204,155,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.016,0.086"/>
+        <Label Content="本星系所有星球上各类矿物数量，单位是矿点，一堆矿是一个矿点。例如19单位磁石约300G磁石矿" HorizontalAlignment="Left" Margin="20,281,0,0" VerticalAlignment="Top" Width="486" Height="25" FontSize="9" FontStyle="Italic"/>
+        <Label Content="铁" HorizontalAlignment="Left" Margin="9,304,0,0" VerticalAlignment="Top" Height="25" Width="22"/>
+        <Label Content="行星总数" HorizontalAlignment="Left" Margin="204,155,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.016,0.086" Height="25" Width="58"/>
         <TextBox x:Name="planetCount3" HorizontalAlignment="Left" Height="21" Margin="267,157,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="32" RenderTransformOrigin="4.248,0.53" AutomationProperties.Name="planetCount3"/>
-        <Label Content="铜" HorizontalAlignment="Left" Margin="68,304,0,0" VerticalAlignment="Top"/>
+        <Label Content="铜" HorizontalAlignment="Left" Margin="68,304,0,0" VerticalAlignment="Top" Height="25" Width="22"/>
         <TextBox x:Name="resource1" HorizontalAlignment="Left" Height="23" Margin="97,308,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource1"/>
-        <Label Content="钛" HorizontalAlignment="Left" Margin="200,302,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.507,0.578"/>
+        <Label Content="钛" HorizontalAlignment="Left" Margin="200,302,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.507,0.578" Height="25" Width="22"/>
         <TextBox x:Name="resource2" HorizontalAlignment="Left" Height="23" Margin="164,306,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource2"/>
-        <Label Content="石" HorizontalAlignment="Left" Margin="255,304,0,0" VerticalAlignment="Top"/>
+        <Label Content="石" HorizontalAlignment="Left" Margin="255,304,0,0" VerticalAlignment="Top" Height="25" Width="22"/>
         <TextBox x:Name="resource4" HorizontalAlignment="Left" Height="23" Margin="287,304,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource4"/>
-        <Label Content="煤" HorizontalAlignment="Left" Margin="318,302,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.395,0.617"/>
+        <Label Content="煤" HorizontalAlignment="Left" Margin="318,302,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.395,0.617" Height="25" Width="22"/>
         <TextBox x:Name="resource5" HorizontalAlignment="Left" Height="23" Margin="355,304,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource5"/>
-        <Label Content="可燃" HorizontalAlignment="Left" Margin="386,302,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.99,0.5"/>
+        <Label Content="可燃" HorizontalAlignment="Left" Margin="386,302,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.99,0.5" Height="25" Width="34"/>
         <TextBox x:Name="resource7" HorizontalAlignment="Left" Height="23" Margin="425,302,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource7"/>
-        <Label Content="金伯利" HorizontalAlignment="Left" Margin="455,302,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Label Content="金伯利" HorizontalAlignment="Left" Margin="455,302,0,0" VerticalAlignment="Top" Height="25" Width="46"/>
         <TextBox x:Name="resource0" HorizontalAlignment="Left" Height="23" Margin="37,306,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource0"/>
-        <TextBox x:Name="resource8" HorizontalAlignment="Left" Height="23" Margin="9,302,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource8" Grid.Column="1"/>
-        <Label Content="分形硅" HorizontalAlignment="Left" Margin="11,341,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="resource8" HorizontalAlignment="Left" Height="23" Margin="516,302,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource8"/>
+        <Label Content="分形硅" HorizontalAlignment="Left" Margin="11,341,0,0" VerticalAlignment="Top" Height="25" Width="46"/>
         <TextBox x:Name="resource9" HorizontalAlignment="Left" Height="23" Margin="61,343,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource9"/>
-        <Label Content="有机晶体" HorizontalAlignment="Left" Margin="96,341,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.078,0.547"/>
+        <Label Content="有机晶体" HorizontalAlignment="Left" Margin="96,341,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.078,0.547" Height="25" Width="58"/>
         <TextBox x:Name="resource10" HorizontalAlignment="Left" Height="23" Margin="159,343,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource10"/>
-        <Label Content="光栅石" HorizontalAlignment="Left" Margin="190,341,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.099,0.587"/>
+        <Label Content="光栅石" HorizontalAlignment="Left" Margin="190,341,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.099,0.587" Height="25" Width="46"/>
         <TextBox x:Name="resource11" HorizontalAlignment="Left" Height="23" Margin="241,343,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource11"/>
-        <Label Content="刺笋" HorizontalAlignment="Left" Margin="279,341,0,0" VerticalAlignment="Top"/>
+        <Label Content="刺笋" HorizontalAlignment="Left" Margin="279,341,0,0" VerticalAlignment="Top" Height="25" Width="34"/>
         <TextBox x:Name="resource12" HorizontalAlignment="Left" Height="23" Margin="324,343,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource12"/>
-        <CheckBox x:Name="resource6" Content="是否有原油" HorizontalAlignment="Left" Margin="371,347,0,0" VerticalAlignment="Top"  AutomationProperties.Name="resource6"/>
-        <CheckBox x:Name="resource1000" Content="是否有水" HorizontalAlignment="Left" Margin="34,379,0,0" VerticalAlignment="Top"  AutomationProperties.Name="resource1000"/>
-        <CheckBox x:Name="resource1116" Content="是否有硫酸" HorizontalAlignment="Left" Margin="118,379,0,0" VerticalAlignment="Top"  AutomationProperties.Name="resource1116"/>
-        <Button x:Name="AddNecessary" Content="添加成必须条件" HorizontalAlignment="Left" Margin="9,413,0,0" VerticalAlignment="Top" Width="109" Click="Button_Click_AddNecessary" AutomationProperties.Name="AddNecessary"/>
-        <Button x:Name="AddLog" Content="添加成仅记录条件" HorizontalAlignment="Left" Margin="127,413,0,0" VerticalAlignment="Top" Width="109" Click="Button_Click_AddLog" AutomationProperties.Name="AddLog"/>
-        <Button x:Name="Del" Content="删除当前条件" HorizontalAlignment="Left" Margin="249,413,0,0" VerticalAlignment="Top" Width="109" Click="Button_Click_Del" AutomationProperties.Name="Del"/>
-        <Button x:Name="Start" Content="开始" HorizontalAlignment="Left" Margin="159,474,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_Start" AutomationProperties.Name="Start"/>
-        <Label Content="硅&#xD;&#xA;" HorizontalAlignment="Left" Margin="132,304,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="resource6" Content="是否有原油" HorizontalAlignment="Left" Margin="371,347,0,0" VerticalAlignment="Top"  AutomationProperties.Name="resource6" Height="15" Width="80"/>
+        <CheckBox x:Name="resource1000" Content="是否有水" HorizontalAlignment="Left" Margin="34,379,0,0" VerticalAlignment="Top"  AutomationProperties.Name="resource1000" Height="15" Width="68"/>
+        <CheckBox x:Name="resource1116" Content="是否有硫酸" HorizontalAlignment="Left" Margin="118,379,0,0" VerticalAlignment="Top"  AutomationProperties.Name="resource1116" Height="15" Width="80"/>
+        <Button x:Name="AddNecessary" Content="添加成必须条件" HorizontalAlignment="Left" Margin="9,413,0,0" VerticalAlignment="Top" Width="109" Click="Button_Click_AddNecessary" AutomationProperties.Name="AddNecessary" Height="19"/>
+        <Button x:Name="AddLog" Content="添加成仅记录条件" HorizontalAlignment="Left" Margin="127,413,0,0" VerticalAlignment="Top" Width="109" Click="Button_Click_AddLog" AutomationProperties.Name="AddLog" Height="19"/>
+        <Button x:Name="Del" Content="删除当前条件" HorizontalAlignment="Left" Margin="249,413,0,0" VerticalAlignment="Top" Width="109" Click="Button_Click_Del" AutomationProperties.Name="Del" Height="19"/>
+        <Button x:Name="Start" Content="开始" HorizontalAlignment="Left" Margin="159,474,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_Start" AutomationProperties.Name="Start" Height="19"/>
+        <Label Content="硅&#xD;&#xA;" HorizontalAlignment="Left" Margin="132,304,0,0" VerticalAlignment="Top" Height="40" Width="22"/>
         <TextBox x:Name="resource3" HorizontalAlignment="Left" Height="23" Margin="229,306,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource3"/>
-        <ProgressBar x:Name="process" HorizontalAlignment="Left" Height="22" Margin="334,472,0,0" VerticalAlignment="Top" Width="221" AutomationProperties.Name="process" Maximum="1" Grid.ColumnSpan="2"/>
+        <ProgressBar x:Name="process" HorizontalAlignment="Left" Height="22" Margin="334,472,0,0" VerticalAlignment="Top" Width="221" AutomationProperties.Name="process" Maximum="1"/>
         <Label Content="至少几个星系满足以上条件" HorizontalAlignment="Left" Margin="290,373,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.312,0.397" Width="161" Height="25"/>
-        <TextBox x:Name="starCount" HorizontalAlignment="Left" Height="19" Margin="460,377,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="41" RenderTransformOrigin="1.042,0.533" Grid.ColumnSpan="2"/>
-        <CheckBox x:Name="IsLogResource" Content="是否写矿物数量&#xD;&#xA;" HorizontalAlignment="Left" Margin="460,347,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.274,0.578" Width="121" Height="19" IsChecked="True" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="starCount" HorizontalAlignment="Left" Height="19" Margin="460,377,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="41" RenderTransformOrigin="1.042,0.533"/>
+        <CheckBox x:Name="IsLogResource" Content="是否写矿物数量&#xD;&#xA;" HorizontalAlignment="Left" Margin="460,347,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.274,0.578" Width="121" Height="19" IsChecked="True"/>
         <Expander x:Name="SearchLog" Header="显示LOG" HorizontalAlignment="Left" Height="113" Margin="23,532,0,0" VerticalAlignment="Top" Width="394" IsExpanded="True">
             <Grid Background="#FFE5E5E5" Margin="0,0,-2,0" Height="123" RenderTransformOrigin="0.555,0.496">
                 <Grid.ColumnDefinitions>
@@ -85,31 +81,38 @@
                 </Grid.ColumnDefinitions>
             </Grid>
         </Expander>
-        <Label Content="文件名" HorizontalAlignment="Left" Margin="27,502,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.696,0.68"/>
+        <Label Content="文件名" HorizontalAlignment="Left" Margin="27,502,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.696,0.68" Height="25" Width="46"/>
         <TextBox x:Name="FileName" HorizontalAlignment="Left" Height="23" Margin="88,504,0,0" TextWrapping="Wrap" Text="seed1" VerticalAlignment="Top" Width="98"/>
-        <Label Content="文件存成csv，在根目录，默认seed，可改名（方便多开）；&#xA;导出条件也使用此后缀&#xA;输入种子ID，打印一个CSV，显示单个种子详细信息&#xA;" HorizontalAlignment="Left" Margin="198,499,0,0" VerticalAlignment="Top" Width="350" Height="52" Grid.ColumnSpan="2" FontSize="10" FontStyle="Italic"/>
-        <Button x:Name="ImportFile" Content="导入条件"  Click="Button_Click_ImportFile" HorizontalAlignment="Left" Margin="9,442,0,0" VerticalAlignment="Top" Width="52" RenderTransformOrigin="-3.84,1.579"/>
-        <Button x:Name="ExportFile" Content="导出条件"  Click="Button_Click_ExportFile" HorizontalAlignment="Left" Margin="68,442,0,0" VerticalAlignment="Top" Width="55"/>
-        <TextBox x:Name="SaveConditionPath" HorizontalAlignment="Left" Height="18" Margin="241,442,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="326" Grid.ColumnSpan="2"/>
-        <CheckBox x:Name="IsInDsp2" Content="是否包含第2颗" HorizontalAlignment="Left" Margin="162,191,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.432,-0.852" AutomationProperties.Name="IsInDsp"/>
-        <Label Content="蓝巨星" HorizontalAlignment="Left" Margin="413,117,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.192,0" Width="46"/>
+        <Label Content="文件存成csv，在根目录，默认seed，可改名（方便多开）；&#xA;导出条件也使用此后缀&#xA;输入种子ID，打印一个CSV，显示单个种子详细信息&#xA;" HorizontalAlignment="Left" Margin="198,499,0,0" VerticalAlignment="Top" Width="350" Height="52" FontSize="10" FontStyle="Italic"/>
+        <Button x:Name="ImportFile" Content="导入条件"  Click="Button_Click_ImportFile" HorizontalAlignment="Left" Margin="9,442,0,0" VerticalAlignment="Top" Width="52" RenderTransformOrigin="-3.84,1.579" Height="19"/>
+        <Button x:Name="ExportFile" Content="导出条件"  Click="Button_Click_ExportFile" HorizontalAlignment="Left" Margin="68,442,0,0" VerticalAlignment="Top" Width="55" Height="19"/>
+        <TextBox x:Name="SaveConditionPath" HorizontalAlignment="Left" Height="18" Margin="241,442,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="326"/>
+        <CheckBox x:Name="IsInDsp2" Content="是否包含第2颗" HorizontalAlignment="Left" Margin="162,191,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.432,-0.852" AutomationProperties.Name="IsInDsp" Height="15" Width="99"/>
+        <Label Content="蓝巨星" HorizontalAlignment="Left" Margin="413,117,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.192,0" Width="46" Height="25"/>
         <TextBox x:Name="BluePlanetCount" HorizontalAlignment="Left" Height="23" Margin="459,120,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="33" RenderTransformOrigin="2.758,0.493"/>
-        <GridSplitter HorizontalAlignment="Left" Height="3" Margin="24,147,0,0" VerticalAlignment="Top" Width="544" Grid.ColumnSpan="2"/>
-        <GridSplitter HorizontalAlignment="Left" Height="3" Margin="21,66,0,0" VerticalAlignment="Top" Width="544" Grid.ColumnSpan="2"/>
-        <GridSplitter HorizontalAlignment="Left" Height="3" Margin="14,403,0,0" VerticalAlignment="Top" Width="544" Grid.ColumnSpan="2"/>
-        <Button x:Name="ImportSeedFile" Content="导入种子ID表"  Click="Button_Click_ImportSeedFile" HorizontalAlignment="Left" Margin="132,442,0,0" VerticalAlignment="Top" Width="97" RenderTransformOrigin="-3.84,1.579" ToolTip="使用csv文件，默认使用第一列的数字，第一列没有数字，则使用第二列的数字（兼容旧版本到处的ID）"/>
-        <ComboBox x:Name="StartType" HorizontalAlignment="Left" Margin="20,473,0,0" VerticalAlignment="Top" Width="134" SelectedIndex="0">
+        <GridSplitter HorizontalAlignment="Left" Height="3" Margin="24,147,0,0" VerticalAlignment="Top" Width="544"/>
+        <GridSplitter HorizontalAlignment="Left" Height="3" Margin="21,66,0,0" VerticalAlignment="Top" Width="544"/>
+        <GridSplitter HorizontalAlignment="Left" Height="3" Margin="14,403,0,0" VerticalAlignment="Top" Width="544"/>
+        <Button x:Name="ImportSeedFile" Content="导入种子ID表"  Click="Button_Click_ImportSeedFile" HorizontalAlignment="Left" Margin="132,442,0,0" VerticalAlignment="Top" Width="97" RenderTransformOrigin="-3.84,1.579" ToolTip="使用csv文件，默认使用第一列的数字，第一列没有数字，则使用第二列的数字（兼容旧版本到处的ID）" Height="19"/>
+        <ComboBox x:Name="StartType" HorizontalAlignment="Left" Margin="20,473,0,0" VerticalAlignment="Top" Width="134" SelectedIndex="0" Height="21">
             <ComboBoxItem Content="正常搜索" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="写出单个种子详细" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="搜索导入的ID" HorizontalAlignment="Left" Width="118"/>
-            <ComboBoxItem Content="搜星球总数" HorizontalAlignment="Left" Width="118"/>
         </ComboBox>
-        <Button x:Name="StopSearch" Content="终止" HorizontalAlignment="Left" Margin="241,473,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_Stop" AutomationProperties.Name="Start"/>
-        <Label Content="恒星数" HorizontalAlignment="Left" Margin="456,12,0,0" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="-0.804,0.44" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="searchStarCount" HorizontalAlignment="Left" Height="19" Margin="10,16,0,0" TextWrapping="Wrap" Text="64" VerticalAlignment="Top" Width="58" RenderTransformOrigin="-0.26,0.678" AutomationProperties.Name="searchTimes" Grid.Column="1"/>
-        <Label Content="o恒星" HorizontalAlignment="Left" Margin="0,119,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.192,0" Width="46" Grid.Column="1"/>
-        <TextBox x:Name="OPlanetCount" HorizontalAlignment="Left" Height="23" Margin="46,121,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="33" RenderTransformOrigin="2.758,0.493" Grid.Column="1"/>
-        <Label Content="最大重氢速率" HorizontalAlignment="Left" Margin="268,185,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.192,0" Width="83" >
+        <Button x:Name="StopSearch" Content="终止" HorizontalAlignment="Left" Margin="241,473,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_Stop" AutomationProperties.Name="Start" Height="19"/>
+        <Label Content="恒星数" HorizontalAlignment="Left" Margin="370,12,0,0" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="-0.804,0.44" Height="23" Width="46">
+            <Label.ToolTip>
+                <ToolTip>
+                    <StackPanel>
+                        <TextBlock FontWeight="Heavy">注意</TextBlock>
+                        <TextBlock>从左到右代表从最小值到最大值，默认填一个搜固定数量的</TextBlock>
+                    </StackPanel>
+                </ToolTip>
+            </Label.ToolTip>
+        </Label>
+        <Label Content="o恒星" HorizontalAlignment="Left" Margin="496,116,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.192,0" Width="46" Height="25"/>
+        <TextBox x:Name="OPlanetCount" HorizontalAlignment="Left" Height="23" Margin="542,118,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="33" RenderTransformOrigin="2.758,0.493"/>
+        <Label Content="最大重氢速率" HorizontalAlignment="Left" Margin="268,185,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.192,0" Width="83" Height="25" >
             <Label.ToolTip>
                 <ToolTip>
                     <StackPanel>
@@ -120,8 +123,8 @@
             </Label.ToolTip>
         </Label>
         <TextBox x:Name="MaxGasSpeed" HorizontalAlignment="Left" Height="23" Margin="351,187,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="33" RenderTransformOrigin="1.182,0.565"/>
-        <Label Content="星系类型" HorizontalAlignment="Left" Margin="392,185,0,0" VerticalAlignment="Top" Width="67"/>
-        <ComboBox x:Name="StarType" HorizontalAlignment="Left" Margin="455,187,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="3.636,-0.365" Grid.ColumnSpan="2">
+        <Label Content="星系类型" HorizontalAlignment="Left" Margin="392,185,0,0" VerticalAlignment="Top" Width="67" Height="25"/>
+        <ComboBox x:Name="StarType" HorizontalAlignment="Left" Margin="455,187,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="3.636,-0.365" Height="21">
             <ComboBoxItem Content="无要求" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="初始星系" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="蓝巨星" HorizontalAlignment="Left" Width="118"/>
@@ -133,10 +136,10 @@
             <ComboBoxItem Content="B型" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="A型" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="M\K\G\F型" HorizontalAlignment="Left" Width="118"/>
-            
+
         </ComboBox>
-        <Label Content="星球类型" HorizontalAlignment="Left" Margin="198,218,0,0" VerticalAlignment="Top" Width="67" RenderTransformOrigin="0.468,0.52"/>
-        <ComboBox x:Name="PlanetType1" HorizontalAlignment="Left" Margin="259,218,0,0" VerticalAlignment="Top" Width="99">
+        <Label Content="星球类型" HorizontalAlignment="Left" Margin="198,218,0,0" VerticalAlignment="Top" Width="67" RenderTransformOrigin="0.468,0.52" Height="25"/>
+        <ComboBox x:Name="PlanetType1" HorizontalAlignment="Left" Margin="259,218,0,0" VerticalAlignment="Top" Width="99" Height="21">
             <ComboBoxItem Content="无要求" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="草原" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="黑石盐滩" HorizontalAlignment="Left" Width="118"/>
@@ -157,8 +160,8 @@
             <ComboBoxItem Content="红石" HorizontalAlignment="Left" Width="118"/>
 
         </ComboBox>
-        <Label Content="星球类型" HorizontalAlignment="Left" Margin="371,218,0,0" VerticalAlignment="Top" Width="67"/>
-        <ComboBox x:Name="PlanetType2" HorizontalAlignment="Left" Margin="434,218,0,0" VerticalAlignment="Top" Width="99" Grid.ColumnSpan="2">
+        <Label Content="星球类型" HorizontalAlignment="Left" Margin="371,218,0,0" VerticalAlignment="Top" Width="67" Height="25"/>
+        <ComboBox x:Name="PlanetType2" HorizontalAlignment="Left" Margin="434,218,0,0" VerticalAlignment="Top" Width="99" Height="21">
             <ComboBoxItem Content="无要求" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="草原" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="黑石盐滩" HorizontalAlignment="Left" Width="118"/>
@@ -179,8 +182,8 @@
             <ComboBoxItem Content="红石" HorizontalAlignment="Left" Width="118"/>
 
         </ComboBox>
-        <Label Content="星球类型" HorizontalAlignment="Left" Margin="22,248,0,0" VerticalAlignment="Top" Width="67"/>
-        <ComboBox x:Name="PlanetType3" HorizontalAlignment="Left" Margin="86,248,0,0" VerticalAlignment="Top" Width="99">
+        <Label Content="星球类型" HorizontalAlignment="Left" Margin="22,248,0,0" VerticalAlignment="Top" Width="67" Height="25"/>
+        <ComboBox x:Name="PlanetType3" HorizontalAlignment="Left" Margin="86,248,0,0" VerticalAlignment="Top" Width="99" Height="21">
             <ComboBoxItem Content="无要求" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="草原" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="黑石盐滩" HorizontalAlignment="Left" Width="118"/>
@@ -201,8 +204,8 @@
             <ComboBoxItem Content="红石" HorizontalAlignment="Left" Width="118"/>
 
         </ComboBox>
-        <Label Content="星球类型" HorizontalAlignment="Left" Margin="195,248,0,0" VerticalAlignment="Top" Width="67"/>
-        <ComboBox x:Name="PlanetType4" HorizontalAlignment="Left" Margin="259,248,0,0" VerticalAlignment="Top" Width="99">
+        <Label Content="星球类型" HorizontalAlignment="Left" Margin="195,248,0,0" VerticalAlignment="Top" Width="67" Height="25"/>
+        <ComboBox x:Name="PlanetType4" HorizontalAlignment="Left" Margin="259,248,0,0" VerticalAlignment="Top" Width="99" Height="21">
             <ComboBoxItem Content="无要求" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="草原" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="黑石盐滩" HorizontalAlignment="Left" Width="118"/>
@@ -223,8 +226,8 @@
             <ComboBoxItem Content="红石" HorizontalAlignment="Left" Width="118"/>
 
         </ComboBox>
-        <Label Content="星球类型" HorizontalAlignment="Left" Margin="370,248,0,0" VerticalAlignment="Top" Width="67"/>
-        <ComboBox x:Name="PlanetType5" HorizontalAlignment="Left" Margin="434,248,0,0" VerticalAlignment="Top" Width="99" Grid.ColumnSpan="2">
+        <Label Content="星球类型" HorizontalAlignment="Left" Margin="370,248,0,0" VerticalAlignment="Top" Width="67" Height="25"/>
+        <ComboBox x:Name="PlanetType5" HorizontalAlignment="Left" Margin="434,248,0,0" VerticalAlignment="Top" Width="99" Height="21">
             <ComboBoxItem Content="无要求" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="草原" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="黑石盐滩" HorizontalAlignment="Left" Width="118"/>
@@ -245,8 +248,8 @@
             <ComboBoxItem Content="红石" HorizontalAlignment="Left" Width="118"/>
 
         </ComboBox>
-        <Label Content="星球类型" HorizontalAlignment="Left" Margin="24,218,0,0" VerticalAlignment="Top" Width="67"/>
-        <ComboBox x:Name="PlanetType6" HorizontalAlignment="Left" Margin="86,218,0,0" VerticalAlignment="Top" Width="99">
+        <Label Content="星球类型" HorizontalAlignment="Left" Margin="24,218,0,0" VerticalAlignment="Top" Width="67" Height="25"/>
+        <ComboBox x:Name="PlanetType6" HorizontalAlignment="Left" Margin="86,218,0,0" VerticalAlignment="Top" Width="99" Height="21">
             <ComboBoxItem Content="无要求" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="草原" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="黑石盐滩" HorizontalAlignment="Left" Width="118"/>
@@ -266,5 +269,9 @@
             <ComboBoxItem Content="海洋丛林" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="红石" HorizontalAlignment="Left" Width="118"/>
         </ComboBox>
+        <ComboBox x:Name="SearchMinStarCount" HorizontalAlignment="Left" Margin="421,12,0,0" VerticalAlignment="Top" Width="55" RenderTransformOrigin="0.503,0.556" Height="23">
+        </ComboBox>
+        <ComboBox x:Name="SearchMaxStarCount" HorizontalAlignment="Left" Margin="493,12,0,0" VerticalAlignment="Top" Width="55" RenderTransformOrigin="0.503,0.556" Height="23"/>
+        <Label Content="—" HorizontalAlignment="Left" Margin="475,12,0,0" VerticalAlignment="Top" Height="23" Width="18" FontSize="8"/>
     </Grid>
 </Window>

@@ -321,8 +321,8 @@ namespace DspFindSeed
         {
             var minStarCountItem = SearchMinStarCount.SelectionBoxItem;
             var maxStarCountItem = SearchMaxStarCount.SelectionBoxItem;
-            var minStarCount = minStarCountItem != null ? (int) minStarCountItem : -1;
-            var maxStarCount = maxStarCountItem != null ? (int) maxStarCountItem : -1;
+            var minStarCount = minStarCountItem != null && minStarCountItem.GetType() != typeof(string) ? (int) minStarCountItem : -1;
+            var maxStarCount = maxStarCountItem != null && maxStarCountItem.GetType() != typeof(string) ? (int) maxStarCountItem : -1;
             if (minStarCount <= 0 &&  maxStarCount <=0)
             {
                 MessageBox.Show("星区数量至少选一个值，代表搜指定数量的；选两个代表搜区间内的", "失败", MessageBoxButtons.OKCancel);
@@ -331,11 +331,20 @@ namespace DspFindSeed
             curMinSearchStarCount = 0;
             curMaxSearchStarCount = 0;
             if (minStarCount <= 0)
+            {
                 curMinSearchStarCount = maxStarCount;
+                curMaxSearchStarCount = curMinSearchStarCount;
+            }
             else if (maxStarCount <= 0)
+            {
                 curMinSearchStarCount = minStarCount;
+                curMaxSearchStarCount = curMinSearchStarCount;
+            }
             else if (minStarCount == maxStarCount)
+            {
                 curMinSearchStarCount = minStarCount;
+                curMaxSearchStarCount = curMinSearchStarCount;
+            }
             else if (maxStarCount > minStarCount)
             {
                 curMinSearchStarCount = minStarCount;

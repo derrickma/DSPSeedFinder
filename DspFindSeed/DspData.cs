@@ -13,6 +13,15 @@ namespace DspFindSeed
       GenerateVeins (planetData, star, galaxyData, true);
     }
 
+    public static void PlanetComputePlus(GalaxyData galaxyData, StarData star, PlanetData planetData)
+    {
+      PlanetAlgorithm planetAlgorithm = PlanetModelingManager.Algorithm(planetData);
+      planetData.data = new PlanetRawData(planetData.precision);
+      planetData.data.SeedExt_CalcVerts();
+      planetAlgorithm.GenerateTerrain(planetData.mod_x, planetData.mod_y);
+      planetAlgorithm.GenerateVeins(star, galaxyData, false);
+    }
+
     public static void GenerateVeins (PlanetData planetData, StarData star, GalaxyData galaxy, bool sketchOnly)
     {
       ThemeProto themeProto = LDB.themes.Select (planetData.theme);

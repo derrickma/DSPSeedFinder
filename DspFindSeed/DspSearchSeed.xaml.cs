@@ -196,6 +196,7 @@ namespace DspFindSeed
         public MainWindow ()
         {
             InitializeComponent ();
+            RandomTable.Init();
             saveConditionPath = System.Environment.CurrentDirectory;
             //读dsp表
             PlanetModelingManager.Start ();
@@ -677,7 +678,7 @@ namespace DspFindSeed
                     float gasSpeed = 0;
                     foreach (var planet in star.planets)
                     {
-                        DspData.PlanetCompute(galaxyData, star, planet);
+                        DspData.PlanetComputePlus(galaxyData, star, planet);
                         if (planet.waterItemId == 1000)
                             hasWater = true;
                         if (planet.waterItemId == 1116)

@@ -602,7 +602,7 @@ namespace DspFindSeed
             lastSeedId = galaxyData.seed;
             LogFile (curMagCount, curBluePlanetCount, curOPlanetCount, necessaryShortStarDatas, logShortStarDatas, starCount);
         }
-        readonly  string ConstSingleTitle = "星系名字,星区数量,亮度,行星,距离,星系类型,是否环内行星,气态巨星数量,最大重氢速率,冰巨星数量,卫星总数,潮汐锁定,是否有水,是否有硫酸,铁矿脉,铜矿脉,硅矿脉,钛矿脉,石矿脉,煤矿脉,原油涌泉,可燃冰矿,金伯利矿,分形硅矿,有机晶体矿,光栅石矿,刺笋矿脉,单极磁矿\n";
+        readonly  string ConstSingleTitle = "星系名字,星区数量,亮度,行星,距离,星系类型,是否环内行星,星球1,星球2,星球3,星球4,星球5,星球6,最大重氢速率,卫星总数,潮汐锁定,是否有水,是否有硫酸,铁矿脉,铜矿脉,硅矿脉,钛矿脉,石矿脉,煤矿脉,原油涌泉,可燃冰矿,金伯利矿,分形硅矿,有机晶体矿,光栅石矿,刺笋矿脉,单极磁矿\n";
         private string CommonTitle = "种子ID,星区数量,磁石总数,蓝巨星总数,0型恒星总数,星系数据1,星系数据2,星系数据3,星系数据4,星系数据5,星系数据6,星系数据7,星系数据8,星系数据9,星系数据10,星系数据11\n";
 
         private string FetchLogStr(Dictionary<int, List<SearchCondition>> ShortStarDatas,bool isNecessary = true)
@@ -663,22 +663,34 @@ namespace DspFindSeed
                     return;
                 for (int i = 0, max = galaxyData.stars.Length; i < max; i++)
                 {
-                    var star = galaxyData.stars[i];
-                    var distanc = (float) (star.uPosition - galaxyData.stars[0].uPosition).magnitude / 2400000.0f;
-                    bool isInDsp = star.dysonRadius * 2 > star.planets[0].sunDistance;
+                    var  star           = galaxyData.stars[i];
+                    var  distanc        = (float) (star.uPosition - galaxyData.stars[0].uPosition).magnitude / 2400000.0f;
+                    bool isInDsp        = star.dysonRadius * 2 > star.planets[0].sunDistance;
+                    
+         
                     singleTitle += star.name + "," +  k + "," + star.dysonLumino.ToString("F4") + "," + star.planetCount + "," +
                                    distanc.ToString("F3") + "," + star.typeString + "," + (isInDsp ? "是" : "否") + ",";
-                    var gasCount1 = 0; //气态巨星
-                    var gasCount2 = 0; //冰巨星
-                    int cxsdcount = 0;
-                    int[] resource = new int[LDB.veins.Length];
-                    bool hasWater = false;
-                    bool hasAcid = false;
-                    var planetCount1 = 0;
-                    float gasSpeed = 0;
+                    int   cxsdcount      = 0;
+                    int[] resource       = new int[LDB.veins.Length];
+                    bool  hasWater       = false;
+                    bool  hasAcid        = false;
+                    var   planetCount1   = 0;
+                    float gasSpeed       = 0;
+                    var   planetNameInfo = "";
                     foreach (var planet in star.planets)
                     {
-                        DspData.PlanetComputePlus(galaxyData, star, planet);
+                        DspData.PlanetCompute(galaxyData, star, planet);
+                        if (AllPlanetNameDictionary.TryGetValue (planet.typeString, out int index))
+                        {
+                            planetNameInfo += LogAllPlanetNameDictionary[index] ;
+                        }
+                        else
+                        {
+                            planetNameInfo += planet.typeString;
+                        }
+                        if (!string.IsNullOrEmpty (planet.singularityString))
+                            planetNameInfo += "-" + planet.singularityString;
+                        planetNameInfo += ",";
                         if (planet.waterItemId == 1000)
                             hasWater = true;
                         if (planet.waterItemId == 1116)
@@ -687,31 +699,32 @@ namespace DspFindSeed
                         {
                             if (gasSpeed < planet.gasSpeeds[1])
                                 gasSpeed = planet.gasSpeeds[1];
-                            gasCount1++;
                         }
-
-                        if (planet.typeString == "冰巨星")
-                        {
-                            gasCount2++;
-                        }
-
                         if (planet.orbitAroundPlanet != null)
+                        {
                             planetCount1++;
-                        if (planet.singularityString.Contains("潮汐锁定"))
+                        }
+                        if (planet.singularityString.Contains ("潮汐锁定"))
+                        {
                             cxsdcount++;
+                        }
                         for (int j = 0; j < LDB.veins.Length; j++)
                         {
                             var count = star.GetResourceSpots(j + 1);
                             resource[j] += count;
                         }
                     }
-
-                    singleTitle += gasCount1 + "," + gasSpeed + "," + gasCount2 + "," + planetCount1 + "," + cxsdcount +
+                    var planetCount = star.planetCount;
+                    while (planetCount < 5)
+                    {
+                        planetCount++;
+                        planetNameInfo += ",";
+                    }
+                    singleTitle += planetNameInfo + "," + gasSpeed + ","  + planetCount1 + "," + cxsdcount +
                                    "," + (hasWater ? "是," : "否,") + (hasAcid ? "是," : "否,");
 
                     for (int j = 0; j < LDB.veins.Length; j++)
                     {
-                        var name = LDB.veins.dataArray[j].name;
                         singleTitle += resource[j] + ",";
                     }
                     singleTitle += "\n";

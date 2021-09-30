@@ -408,7 +408,8 @@ namespace DspFindSeed
                 if (planet.type == EPlanetType.Gas)
                 {
                     gas++;
-                    if (planet.typeString == "气态巨星" && gasSpeed < planet.gasSpeeds[1]) gasSpeed = planet.gasSpeeds[1];
+                    if (planet.typeString == "气态巨星" && gasSpeed < planet.gasSpeeds[1]) 
+                        gasSpeed = planet.gasSpeeds[1];
                 }
 
                 if (planet.singularityString.Contains("多卫星")) extraGas++;
@@ -602,7 +603,7 @@ namespace DspFindSeed
             lastSeedId = galaxyData.seed;
             LogFile (curMagCount, curBluePlanetCount, curOPlanetCount, necessaryShortStarDatas, logShortStarDatas, starCount);
         }
-        readonly  string ConstSingleTitle = "星系名字,星区数量,亮度,行星,距离,星系类型,是否环内行星,星球1,星球2,星球3,星球4,星球5,星球6,最大重氢速率,卫星总数,潮汐锁定,是否有水,是否有硫酸,铁矿脉,铜矿脉,硅矿脉,钛矿脉,石矿脉,煤矿脉,原油涌泉,可燃冰矿,金伯利矿,分形硅矿,有机晶体矿,光栅石矿,刺笋矿脉,单极磁矿\n";
+        readonly  string ConstSingleTitle = "星系名字,星区数量,亮度,行星,距离,星系类型,是否环内行星,星球类型,最大重氢速率,卫星总数,潮汐锁定,是否有水,是否有硫酸,铁矿脉,铜矿脉,硅矿脉,钛矿脉,石矿脉,煤矿脉,原油涌泉,可燃冰矿,金伯利矿,分形硅矿,有机晶体矿,光栅石矿,刺笋矿脉,单极磁矿\n";
         private string CommonTitle = "种子ID,星区数量,磁石总数,蓝巨星总数,0型恒星总数,星系数据1,星系数据2,星系数据3,星系数据4,星系数据5,星系数据6,星系数据7,星系数据8,星系数据9,星系数据10,星系数据11\n";
 
         private string FetchLogStr(Dictionary<int, List<SearchCondition>> ShortStarDatas,bool isNecessary = true)
@@ -690,7 +691,7 @@ namespace DspFindSeed
                         }
                         if (!string.IsNullOrEmpty (planet.singularityString))
                             planetNameInfo += "-" + planet.singularityString;
-                        planetNameInfo += ",";
+                        planetNameInfo += ";";
                         if (planet.waterItemId == 1000)
                             hasWater = true;
                         if (planet.waterItemId == 1116)
@@ -713,12 +714,6 @@ namespace DspFindSeed
                             var count = star.GetResourceSpots(j + 1);
                             resource[j] += count;
                         }
-                    }
-                    var planetCount = star.planetCount;
-                    while (planetCount < 5)
-                    {
-                        planetCount++;
-                        planetNameInfo += ",";
                     }
                     singleTitle += planetNameInfo + "," + gasSpeed + ","  + planetCount1 + "," + cxsdcount +
                                    "," + (hasWater ? "是," : "否,") + (hasAcid ? "是," : "否,");

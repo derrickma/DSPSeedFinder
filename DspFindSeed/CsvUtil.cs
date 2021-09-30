@@ -22,7 +22,7 @@ namespace DspFindSeed
             //记录每次读取的一行记录
             string strLine = "";
             string[] tableHead = null;
-            
+            sr.ReadLine();//先读一次表头
             //标示是否是读取的第一行
             bool      IsFirst = true;
             List<int> ids     = new List<int> ();

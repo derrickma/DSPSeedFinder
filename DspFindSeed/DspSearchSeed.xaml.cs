@@ -386,7 +386,6 @@ namespace DspFindSeed
             var count1 = 0;
             var count2 = 0;
             var gas = 0; //巨星数量
-            var extraGas = 0; //多卫星的巨星,如果多巨星两个
             var gasSpeed = 0f;
             SearchCondition data = new SearchCondition();
             for (int j = 0; j < star.planets.Length; j++)
@@ -412,7 +411,6 @@ namespace DspFindSeed
                         gasSpeed = planet.gasSpeeds[1];
                 }
 
-                if (planet.singularityString.Contains("多卫星")) extraGas++;
                 if (planet.type != EPlanetType.Gas && planet.veinSpotsSketch != null)
                 {
                     for (int k = 0; k < data.resourceCount.Length; k++)
@@ -420,8 +418,8 @@ namespace DspFindSeed
                     curMagCount += planet.veinSpotsSketch[14];
                 }
             }
-            if (gas >= 2) count2 -= gas - 1;
-            if (extraGas >= 2) count2 -= extraGas - 1;
+            if (gas >= 2) count1 -= gas - 1;
+            if (count1 < 0) count1 = 0;
             if (count1 < condition.planetCount1) return null;
             if (count2 < condition.planetCount2) return null;
             if (!hasWater && condition.hasWater) return null;

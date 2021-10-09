@@ -291,6 +291,20 @@ namespace DspFindSeed
             }
         }
 
+        private void Button_Click_ConfigSave(object sender, System.Windows.RoutedEventArgs e)
+        {
+            searchConfig.times = int.Parse (searchTimes.Text);
+            searchConfig.onceCount = int.Parse (searchOnceCount.Text);
+            searchConfig.magCount = int.Parse(MagCount.Text);
+            searchConfig.bluePlanetCount = int.Parse (BluePlanetCount.Text);
+            searchConfig.oPlanetCount = int.Parse (OPlanetCount.Text);
+            searchConfig.curMinSearchStarSelectIndex = SearchMinStarCount.SelectedIndex;
+            searchConfig.curMaxSearchSelectIndex = SearchMaxStarCount.SelectedIndex;
+            string text = JsonConvert.SerializeObject(searchConfig);
+            System.IO.File.WriteAllText(saveConditionPath + "\\config.json", text, Encoding.UTF8);
+            MessageBox.Show("保存成功，下次打开会继承当前搜索的全局的配置，包括单次搜索数量、搜索次数、恒星数区间、磁石、蓝巨、0型数量", "成功", MessageBoxButtons.OKCancel);
+        }
+
         private void Button_Click_Stop (object sender, System.Windows.RoutedEventArgs e)
         {
             if (curThread == null || curThread.ThreadState == ThreadState.Aborted || curThread.ThreadState == ThreadState.Stopped)

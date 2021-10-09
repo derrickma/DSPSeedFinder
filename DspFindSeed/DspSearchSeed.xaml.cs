@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Text;
 using System.Threading;
 using DysonSphereProgramSeed.Dyson;
+using Newtonsoft.Json;
 
 
 namespace DspFindSeed
@@ -101,6 +103,28 @@ namespace DspFindSeed
         }
     }
 
+    public class SearchConfig
+    {
+        /// <summary>
+        /// 磁石数量要求
+        /// </summary>
+        public int magCount = 0;
+        /// <summary>
+        /// 蓝巨星数量要求
+        /// </summary>
+        public int bluePlanetCount = 0;
+        /// <summary>
+        /// O恒星数量
+        /// </summary>
+        public int oPlanetCount = 0;
+
+        public int curMinSearchStarSelectIndex = 32;
+        public int curMaxSearchSelectIndex = 32;
+
+        public int onceCount = 1000;
+        public int times = 100;
+    }
+
     public class JsonCondition
     {
         public List<SearchCondition> searchNecessaryConditions = new List<SearchCondition>();
@@ -116,6 +140,7 @@ namespace DspFindSeed
         public List<SearchCondition> searchNecessaryConditions = new List<SearchCondition> ();
         public List<SearchCondition> searchLogConditions       = new List<SearchCondition> ();
         public SearchCondition       minConditions             = new SearchCondition ();
+        public SearchConfig searchConfig = new SearchConfig();
         /// <summary>
         /// 自定义搜索ID
         /// </summary>
@@ -141,7 +166,7 @@ namespace DspFindSeed
         private int      curMaxSearchStarCount = 64;
         private DateTime startTime;
         int              onceCount = 1000;
-        int              times     = 10;
+        int              times     = 100;
         public  int      curSeeds;
         public  int      lastSeedId;
         public  Thread   curThread;
@@ -149,6 +174,7 @@ namespace DspFindSeed
         public  string   saveConditionPath = "";
         private string   searchlogContent  = "";
         private float    processValue      = 0;
+
 
         private Dictionary<string, int> AllPlanetNameDictionary = new Dictionary<string, int>()
         {
@@ -205,6 +231,20 @@ namespace DspFindSeed
                 SearchMinStarCount.Items.Add(i);
                 SearchMaxStarCount.Items.Add(i);
             }
+
+            if (!File.Exists(saveConditionPath + "\\config.json"))
+                return;
+            string text = File.ReadAllText(saveConditionPath + "\\config.json");
+            if (string.IsNullOrEmpty(text))
+                return;
+            searchConfig = JsonConvert.DeserializeObject<SearchConfig>(text);
+            searchTimes.Text = searchConfig.times.ToString();
+            searchOnceCount.Text = searchConfig.onceCount.ToString();
+            MagCount.Text = searchConfig.magCount.ToString();
+            BluePlanetCount.Text = searchConfig.bluePlanetCount.ToString();
+            OPlanetCount.Text = searchConfig.oPlanetCount.ToString();
+            SearchMinStarCount.SelectedIndex = searchConfig.curMinSearchStarSelectIndex;
+            SearchMaxStarCount.SelectedIndex = searchConfig.curMaxSearchSelectIndex;
         }
 
         void ResetMinCondition ()

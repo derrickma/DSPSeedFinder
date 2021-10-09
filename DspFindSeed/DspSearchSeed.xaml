@@ -13,7 +13,7 @@
         <TextBox x:Name="searchOnceCount" HorizontalAlignment="Left" Height="23" Margin="204,12,0,0" TextWrapping="Wrap" Text="1000" VerticalAlignment="Top" Width="51" AutomationProperties.Name="searchOnceCount"/>
         <Label Content="总次数" HorizontalAlignment="Left" Margin="260,12,0,0" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="-0.804,0.44" Height="25" Width="46"/>
         <TextBox x:Name="searchTimes" HorizontalAlignment="Left" Height="23" Margin="306,12,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="52" RenderTransformOrigin="-0.26,0.678" AutomationProperties.Name="searchTimes"/>
-        <Label Content="从输入的种子ID搜索，单次搜索10000，代表一次自增搜一万个种子，然后会打印一次时间。" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Width="486" Height="25" FontSize="9" FontStyle="Italic"/>
+        <Label Content="从输入的种子ID搜索，单次搜索10000，代表一次自增搜一万个种子，然后会打印一次时间。" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Width="374" Height="25" FontSize="9" FontStyle="Italic"/>
         <Label Content="筛选条件" HorizontalAlignment="Left" Margin="16,69,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.092,0.413" FontWeight="Bold" Height="25" Width="58"/>
         <Label Content="必须条件都满足的种子才会记录&#xA;仅记录条件会将参数写入文件，但不满足不影响筛选&#xA;磁石总量、蓝巨星、0恒星数量是整个宇宙的条件，如果添值是独立的必须条件（始终会记录）" HorizontalAlignment="Left" Margin="87,69,0,0" VerticalAlignment="Top" Width="446" FontSize="10" FontStyle="Italic" Height="48"/>
         <Label Content="卫星数" HorizontalAlignment="Left" Margin="16,151,0,0" VerticalAlignment="Top" Height="25" Width="46"/>
@@ -273,5 +273,6 @@
         </ComboBox>
         <ComboBox x:Name="SearchMaxStarCount" HorizontalAlignment="Left" Margin="493,12,0,0" VerticalAlignment="Top" Width="55" RenderTransformOrigin="0.503,0.556" Height="23"/>
         <Label Content="—" HorizontalAlignment="Left" Margin="475,12,0,0" VerticalAlignment="Top" Height="23" Width="18" FontSize="8"/>
+        <Button x:Name="ConfigSave" Content="保存默认配置"  Click="Button_Click_ConfigSave" HorizontalAlignment="Left" Margin="370,413,0,0" VerticalAlignment="Top" Width="96" Height="19" ToolTip="全局数据：恒星数、磁石数量等，保存为默认配置，覆盖本地目的config.json文件"/>
     </Grid>
 </Window>

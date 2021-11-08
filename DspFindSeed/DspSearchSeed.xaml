@@ -32,22 +32,22 @@
         <Label Content="磁石总量" HorizontalAlignment="Left" Margin="305,117,0,0" VerticalAlignment="Top" Height="25" Width="58"/>
         <TextBox x:Name="MagCount" HorizontalAlignment="Left" Height="21" Margin="372,120,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="29" AutomationProperties.Name="MagCount" RenderTransformOrigin="-0.041,0.587"/>
         <Label Content="本星系所有星球上各类矿物数量，单位是矿点，一堆矿是一个矿点。例如19单位磁石约300G磁石矿" HorizontalAlignment="Left" Margin="20,281,0,0" VerticalAlignment="Top" Width="486" Height="25" FontSize="9" FontStyle="Italic"/>
-        <Label Content="铁" HorizontalAlignment="Left" Margin="9,304,0,0" VerticalAlignment="Top" Height="25" Width="22"/>
+        <Label Content="铁" HorizontalAlignment="Left" Margin="9,304,0,0" VerticalAlignment="Top" Height="25" Width="25"/>
         <Label Content="行星总数" HorizontalAlignment="Left" Margin="204,155,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.016,0.086" Height="25" Width="58"/>
         <TextBox x:Name="planetCount3" HorizontalAlignment="Left" Height="21" Margin="267,157,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="32" RenderTransformOrigin="4.248,0.53" AutomationProperties.Name="planetCount3"/>
-        <Label Content="铜" HorizontalAlignment="Left" Margin="68,304,0,0" VerticalAlignment="Top" Height="25" Width="22"/>
-        <TextBox x:Name="resource1" HorizontalAlignment="Left" Height="23" Margin="97,308,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource1"/>
-        <Label Content="钛" HorizontalAlignment="Left" Margin="200,302,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.507,0.578" Height="25" Width="22"/>
-        <TextBox x:Name="resource2" HorizontalAlignment="Left" Height="23" Margin="164,306,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource2"/>
-        <Label Content="石" HorizontalAlignment="Left" Margin="255,304,0,0" VerticalAlignment="Top" Height="25" Width="22"/>
-        <TextBox x:Name="resource4" HorizontalAlignment="Left" Height="23" Margin="287,304,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource4"/>
-        <Label Content="煤" HorizontalAlignment="Left" Margin="318,302,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.395,0.617" Height="25" Width="22"/>
-        <TextBox x:Name="resource5" HorizontalAlignment="Left" Height="23" Margin="355,304,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource5"/>
-        <Label Content="可燃" HorizontalAlignment="Left" Margin="386,302,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.99,0.5" Height="25" Width="34"/>
-        <TextBox x:Name="resource7" HorizontalAlignment="Left" Height="23" Margin="425,302,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource7"/>
-        <Label Content="金伯利" HorizontalAlignment="Left" Margin="455,302,0,0" VerticalAlignment="Top" Height="25" Width="46"/>
-        <TextBox x:Name="resource0" HorizontalAlignment="Left" Height="23" Margin="37,306,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource0"/>
-        <TextBox x:Name="resource8" HorizontalAlignment="Left" Height="23" Margin="516,302,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource8"/>
+        <Label Content="铜" HorizontalAlignment="Left" Margin="68,304,0,0" VerticalAlignment="Top" Height="25" Width="25"/>
+        <TextBox x:Name="resource1" HorizontalAlignment="Left" Height="25" Margin="90,304,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="25" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource1"/>
+        <Label Content="钛" HorizontalAlignment="Left" Margin="179,304,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.507,0.578" Height="25" Width="25"/>
+        <TextBox x:Name="resource2" HorizontalAlignment="Left" Height="25" Margin="148,304,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="25" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource2"/>
+        <Label Content="石" HorizontalAlignment="Left" Margin="237,304,0,0" VerticalAlignment="Top" Height="25" Width="25"/>
+        <TextBox x:Name="resource4" HorizontalAlignment="Left" Height="25" Margin="267,304,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="25" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource4"/>
+        <Label Content="煤" HorizontalAlignment="Left" Margin="297,304,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.395,0.617" Height="25" Width="25"/>
+        <TextBox x:Name="resource5" HorizontalAlignment="Left" Height="25" Margin="322,304,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="25" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource5"/>
+        <Label Content="可燃" HorizontalAlignment="Left" Margin="352,304,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.99,0.5" Height="25" Width="35"/>
+        <TextBox x:Name="resource7" HorizontalAlignment="Left" Height="25" Margin="392,304,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="25" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource7"/>
+        <Label Content="金伯利" HorizontalAlignment="Left" Margin="426,304,0,0" VerticalAlignment="Top" Height="25" Width="50"/>
+        <TextBox x:Name="resource0" HorizontalAlignment="Left" Height="25" Margin="37,304,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="25" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource0"/>
+        <TextBox x:Name="resource8" HorizontalAlignment="Left" Height="25" Margin="475,304,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="25" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource8"/>
         <Label Content="分形硅" HorizontalAlignment="Left" Margin="11,341,0,0" VerticalAlignment="Top" Height="25" Width="46"/>
         <TextBox x:Name="resource9" HorizontalAlignment="Left" Height="23" Margin="61,343,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource9"/>
         <Label Content="有机晶体" HorizontalAlignment="Left" Margin="96,341,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.078,0.547" Height="25" Width="58"/>
@@ -63,8 +63,8 @@
         <Button x:Name="AddLog" Content="添加成仅记录条件" HorizontalAlignment="Left" Margin="127,413,0,0" VerticalAlignment="Top" Width="109" Click="Button_Click_AddLog" AutomationProperties.Name="AddLog" Height="19"/>
         <Button x:Name="Del" Content="删除当前条件" HorizontalAlignment="Left" Margin="249,413,0,0" VerticalAlignment="Top" Width="109" Click="Button_Click_Del" AutomationProperties.Name="Del" Height="19"/>
         <Button x:Name="Start" Content="开始" HorizontalAlignment="Left" Margin="159,474,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_Start" AutomationProperties.Name="Start" Height="19"/>
-        <Label Content="硅&#xD;&#xA;" HorizontalAlignment="Left" Margin="132,304,0,0" VerticalAlignment="Top" Height="40" Width="22"/>
-        <TextBox x:Name="resource3" HorizontalAlignment="Left" Height="23" Margin="229,306,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource3"/>
+        <Label Content="硅&#xD;&#xA;" HorizontalAlignment="Left" Margin="121,304,0,0" VerticalAlignment="Top" Height="25" Width="25"/>
+        <TextBox x:Name="resource3" HorizontalAlignment="Left" Height="25" Margin="204,304,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="25" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource3"/>
         <ProgressBar x:Name="process" HorizontalAlignment="Left" Height="22" Margin="334,472,0,0" VerticalAlignment="Top" Width="221" AutomationProperties.Name="process" Maximum="1"/>
         <Label Content="至少几个星系满足以上条件" HorizontalAlignment="Left" Margin="290,373,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.312,0.397" Width="161" Height="25"/>
         <TextBox x:Name="starCount" HorizontalAlignment="Left" Height="19" Margin="460,377,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="41" RenderTransformOrigin="1.042,0.533"/>
@@ -274,5 +274,7 @@
         <ComboBox x:Name="SearchMaxStarCount" HorizontalAlignment="Left" Margin="493,12,0,0" VerticalAlignment="Top" Width="55" RenderTransformOrigin="0.503,0.556" Height="23"/>
         <Label Content="—" HorizontalAlignment="Left" Margin="475,12,0,0" VerticalAlignment="Top" Height="23" Width="18" FontSize="8"/>
         <Button x:Name="ConfigSave" Content="保存默认配置"  Click="Button_Click_ConfigSave" HorizontalAlignment="Left" Margin="370,413,0,0" VerticalAlignment="Top" Width="96" Height="19" ToolTip="全局数据：恒星数、磁石数量等，保存为默认配置，覆盖本地目的config.json文件"/>
+        <Label Content="磁石" HorizontalAlignment="Left" Margin="508,304,0,0" VerticalAlignment="Top" Height="25" Width="34"/>
+        <TextBox x:Name="resource13" HorizontalAlignment="Left" Height="25" Margin="543,304,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="25" RenderTransformOrigin="0.564,-1.108" AutomationProperties.Name="resource8"/>
     </Grid>
 </Window>

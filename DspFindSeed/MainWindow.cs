@@ -67,6 +67,8 @@ namespace DspFindSeed
             condition.resourceCount[10] = int.Parse (resource10.Text);
             condition.resourceCount[11] = int.Parse (resource11.Text);
             condition.resourceCount[12] = int.Parse (resource12.Text);
+            condition.resourceCount[13] = int.Parse (resource13.Text);
+
             condition.hasWater          = resource1000.IsChecked ?? false;
             condition.hasAcid           = resource1116.IsChecked ?? false;
             condition.starCount         = int.Parse (starCount.Text);
@@ -106,6 +108,7 @@ namespace DspFindSeed
             resource10.Text = condition.resourceCount[10].ToString ();
             resource11.Text = condition.resourceCount[11].ToString ();
             resource12.Text = condition.resourceCount[12].ToString ();
+            resource13.Text = condition.resourceCount[13].ToString ();
 
             resource6.IsChecked     = condition.resourceCount[6] > 0;
             resource1000.IsChecked  = condition.hasWater;

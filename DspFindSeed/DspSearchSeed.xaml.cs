@@ -446,7 +446,7 @@ namespace DspFindSeed
                 if (planet.waterItemId == 1000) hasWater = true;
                 if (planet.waterItemId == 1116) hasAcid  = true;
                 if (planet.orbitAroundPlanet != null) count1++;
-                if (planet.singularity.HasFlag (EPlanetSingularity.TidalLocked)) count2++;
+                if (planet.singularityString.Contains("潮汐锁定永昼永夜")) count2++;
                 if (planet.type == EPlanetType.Gas)
                 {
                     gas++;

@@ -15,7 +15,7 @@ namespace DspFindSeed
         /// </summary>
         /// <param name="fileName">CSV文件路径</param>
         /// <returns>返回读取了CSV数据的DataTable</returns>
-        public static List<int> OpenCSV(string filePath)
+        public static bool OpenCSV(string filePath, out List<int> starIDs, out List<int> starCounts)
         {
             FileStream fs = new FileStream(filePath, System.IO.FileMode.Open, System.IO.FileAccess.Read);
             StreamReader sr = new StreamReader(fs, Encoding.UTF8);
@@ -23,45 +23,24 @@ namespace DspFindSeed
             string strLine = "";
             string[] tableHead = null;
             sr.ReadLine();//先读一次表头
-            //标示是否是读取的第一行
-            bool      IsFirst = true;
-            List<int> ids     = new List<int> ();
-            int       index   = 0;
+            starIDs    = new List<int> ();
+            starCounts = new List<int> ();
             //逐行读取CSV中的数据
             while ((strLine = sr.ReadLine()) != null)
             {
                 tableHead = strLine.Split(',');
-                if (IsFirst)
+                if(int.TryParse (tableHead[0],out var id) && int.TryParse (tableHead[1],out var starCount))
                 {
-                    //用第一行的第一列或者第二列来确定用哪一列的ID
-                    IsFirst = false;
-                    int id;
-                    if(int.TryParse (tableHead[index],out id))
-                    {
-                        ids.Add (id);
-                    }
-                    else if(int.TryParse (tableHead[++index],out id))
-                    {
-                        ids.Add (id);
-                    }
-                    else
-                    {
-                        return ids;
-                    }
-                }
-                else
-                {
-                    int id;
-                    if(int.TryParse (tableHead[index],out id))
-                    {
-                        ids.Add (id);
-                    }
+                    starIDs.Add (id);
+                    starCounts.Add (starCount);
                 }
             }
 
             sr.Close();
             fs.Close();
-            return ids;
+            if (starIDs.Count == 0)
+                return false;
+            return true;
         }
     }
 }

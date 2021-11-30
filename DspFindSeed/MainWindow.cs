@@ -283,8 +283,8 @@ namespace DspFindSeed
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 var path    = Path.GetDirectoryName (dialog.FileName);
-                CustomSeedIdS = CsvUtil.OpenCSV (Path.GetDirectoryName (dialog.FileName) + "\\"+ Path.GetFileName (dialog.FileName));
-                if (CustomSeedIdS == null || CustomSeedIdS.Count <= 0)
+               
+                if (!CsvUtil.OpenCSV (Path.GetDirectoryName (dialog.FileName) + "\\"+ Path.GetFileName (dialog.FileName), out CustomSeedIdS,out CustomSeedStarCounts))
                 {
                     if (MessageBox.Show ("该文件没有找到正确的种子ID", "重新输入",MessageBoxButtons.OKCancel ) == System.Windows.Forms.DialogResult.OK)
                     {

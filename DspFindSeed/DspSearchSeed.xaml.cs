@@ -146,6 +146,10 @@ namespace DspFindSeed
         /// </summary>
         public List<int> CustomSeedIdS;
         /// <summary>
+        /// 自定义搜索ID
+        /// </summary>
+        public List<int> CustomSeedStarCounts;
+        /// <summary>
         /// 磁石数量要求
         /// </summary>
         public int magCount = 0;
@@ -286,8 +290,9 @@ namespace DspFindSeed
             startTime = DateTime.Now;
             for (int i = 0; i < CustomSeedIdS.Count; i++)
             {
-                curId = CustomSeedIdS[i];
-                SeedSearch (curId);
+                curId     = CustomSeedIdS[i];
+                var seedStarCount = CustomSeedStarCounts[i];
+                SeedSearch (curId, seedStarCount);
             }
             var curTime = (DateTime.Now - startTime).TotalSeconds;
             this.Dispatcher.BeginInvoke ((System.Threading.ThreadStart)(() =>
@@ -550,6 +555,16 @@ namespace DspFindSeed
             }
 
             return true;
+        }
+
+        public void SeedSearch (int id, int seedStarCount)
+        {
+            GameDesc gd = new GameDesc ();
+            gd.SetForNewGame (id, seedStarCount);
+            GalaxyData galaxyData = UniverseGen.CreateGalaxy (gd);
+            if (galaxyData == null)
+                return;
+            SeedSearch (galaxyData, seedStarCount);
         }
 
         public void SeedSearch (int id)

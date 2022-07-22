@@ -201,7 +201,7 @@ namespace DspFindSeed
             { "红石", 17 },
             { "热带草原", 18 },
             { "橙晶荒漠", 19 },
-            { "极寒冻土", 21 },
+            { "极寒冻土", 20 },
             { "潘多拉沼泽", 21 },
         };
         private Dictionary<int, string> LogAllPlanetNameDictionary = new Dictionary<int, string> ()

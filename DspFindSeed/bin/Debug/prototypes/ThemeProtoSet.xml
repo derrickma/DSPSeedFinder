@@ -613,7 +613,7 @@
         <float>0</float>
         <float>0.5</float>
         <float>0.2</float>
-        <float>0.8</float>
+        <float>1</float>
       </RareSettings>
       <GasItems />
       <GasSpeeds />
@@ -1178,7 +1178,7 @@
         <float>0</float>
         <float>0.5</float>
         <float>0.2</float>
-        <float>0.5</float>
+        <float>0.8</float>
       </RareSettings>
       <GasItems />
       <GasSpeeds />
@@ -1374,7 +1374,7 @@
         <float>1</float>
         <float>1</float>
         <float>1</float>
-        <float>0.6</float>
+        <float>0.9</float>
       </RareSettings>
       <GasItems />
       <GasSpeeds />
@@ -1398,7 +1398,7 @@
       <SID />
       <name>Desert 5</name>
       <sid />
-      <DisplayName>红土荒漠</DisplayName>
+      <DisplayName>黑石盐滩</DisplayName>
       <PlanetType>Desert</PlanetType>
       <MaterialPath>Universe/Materials/Planets/Desert 5/</MaterialPath>
       <Temperature>1</Temperature>
@@ -1473,7 +1473,7 @@
         <float>0</float>
         <float>0.1</float>
         <float>0.2</float>
-        <float>0.6</float>
+        <float>0.7</float>
       </RareSettings>
       <GasItems />
       <GasSpeeds />
@@ -1497,7 +1497,7 @@
       <SID />
       <name>Ocean 6</name>
       <sid />
-      <DisplayName>白色海洋</DisplayName>
+      <DisplayName>樱林海</DisplayName>
       <PlanetType>Ocean</PlanetType>
       <MaterialPath>Universe/Materials/Planets/Ocean 6/</MaterialPath>
       <Temperature>0</Temperature>
@@ -1594,7 +1594,7 @@
         <float>0</float>
         <float>0.5</float>
         <float>0.2</float>
-        <float>0.8</float>
+        <float>1</float>
       </RareSettings>
       <GasItems />
       <GasSpeeds />
@@ -1618,7 +1618,7 @@
       <SID />
       <name>Desert 6</name>
       <sid />
-      <DisplayName>三色荒漠</DisplayName>
+      <DisplayName>飓风石林</DisplayName>
       <PlanetType>Desert</PlanetType>
       <MaterialPath>Universe/Materials/Planets/Desert 6/</MaterialPath>
       <Temperature>1</Temperature>
@@ -1635,20 +1635,23 @@
         <y>-5</y>
       </ModY>
       <Vegetables0>
-        <int>6</int>
-        <int>7</int>
-        <int>8</int>
-        <int>9</int>
-        <int>10</int>
-        <int>11</int>
-        <int>12</int>
+        <int>1061</int>
+        <int>1062</int>
+        <int>659</int>
+        <int>1066</int>
+        <int>658</int>
+        <int>1065</int>
+        <int>657</int>
+        <int>656</int>
+        <int>1064</int>
+        <int>651</int>
+        <int>1063</int>
+        <int>654</int>
+        <int>653</int>
+        <int>652</int>
+        <int>655</int>
       </Vegetables0>
       <Vegetables1>
-        <int>1</int>
-        <int>2</int>
-        <int>3</int>
-        <int>4</int>
-        <int>5</int>
       </Vegetables1>
       <Vegetables2 />
       <Vegetables3 />
@@ -1698,7 +1701,7 @@
         <float>0</float>
         <float>0.4</float>
         <float>0.3</float>
-        <float>0.5</float>
+        <float>0.9</float>
       </RareSettings>
       <GasItems />
       <GasSpeeds />
@@ -1722,7 +1725,7 @@
       <SID />
       <name>Desert 7</name>
       <sid />
-      <DisplayName>红冰荒漠</DisplayName>
+      <DisplayName>猩红冰湖</DisplayName>
       <PlanetType>Desert</PlanetType>
       <MaterialPath>Universe/Materials/Planets/Desert 7/</MaterialPath>
       <Temperature>-2</Temperature>
@@ -1794,15 +1797,15 @@
         <float>0.25</float>
         <float>1</float>
         <float>0.6</float>
-        <float>0.6</float>
-        <float>0</float>
-        <float>0.2</float>
-        <float>0.6</float>
         <float>0.7</float>
         <float>0</float>
-        <float>0.15</float>
         <float>0.2</float>
-        <float>0.5</float>
+        <float>0.6</float>
+        <float>0.9</float>
+        <float>0</float>
+        <float>0.3</float>
+        <float>0.4</float>
+        <float>1</float>
       </RareSettings>
       <GasItems />
       <GasSpeeds />
@@ -1871,6 +1874,458 @@
       <SFXVolume>0.35</SFXVolume>
       <CullingRadius>0</CullingRadius>
       <IceFlag>0</IceFlag>
+    </ThemeProto>
+    <ThemeProto>
+      <Name>Desert 8</Name>
+      <ID>22</ID>
+      <SID />
+      <name>Desert 8</name>
+      <sid />
+      <DisplayName>热带草原</DisplayName>
+      <PlanetType>Ocean</PlanetType>
+      <MaterialPath>Universe/Materials/Planets/Desert 8/</MaterialPath>
+      <Temperature>0</Temperature>
+      <Distribute>Interstellar</Distribute>
+      <Algos>
+        <int>10</int>
+      </Algos>
+      <ModX>
+        <x>1</x>
+        <y>1</y>
+      </ModX>
+      <ModY>
+        <x>1</x>
+        <y>1</y>
+      </ModY>
+      <Vegetables0>
+        <int>1093</int>
+        <int>1093</int>
+        <int>1092</int>
+        <int>164</int>
+        <int>165</int>
+        <int>163</int>
+        <int>166</int>
+        <int>1094</int>
+      </Vegetables0>
+      <Vegetables1>
+        <int>692</int>
+        <int>693</int>
+        <int>691</int>
+        <int>694</int>
+        <int>167</int>
+        <int>168</int>
+        <int>161</int>
+        <int>162</int>
+        <int>169</int>
+        <int>170</int>
+      </Vegetables1>
+      <Vegetables2>
+        <int>1094</int>
+        <int>166</int>
+        <int>161</int>
+        <int>693</int>
+        <int>694</int>
+      </Vegetables2>
+      <Vegetables3 >
+        <int>1093</int>
+        <int>1092</int>
+        <int>1091</int>
+        <int>1094</int>
+      </Vegetables3>
+      <Vegetables4 />
+      <Vegetables5 />
+      <VeinSpot>
+        <int>7</int>
+        <int>4</int>
+        <int>7</int>
+        <int>2</int>
+        <int>3</int>
+        <int>6</int>
+        <int>14</int>
+      </VeinSpot>
+      <VeinCount>
+        <float>0.7</float>
+        <float>0.6</float>
+        <float>1</float>
+        <float>0.8</float>
+        <float>0.7</float>
+        <float>1</float>
+        <float>1</float>
+      </VeinCount>
+      <VeinOpacity>
+        <float>0.7</float>
+        <float>0.6</float>
+        <float>0.8</float>
+        <float>0.7</float>
+        <float>1</float>
+        <float>1.2</float>
+        <float>1</float>
+      </VeinOpacity>
+      <RareVeins>
+        <int>11</int>
+        <int>13</int>
+      </RareVeins>
+      <RareSettings>
+        <float>0.1</float>
+        <float>0.5</float>
+        <float>1</float>
+        <float>0</float>
+        <float>0.6</float>
+        <float>0.25</float>
+        <float>1</float>
+      </RareSettings>
+      <GasItems />
+      <GasSpeeds />
+      <UseHeightForBuild>false</UseHeightForBuild>
+      <Wind>0.7</Wind>
+      <IonHeight>55</IonHeight>
+      <WaterHeight>0</WaterHeight>
+      <WaterItemId>-1</WaterItemId>
+      <Musics>
+        <int>4</int>
+        <int>11</int>
+      </Musics>
+      <SFXPath>SFX/sfx-amb-desert-2</SFXPath>
+      <SFXVolume>0.3</SFXVolume>
+      <CullingRadius>0</CullingRadius>
+      <IceFlag>1</IceFlag>
+    </ThemeProto>
+    <ThemeProto>
+      <Name>Desert 9</Name>
+      <ID>23</ID>
+      <SID />
+      <name>Desert 9</name>
+      <sid />
+      <DisplayName>橙晶荒漠</DisplayName>
+      <PlanetType>Desert</PlanetType>
+      <MaterialPath>Universe/Materials/Planets/Desert 9/</MaterialPath>
+      <Temperature>0.08</Temperature>
+      <Distribute>Interstellar</Distribute>
+      <Algos>
+        <int>11</int>
+      </Algos>
+      <ModX>
+        <x>1.5</x>
+        <y>1.5</y>
+      </ModX>
+      <ModY>
+        <x>1</x>
+        <y>1</y>
+      </ModY>
+      <Vegetables0>
+        <int>701</int>
+        <int>702</int>
+        <int>703</int>
+      </Vegetables0>
+      <Vegetables1>
+        <int>713</int>
+        <int>712</int>
+        <int>711</int>
+      </Vegetables1>
+      <Vegetables2 >
+        <int>710</int>
+        <int>709</int>
+        <int>708</int>
+        <int>707</int>
+        <int>706</int>
+        <int>705</int>
+        <int>704</int>
+      </Vegetables2>
+      <Vegetables3 />
+      <Vegetables4 />
+      <Vegetables5 />
+      <VeinSpot>
+        <int>13</int>
+        <int>2</int>
+        <int>0</int>
+        <int>2</int>
+        <int>0</int>
+        <int>2</int>
+        <int>0</int>
+      </VeinSpot>
+      <VeinCount>
+        <float>1</float>
+        <float>0.5</float>
+        <float>0</float>
+        <float>0.7</float>
+        <float>0</float>
+        <float>0.6</float>
+        <float>0</float>
+      </VeinCount>
+      <VeinOpacity>
+        <float>1.2</float>
+        <float>0.8</float>
+        <float>0</float>
+        <float>1</float>
+        <float>0</float>
+        <float>0.5</float>
+        <float>0</float>
+      </VeinOpacity>
+      <RareVeins>
+        <int>11</int>
+        <int>12</int>
+      </RareVeins>
+      <RareSettings>
+        <float>0</float>
+        <float>0.7</float>
+        <float>0.2</float>
+        <float>0.6</float>
+        <float>0</float>
+        <float>1</float>
+        <float>1</float>
+        <float>0.84</float>
+      </RareSettings>
+      <GasItems />
+      <GasSpeeds />
+      <UseHeightForBuild>false</UseHeightForBuild>
+      <Wind>0.7</Wind>
+      <IonHeight>55</IonHeight>
+      <WaterHeight>0</WaterHeight>
+      <WaterItemId>-1</WaterItemId>
+      <Musics>
+        <int>4</int>
+        <int>11</int>
+      </Musics>
+      <SFXPath>SFX/sfx-amb-desert-2</SFXPath>
+      <SFXVolume>0.3</SFXVolume>
+      <CullingRadius>0</CullingRadius>
+      <IceFlag>1</IceFlag>
+    </ThemeProto>
+    <ThemeProto>
+      <Name>Desert 10</Name>
+      <ID>24</ID>
+      <SID />
+      <name>Desert 10</name>
+      <sid />
+      <DisplayName>极寒冻土</DisplayName>
+      <PlanetType>Ice</PlanetType>
+      <MaterialPath>Universe/Materials/Planets/Desert 10/</MaterialPath>
+      <Temperature>-4</Temperature>
+      <Distribute>Default</Distribute>
+      <Algos>
+        <int>12</int>
+      </Algos>
+      <ModX>
+        <x>1</x>
+        <y>1</y>
+      </ModX>
+      <ModY>
+        <x>1</x>
+        <y>1</y>
+      </ModY>
+      <Vegetables0>
+        <int>734</int>
+        <int>733</int>
+        <int>732</int>
+        <int>731</int>
+        <int>730</int>
+        <int>729</int>
+        <int>724</int>
+        <int>723</int>
+        <int>722</int>
+        <int>721</int>
+      </Vegetables0>
+      <Vegetables1>
+        <int>728</int>
+        <int>727</int>
+        <int>726</int>
+        <int>725</int>
+      </Vegetables1>
+      <Vegetables2 />
+      <Vegetables3 />
+      <Vegetables4 />
+      <Vegetables5 />
+      <VeinSpot>
+        <int>9</int>
+        <int>2</int>
+        <int>2</int>
+        <int>6</int>
+        <int>2</int>
+        <int>1</int>
+        <int>0</int>
+      </VeinSpot>
+      <VeinCount>
+        <float>0.8</float>
+        <float>0.5</float>
+        <float>0.8</float>
+        <float>1</float>
+        <float>0.7</float>
+        <float>0.3</float>
+        <float>0</float>
+      </VeinCount>
+      <VeinOpacity>
+        <float>0.8</float>
+        <float>0.8</float>
+        <float>1.2</float>
+        <float>1</float>
+        <float>1</float>
+        <float>0.3</float>
+        <float>0</float>
+      </VeinOpacity>
+      <RareVeins>
+        <int>8</int>
+        <int>9</int>
+        <int>12</int>
+      </RareVeins>
+      <RareSettings>
+        <float>0.3</float>
+        <float>1</float>
+        <float>0.8</float>
+        <float>1</float>
+        <float>0</float>
+        <float>1</float>
+        <float>0.7</float>
+        <float>1</float>
+        <float>0</float>
+        <float>0.4</float>
+        <float>0.5</float>
+        <float>0.7</float>
+      </RareSettings>
+      <GasItems />
+      <GasSpeeds />
+      <UseHeightForBuild>false</UseHeightForBuild>
+      <Wind>0.7</Wind>
+      <IonHeight>55</IonHeight>
+      <WaterHeight>0</WaterHeight>
+      <WaterItemId>-1</WaterItemId>
+      <Musics>
+        <int>4</int>
+        <int>11</int>
+      </Musics>
+      <SFXPath>SFX/sfx-amb-desert-2</SFXPath>
+      <SFXVolume>0.3</SFXVolume>
+      <CullingRadius>0</CullingRadius>
+      <IceFlag>1</IceFlag>
+    </ThemeProto>
+    <ThemeProto>
+      <Name>Desert 11</Name>
+      <ID>25</ID>
+      <SID />
+      <name>Desert 11</name>
+      <sid />
+      <DisplayName>潘多拉沼泽</DisplayName>
+      <PlanetType>Ocean</PlanetType>
+      <MaterialPath>Universe/Materials/Planets/Desert 11/</MaterialPath>
+      <Temperature>0</Temperature>
+      <Distribute>Interstellar</Distribute>
+      <Algos>
+        <int>13</int>
+      </Algos>
+      <ModX>
+        <x>1</x>
+        <y>1</y>
+      </ModX>
+      <ModY>
+        <x>3</x>
+        <y>3</y>
+      </ModY>
+      <Vegetables0>
+        <int>681</int>
+        <int>682</int>
+        <int>683</int>
+        <int>684</int>
+        <int>685</int>
+        <int>151</int>
+        <int>148</int>
+        <int>149</int>
+        <int>1085</int>
+      </Vegetables0>
+      <Vegetables1>
+        <int>1085</int>
+        <int>681</int>
+        <int>142</int>
+        <int>685</int>
+        <int>143</int>
+        <int>682</int>
+        <int>1086</int>
+        <int>144</int>
+        <int>150</int>
+      </Vegetables1>
+      <Vegetables2 >
+        <int>1084</int>
+        <int>1081</int>
+        <int>1082</int>
+        <int>1083</int>
+        <int>1085</int>
+        <int>1086</int>
+      </Vegetables2>
+      <Vegetables3 >
+        <int>141</int>
+        <int>145</int>
+      </Vegetables3>    
+      <Vegetables4 >
+        <int>1084</int>
+        <int>681</int>
+        <int>682</int>
+        <int>683</int>
+        <int>684</int>
+        <int>1086</int>
+        <int>685</int>
+        <int>146</int>
+        <int>147</int>
+      </Vegetables4>
+    <Vegetables5 />
+      <VeinSpot>
+        <int>8</int>
+        <int>3</int>
+        <int>8</int>
+        <int>1</int>
+        <int>3</int>
+        <int>9</int>
+        <int>20</int>
+      </VeinSpot>
+      <VeinCount>
+        <float>0.7</float>
+        <float>0.6</float>
+        <float>1</float>
+        <float>1</float>
+        <float>0.6</float>
+        <float>1</float>
+        <float>1</float>
+      </VeinCount>
+      <VeinOpacity>
+        <float>0.7</float>
+        <float>0.5</float>
+        <float>1</float>
+        <float>1</float>
+        <float>0.7</float>
+        <float>1.2</float>
+        <float>1</float>
+      </VeinOpacity>
+      <RareVeins>
+        <int>10</int>
+        <int>11</int>
+        <int>13</int>
+      </RareVeins>
+      <RareSettings>
+        <float>0</float>
+        <float>0.5</float>
+        <float>0.3</float>
+        <float>1</float>
+        <float>0</float>
+        <float>1</float>
+        <float>0.3</float>
+        <float>1</float>
+        <float>0</float>
+        <float>0.5</float>
+        <float>0.2</float>
+        <float>1</float>
+      </RareSettings>
+      <GasItems />
+      <GasSpeeds />
+      <UseHeightForBuild>false</UseHeightForBuild>
+      <Wind>0.7</Wind>
+      <IonHeight>55</IonHeight>
+      <WaterHeight>0</WaterHeight>
+      <WaterItemId>-1</WaterItemId>
+      <Musics>
+        <int>4</int>
+        <int>11</int>
+      </Musics>
+      <SFXPath>SFX/sfx-amb-desert-2</SFXPath>
+      <SFXVolume>0.3</SFXVolume>
+      <CullingRadius>0</CullingRadius>
+      <IceFlag>1</IceFlag>
     </ThemeProto>
   </dataArray>
 </ThemeProtoSet>

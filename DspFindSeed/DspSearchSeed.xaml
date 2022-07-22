@@ -158,7 +158,10 @@
             <ComboBoxItem Content="水世界" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="海洋丛林" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="红石" HorizontalAlignment="Left" Width="118"/>
-
+            <ComboBoxItem Content="热带草原" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="橙晶荒漠" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="极寒冻土" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="潘多拉沼泽" HorizontalAlignment="Left" Width="118"/>
         </ComboBox>
         <Label Content="星球类型" HorizontalAlignment="Left" Margin="371,218,0,0" VerticalAlignment="Top" Width="67" Height="25"/>
         <ComboBox x:Name="PlanetType2" HorizontalAlignment="Left" Margin="434,218,0,0" VerticalAlignment="Top" Width="99" Height="21">
@@ -180,6 +183,10 @@
             <ComboBoxItem Content="水世界" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="海洋丛林" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="红石" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="热带草原" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="橙晶荒漠" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="极寒冻土" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="潘多拉沼泽" HorizontalAlignment="Left" Width="118"/>
 
         </ComboBox>
         <Label Content="星球类型" HorizontalAlignment="Left" Margin="22,248,0,0" VerticalAlignment="Top" Width="67" Height="25"/>
@@ -202,6 +209,10 @@
             <ComboBoxItem Content="水世界" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="海洋丛林" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="红石" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="热带草原" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="橙晶荒漠" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="极寒冻土" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="潘多拉沼泽" HorizontalAlignment="Left" Width="118"/>
 
         </ComboBox>
         <Label Content="星球类型" HorizontalAlignment="Left" Margin="195,248,0,0" VerticalAlignment="Top" Width="67" Height="25"/>
@@ -224,6 +235,10 @@
             <ComboBoxItem Content="水世界" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="海洋丛林" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="红石" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="热带草原" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="橙晶荒漠" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="极寒冻土" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="潘多拉沼泽" HorizontalAlignment="Left" Width="118"/>
 
         </ComboBox>
         <Label Content="星球类型" HorizontalAlignment="Left" Margin="370,248,0,0" VerticalAlignment="Top" Width="67" Height="25"/>
@@ -246,6 +261,10 @@
             <ComboBoxItem Content="水世界" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="海洋丛林" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="红石" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="热带草原" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="橙晶荒漠" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="极寒冻土" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="潘多拉沼泽" HorizontalAlignment="Left" Width="118"/>
 
         </ComboBox>
         <Label Content="星球类型" HorizontalAlignment="Left" Margin="24,218,0,0" VerticalAlignment="Top" Width="67" Height="25"/>
@@ -268,6 +287,10 @@
             <ComboBoxItem Content="水世界" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="海洋丛林" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="红石" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="热带草原" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="橙晶荒漠" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="极寒冻土" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="潘多拉沼泽" HorizontalAlignment="Left" Width="118"/>
         </ComboBox>
         <ComboBox x:Name="SearchMinStarCount" HorizontalAlignment="Left" Margin="421,12,0,0" VerticalAlignment="Top" Width="55" RenderTransformOrigin="0.503,0.556" Height="23">
         </ComboBox>

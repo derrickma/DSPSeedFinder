@@ -1966,7 +1966,8 @@
         <int>13</int>
       </RareVeins>
       <RareSettings>
-        <float>0.1</float>
+        <float>0</float>
+        <float>1</float>
         <float>0.5</float>
         <float>1</float>
         <float>0</float>

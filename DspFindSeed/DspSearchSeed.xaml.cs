@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading;
-using DysonSphereProgramSeed.Dyson;
 using Newtonsoft.Json;
 
 namespace DspFindSeed
@@ -130,6 +127,30 @@ namespace DspFindSeed
         public List<SearchCondition> searchLogConditions       = new List<SearchCondition> ();
     }
 
+    // [HarmonyPatch (typeof(Resources), "Load",new Type[] {typeof(string)})]
+    // public class ResourcesPatch
+    // {
+    //     static bool Prefix(ref Object __result) 
+    //     {
+    //         Console.Write  (1111);
+    //         __result = null;
+    //         return false;
+    //     }
+    // }
+    
+    // [HarmonyPatch (typeof(LDB), "themes", MethodType.Getter)]
+    // public class LDBPatch
+    // {
+    //     static bool Prefix(ref Object __result) 
+    //     {
+    //         Console.Write (1111);
+    //         string        str           = "Prototypes/ThemeProtoSet";
+    //         XmlSerializer xmlSerializer = new XmlSerializer(typeof (ThemeProtoSet));
+    //         var tmp = xmlSerializer.Deserialize((Stream) File.OpenRead(str + ".xml")) as ThemeProtoSet;
+    //         __result = tmp;
+    //         return false;
+    //     }
+    // }
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -232,13 +253,27 @@ namespace DspFindSeed
     #endregion
 
 
+        public void LoadDsp ()
+        {
+            ThemeProto[] themeArr = LDB.themes.dataArray;
+            ThemeProto.themeIds = new int[themeArr.Length];
+            for (int index = 0; index < themeArr.Length; ++index)
+                ThemeProto.themeIds[index] = themeArr[index].ID;
+        }
+
         public MainWindow ()
         {
             InitializeComponent ();
             RandomTable.Init ();
             saveConditionPath = System.Environment.CurrentDirectory;
+            LoadDsp ();
             //读dsp表
             PlanetModelingManager.Start ();
+            // Harmony harmony = new Harmony("MODGUID");
+            // harmony.PatchAll(); 
+            //Harmony.CreateAndPatchAll(typeof(Resources)); 
+            //Harmony.CreateAndPatchAll(typeof(GameDesc)); 
+
             for (int i = 32; i <= 64; i++)
             {
                 SearchMinStarCount.Items.Add (i);
@@ -260,6 +295,23 @@ namespace DspFindSeed
             SearchMaxStarCount.SelectedIndex = searchConfig.curMaxSearchSelectIndex;
         }
 
+        // [HarmonyPrefix]
+        // [HarmonyPatch (typeof(Resources), "Load", new Type[] { typeof(string) })]
+        // public static bool LoadPatch(string path, ref Object __result) 
+        // {
+        //     Debug.Log (1111);
+        //     __result = null;
+        //     return false;
+        // }
+        //
+        // [HarmonyPrefix]
+        // [HarmonyPatch (typeof(GameDesc), "SetForNewGame")]
+        // public static bool SetForNewGamePatch() 
+        // {
+        //     Debug.Log (222);
+        //     return false;
+        // }
+        
         void ResetMinCondition ()
         {
             if (searchNecessaryConditions.Count == 0)
@@ -300,7 +352,7 @@ namespace DspFindSeed
             {
                 curId     = CustomSeedIdS[i];
                 var seedStarCount = CustomSeedStarCounts[i];
-                SeedSearch (curId, seedStarCount);
+                StartSearchSeedByIDAndStarCount (curId, seedStarCount);
             }
             var curTime = (DateTime.Now - startTime).TotalSeconds;
             this.Dispatcher.BeginInvoke ((System.Threading.ThreadStart)(() =>
@@ -311,7 +363,7 @@ namespace DspFindSeed
             }));
         }
 
-        void Search ()
+        void StartSearchSeed ()
         {
             ResetMinCondition ();
             startTime = DateTime.Now;
@@ -320,7 +372,7 @@ namespace DspFindSeed
                 for (int i = startId + onceCount * j, max = startId + onceCount * (j + 1); i < max; i++)
                 {
                     curId = i;
-                    SeedSearch (curId);
+                    SearchGalaxyDataBySeedID (curId);
                 }
                 var curTime = (DateTime.Now - startTime).TotalSeconds;
                 var str     = "";
@@ -393,7 +445,7 @@ namespace DspFindSeed
                 case EStarType.WhiteDwarf:
                     return enumStarType.WhiteDwarf;
                 case EStarType.GiantStar:
-                    if (star.typeString == "蓝巨星")
+                    if (GetStarTypeString (star) == "蓝巨星")
                         return enumStarType.BlueStar;
                     else
                     {
@@ -403,10 +455,10 @@ namespace DspFindSeed
             return enumStarType.None;
         }
 
-        private SearchCondition CheckMagCount (StarData star, int i, GalaxyData galaxyData, SearchCondition condition, ref int curMagCount)
+        private SearchCondition GetMagStarData (StarData star, int i, GalaxyData galaxyData, SearchCondition condition, ref int curMagCount)
         {
             //先算磁石，具体星球数据
-            var data = CheckPlanet (star, galaxyData, condition, ref curMagCount);
+            var data = GetNormalPlanetData (star, galaxyData, condition, ref curMagCount);
             if (data == null)
                 return null;
             if (star.planetCount < condition.planetCount3)
@@ -435,7 +487,7 @@ namespace DspFindSeed
             return data;
         }
 
-        private SearchCondition CheckPlanet (StarData star, GalaxyData galaxyData, SearchCondition condition, ref int curMagCount)
+        private SearchCondition GetNormalPlanetData (StarData star, GalaxyData galaxyData, SearchCondition condition, ref int curMagCount)
         {
             bool            hasWater = false;
             bool            hasAcid  = false;
@@ -447,8 +499,8 @@ namespace DspFindSeed
             for (int j = 0; j < star.planets.Length; j++)
             {
                 var planet = star.planets[j];
-                DspData.PlanetCompute (galaxyData, star, planet);
-                if (AllPlanetNameDictionary.TryGetValue (planet.typeString, out int index))
+                var ResourceCounts = PlanetModelingManager.RefreshPlanetData (planet);
+                if (AllPlanetNameDictionary.TryGetValue (GetPlanetTypeString(planet), out int index))
                 {
                     data.planetNames[j] = index;
                     if (!data.planetNameCounts.ContainsKey (index))
@@ -459,19 +511,18 @@ namespace DspFindSeed
                 if (planet.waterItemId == 1000) hasWater = true;
                 if (planet.waterItemId == 1116) hasAcid  = true;
                 if (planet.orbitAroundPlanet != null) count1++;
-                if (planet.singularityString.Contains("潮汐锁定永昼永夜")) count2++;
+                if (GetPlanetSingularityString (planet).Contains("潮汐锁定永昼永夜")) count2++;
                 if (planet.type == EPlanetType.Gas)
                 {
                     gas++;
-                    if (planet.typeString == "气态巨星" && gasSpeed < planet.gasSpeeds[1])
+                    if (GetPlanetTypeString(planet) == "气态巨星" && gasSpeed < planet.gasSpeeds[1])
                         gasSpeed = planet.gasSpeeds[1];
                 }
-
-                if (planet.type != EPlanetType.Gas && planet.veinSpotsSketch != null)
+                if (planet.type != EPlanetType.Gas && ResourceCounts != null)
                 {
                     for (int k = 0; k < data.resourceCount.Length; k++)
-                        data.resourceCount[k] += planet.veinSpotsSketch[k + 1];
-                    curMagCount += planet.veinSpotsSketch[14];
+                        data.resourceCount[k] += ResourceCounts[k + 1];
+                    curMagCount += ResourceCounts[14];
                 }
             }
             if (gas >= 2) count1   -= gas - 1;
@@ -491,14 +542,14 @@ namespace DspFindSeed
             return data;
         }
 
-        public SearchCondition Check (StarData star,               int     i, GalaxyData galaxyData, SearchCondition condition,
+        public SearchCondition GetNormalStarData (StarData star,               int     i, GalaxyData galaxyData, SearchCondition condition,
             ref int                            curBluePlanetCount, ref int curOPlanetCount)
         {
             //只有i = 62、63需要算磁石的数量
-            bool isBluePlanet = star.typeString == "蓝巨星";
+            bool isBluePlanet = GetStarTypeString (star) == "蓝巨星";
             if (isBluePlanet)
                 curBluePlanetCount++;
-            bool isOPlanetCount = star.typeString == "O型恒星";
+            bool isOPlanetCount = GetStarTypeString (star) == "O型恒星";
             if (isOPlanetCount) curOPlanetCount++;
             if (star.planetCount < condition.planetCount3) return null;
             if (star.dysonLumino < condition.dysonLumino) return null;
@@ -512,7 +563,7 @@ namespace DspFindSeed
             bool isInDsp2 = star.planets.Length >= 2 && star.dysonRadius * 2 > star.planets[1].sunDistance;
             if (condition.isInDsp2 && !isInDsp2) return null;
             int magCount = 0;
-            var data     = CheckPlanet (star, galaxyData, condition, ref magCount);
+            var data     = GetNormalPlanetData (star, galaxyData, condition, ref magCount);
             if (data == null)
                 return null;
             data.planetCount3    = star.planetCount;
@@ -527,7 +578,7 @@ namespace DspFindSeed
             return data;
         }
 
-        public bool Check (SearchCondition shortStarData, GalaxyData galaxyData, SearchCondition condition)
+        public bool CompareStarDataWithSearchCondition (SearchCondition shortStarData, GalaxyData galaxyData, SearchCondition condition)
         {
             if (condition.starType != enumStarType.None && shortStarData.starType != condition.starType)
                 return false;
@@ -565,30 +616,30 @@ namespace DspFindSeed
             return true;
         }
 
-        public void SeedSearch (int id, int seedStarCount)
+        public void StartSearchSeedByIDAndStarCount (int id, int seedStarCount)
         {
             GameDesc gd = new GameDesc ();
-            gd.SetForNewGame (id, seedStarCount);
+            gd.SetForNewGame(UniverseGen.algoVersion, id, seedStarCount, 1, 1);
             GalaxyData galaxyData = UniverseGen.CreateGalaxy (gd);
             if (galaxyData == null)
                 return;
-            SeedSearch (galaxyData, seedStarCount);
+            SearchGalaxyDataBySeedIDAndStarCount (galaxyData, seedStarCount);
         }
 
-        public void SeedSearch (int id)
+        public void SearchGalaxyDataBySeedID (int id)
         {
             for (int i = curMinSearchStarCount; i <= curMaxSearchStarCount; i++)
             {
                 GameDesc gd = new GameDesc ();
-                gd.SetForNewGame (id, i);
+                gd.SetForNewGame(UniverseGen.algoVersion, id, i, 1, 1);
                 GalaxyData galaxyData = UniverseGen.CreateGalaxy (gd);
                 if (galaxyData == null)
                     return;
-                SeedSearch (galaxyData, i);
+                SearchGalaxyDataBySeedIDAndStarCount (galaxyData, i);
             }
         }
 
-        public void SeedSearch (GalaxyData galaxyData, int starCount)
+        public void SearchGalaxyDataBySeedIDAndStarCount (GalaxyData galaxyData, int starCount)
         {
             Dictionary<int, List<SearchCondition>> necessaryShortStarDatas = new Dictionary<int, List<SearchCondition>> ();
             Dictionary<int, List<SearchCondition>> logShortStarDatas       = new Dictionary<int, List<SearchCondition>> ();
@@ -603,14 +654,14 @@ namespace DspFindSeed
                 if (star.type != EStarType.BlackHole && star.type != EStarType.NeutronStar)
                 {
                     //保证满足最低条件，并取到星系的各个计算值。如果不满足最低条件，说该星系任意一个必须条件都不满足，直接下一个星系
-                    shortData = Check (star, i, galaxyData, minConditions, ref curBluePlanetCount, ref curOPlanetCount);
+                    shortData = GetNormalStarData (star, i, galaxyData, minConditions, ref curBluePlanetCount, ref curOPlanetCount);
                     if (shortData == null)
                         continue;
                 }
                 else //否则一定要算完磁石总数才会结束
                 {
                     //只有最后两个星系才会有磁石
-                    shortData = CheckMagCount (star, i, galaxyData, minConditions, ref curMagCount);
+                    shortData = GetMagStarData (star, i, galaxyData, minConditions, ref curMagCount);
                     if (shortData == null)
                         continue;
                 }
@@ -619,7 +670,7 @@ namespace DspFindSeed
                 for (int j = 0, maxConditions = searchNecessaryConditions.Count; j < maxConditions; j++)
                 {
                     var condition = searchNecessaryConditions[j];
-                    if (!Check (shortData, galaxyData, condition))
+                    if (!CompareStarDataWithSearchCondition (shortData, galaxyData, condition))
                         continue;
                     if (!necessaryShortStarDatas.ContainsKey (j))
                         necessaryShortStarDatas.Add (j, new List<SearchCondition> ());
@@ -630,7 +681,7 @@ namespace DspFindSeed
                 for (int j = 0, maxConditions = searchLogConditions.Count; j < maxConditions; j++)
                 {
                     var condition = searchLogConditions[j];
-                    if (!Check (shortData, galaxyData, condition))
+                    if (!CompareStarDataWithSearchCondition (shortData, galaxyData, condition))
                         continue;
                     if (!logShortStarDatas.ContainsKey (j))
                         logShortStarDatas.Add (j, new List<SearchCondition> ());
@@ -720,13 +771,60 @@ namespace DspFindSeed
             System.IO.File.AppendAllText (System.Environment.CurrentDirectory + "\\" + fileName + ".csv", str, Encoding.UTF8);
         }
 
+        
+        string GetStarTypeString(StarData star)
+        {
+            string typeString = "";
+            if (star.type == EStarType.GiantStar)
+                typeString = star.spectr > ESpectrType.K ? (star.spectr > ESpectrType.F ? (star.spectr != ESpectrType.A ? typeString + "蓝巨星" : typeString + "白巨星") : typeString + "黄巨星") : typeString + "红巨星";
+            else if (star.type == EStarType.WhiteDwarf)
+                typeString += "白矮星";
+            else if (star.type == EStarType.NeutronStar)
+                typeString += "中子星";
+            else if (star.type == EStarType.BlackHole)
+                typeString += "黑洞";
+            else if (star.type == EStarType.MainSeqStar)
+                typeString = typeString + star.spectr + "型恒星";
+            return typeString;
+        }
+
+        string GetPlanetTypeString (PlanetData planetData)
+        {
+            string     typeString = "未知";
+            ThemeProto themeProto = LDB.themes.Select(planetData.theme);
+            if (themeProto != null)
+                typeString = themeProto.DisplayName;
+            return typeString;
+        }
+
+        string GetPlanetSingularityString (PlanetData planetData)
+        {
+            string singularityString = "";
+            if (planetData.orbitAround > 0)
+                singularityString += "卫星";
+            if ((planetData.singularity & EPlanetSingularity.TidalLocked) != EPlanetSingularity.None)
+                singularityString += "潮汐锁定永昼永夜";
+            if ((planetData.singularity & EPlanetSingularity.TidalLocked2) != EPlanetSingularity.None)
+                singularityString += "潮汐锁定1:2";
+            if ((planetData.singularity & EPlanetSingularity.TidalLocked4) != EPlanetSingularity.None)
+                singularityString += "潮汐锁定1:4";
+            if ((planetData.singularity & EPlanetSingularity.LaySide) != EPlanetSingularity.None)
+                singularityString += "横躺自转";
+            if ((planetData.singularity & EPlanetSingularity.ClockwiseRotate) != EPlanetSingularity.None)
+                singularityString += "反向自转";
+            if ((planetData.singularity & EPlanetSingularity.MultipleSatellites) != EPlanetSingularity.None)
+                singularityString += "多卫星";
+            return singularityString;
+        }
+        
         void SingleSearch ()
         {
+            startTime = DateTime.Now;
             var singleTitle = ConstSingleTitle;
             for (int k = curMinSearchStarCount; k <= curMaxSearchStarCount; k++)
             {
                 GameDesc gd = new GameDesc ();
-                gd.SetForNewGame (startId, k);
+                gd.SetForNewGame(UniverseGen.algoVersion, startId, k, 1, 1);
                 GalaxyData galaxyData = UniverseGen.CreateGalaxy (gd);
                 if (galaxyData == null)
                     return;
@@ -737,7 +835,7 @@ namespace DspFindSeed
                     bool isInDsp = star.dysonRadius * 2 > star.planets[0].sunDistance;
 
                     singleTitle += star.name + "," + k + "," + star.dysonLumino.ToString ("F4") + "," + star.planetCount + "," +
-                                   distanc.ToString ("F3") + "," + star.typeString + "," + (isInDsp ? "是" : "否") + ",";
+                                   distanc.ToString ("F3") + "," + GetStarTypeString(star) + "," + (isInDsp ? "是" : "否") + ",";
                     int   cxsdcount      = 0;
                     int[] resource       = new int[LDB.veins.Length];
                     bool  hasWater       = false;
@@ -747,23 +845,23 @@ namespace DspFindSeed
                     var   planetNameInfo = "";
                     foreach (var planet in star.planets)
                     {
-                        DspData.PlanetCompute (galaxyData, star, planet);
-                        if (AllPlanetNameDictionary.TryGetValue (planet.typeString, out int index))
+                        var counts = PlanetModelingManager.RefreshPlanetData (planet);
+                        if (counts != null)
                         {
-                            planetNameInfo += LogAllPlanetNameDictionary[index];
+                            for (int j = 0; j < LDB.veins.Length; j++)
+                            {
+                                resource[j] += counts[j+1];
+                            }
                         }
-                        else
-                        {
-                            planetNameInfo += planet.typeString;
-                        }
-                        if (!string.IsNullOrEmpty (planet.singularityString))
-                            planetNameInfo += "-" + planet.singularityString;
+                        planetNameInfo += GetPlanetTypeString(planet);
+                        if (!string.IsNullOrEmpty (GetPlanetSingularityString (planet)))
+                            planetNameInfo += "-" + GetPlanetSingularityString (planet);
                         planetNameInfo += ";";
                         if (planet.waterItemId == 1000)
                             hasWater = true;
                         if (planet.waterItemId == 1116)
                             hasAcid = true;
-                        if (planet.typeString == "气态巨星")
+                        if (GetPlanetTypeString(planet) == "气态巨星")
                         {
                             if (gasSpeed < planet.gasSpeeds[1])
                                 gasSpeed = planet.gasSpeeds[1];
@@ -772,14 +870,9 @@ namespace DspFindSeed
                         {
                             planetCount1++;
                         }
-                        if (planet.singularityString.Contains ("潮汐锁定"))
+                        if (GetPlanetSingularityString (planet).Contains ("潮汐锁定"))
                         {
                             cxsdcount++;
-                        }
-                        for (int j = 0; j < LDB.veins.Length; j++)
-                        {
-                            var count = star.GetResourceSpots (j + 1);
-                            resource[j] += count;
                         }
                     }
                     singleTitle += planetNameInfo + "," + gasSpeed + "," + planetCount1 + "," + cxsdcount +
@@ -793,9 +886,10 @@ namespace DspFindSeed
                 }
             }
             System.IO.File.WriteAllText (System.Environment.CurrentDirectory + "\\" + fileName + ".csv", singleTitle, Encoding.UTF8);
+            var curTime = (DateTime.Now - startTime).TotalSeconds;
             this.Dispatcher.BeginInvoke ((System.Threading.ThreadStart)(() =>
             {
-                SearchLog.Content = "成功写入单个种子 ：" + startId + "的所有信息";
+                SearchLog.Content = "用时：" + curTime + ";\n" + "成功写入单个种子 ：" + startId + "的所有信息";
             }));
         }
     }

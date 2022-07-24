@@ -7,7 +7,6 @@ using Newtonsoft.Json;
 using System.Windows.Forms;
 using System.IO;
 using System.Windows;
-using DysonSphereProgramSeed.Dyson2;
 using MessageBox = System.Windows.Forms.MessageBox;
 using ThreadState = System.Threading.ThreadState;
 using System.ComponentModel;
@@ -331,7 +330,7 @@ namespace DspFindSeed
             oPlanetCount = int.Parse (OPlanetCount.Text);
             if (curThread != null)
                 curThread.Abort();
-            curThread = new Thread(Search);
+            curThread = new Thread(StartSearchSeed);
             curThread.Start();
         }
         private void Button_Click_Start(object sender, System.Windows.RoutedEventArgs e)
@@ -397,6 +396,7 @@ namespace DspFindSeed
                     startId  = int.Parse(seedID.Text);
                     fileName = FileName.Text + "_single";
                     logInit  = false;
+                    times    = int.Parse(searchTimes.Text);
                     if (curThread != null)
                         curThread.Abort();
                     curThread = new Thread(SingleSearch);
